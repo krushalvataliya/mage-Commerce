@@ -241,7 +241,7 @@ class Mage_Adminhtml_Cms_PageController extends Mage_Adminhtml_Controller_Action
                 break;
             case 'delete':
                 return Mage::getSingleton('admin/session')->isAllowed('cms/page/delete');
-                break;
+                break;  
             default:
                 return Mage::getSingleton('admin/session')->isAllowed('cms/page');
                 break;
