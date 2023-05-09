@@ -38,6 +38,7 @@ class Ccc_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget
     public function __construct()
     {
         parent::__construct();
+        // $this->setTemplate('vendor/grid.phtml');
         $this->setId('vendorAdminhtmlVendorGrid');
         $this->setDefaultSort('vendor_id');
         $this->setDefaultDir('ASC');
@@ -56,10 +57,22 @@ class Ccc_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget
     {
         $baseUrl = $this->getUrl();
 
-        $this->addColumn('name', array(
-            'header'    => Mage::helper('vendor')->__('Name'),
+        $this->addColumn('first_name', array(
+            'header'    => Mage::helper('vendor')->__('First Name'),
             'align'     => 'left',
-            'index'     => 'name',
+            'index'     => 'first_name',
+        ));
+
+        $this->addColumn('last_name', array(
+            'header'    => Mage::helper('vendor')->__('Last Name'),
+            'align'     => 'left',
+            'index'     => 'last_name'
+        ));
+
+        $this->addColumn('mobile', array(
+            'header'    => Mage::helper('vendor')->__('mobile'),
+            'align'     => 'left',
+            'index'     => 'mobile'
         ));
 
         $this->addColumn('email', array(
@@ -71,26 +84,7 @@ class Ccc_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget
         return parent::_prepareColumns();
     }
 
-    // protected function _afterLoadCollection()
-    // {
-    //     $this->getCollection()->walk('afterLoad');
-    //     parent::_afterLoadCollection();
-    // }
-
-    // protected function _filterStoreCondition($collection, $column)
-    // {
-    //     if (!$value = $column->getFilter()->getValue()) {
-    //         return;
-    //     }
-
-    //     $this->getCollection()->addStoreFilter($value);
-    // }
-
-    /**
-     * Row click url
-     *
-     * @return string
-     */
+    
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', array('vendor_id' => $row->getId()));

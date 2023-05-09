@@ -97,7 +97,7 @@ class Mage_Cms_Model_Page extends Mage_Core_Model_Abstract
     {
         $this->_init('cms/page');
     }
-
+    
     /**
      * Load object data
      *

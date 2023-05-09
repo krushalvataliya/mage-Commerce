@@ -1,30 +1,31 @@
 <config>
-    <menu>
-        <vendor translate="title" module="vendor">
-            <title>vendor</title>
+	<menu>
+		<vendor module="vendor">
+            <title>Vendor</title>
             <sort_order>10</sort_order>
             <children>
-                <managevender translate="title" module="vendor">
-                    <title>Manage vendor</title>
-                    <action>vendor/adminhtml_vendor/index</action>
+                <manageVendor module="vendor">
+                    <title>Manage Vendors</title>
+            		<action>vendor/adminhtml_vendor/index</action>
                     <sort_order>10</sort_order>
-                </managevender>
-                </children>
+                </manageVendor>
+            </children>
         </vendor>
-       </menu>
-       <acl>
+	</menu>
+    <acl>
         <resources>
+            <all>
+                <title>Allow Everthing</title>
+            </all>
             <admin>
                 <children>
-                    <vendor translate="title" module="vendor">
-                        <title>vendors</title>
-                        <sort_order>40</sort_order>
+                    <vendor template="title" module="vendor">
+                        <title>Vendors</title>
+                        <sort_order>100</sort_order>
                         <children>
-                             <managevender translate="title" module="vendor">
-                                <title>Manage vendor</title>
-                                <action>vendor/adminhtml_vendor/index</action>
-                                <sort_order>10</sort_order>
-                            </managevender>
+                            <manageVendor template="title" >
+                                <title>Manaage Vendor</title>
+                            </manageVendor>
                         </children>
                     </vendor>
                     <system>
