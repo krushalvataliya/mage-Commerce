@@ -25,7 +25,7 @@
  */
 
 /**
- * Adminhtml customer grid block
+ * Adminhtml vendor grid block
  *
  * @category   Mage
  * @package    Mage_Adminhtml
@@ -88,6 +88,47 @@ class Ccc_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget
     public function getRowUrl($row)
     {
         return $this->getUrl('*/*/edit', array('vendor_id' => $row->getId()));
+    }
+
+    protected function _prepareMassaction()
+    {
+        $this->setMassactionIdField('entity_id');
+        $this->getMassactionBlock()->setFormFieldName('vendor');
+
+        $this->getMassactionBlock()->addItem('delete', array(
+             'label'    => Mage::helper('vendor')->__('Delete'),
+             'url'      => $this->getUrl('*/*/massDelete'),
+             'confirm'  => Mage::helper('vendor')->__('Are you sure?')
+        ));
+
+        // $this->getMassactionBlock()->addItem('newsletter_subscribe', array(
+        //      'label'    => Mage::helper('vendor')->__('Subscribe to Newsletter'),
+        //      'url'      => $this->getUrl('*/*/massSubscribe')
+        // ));
+
+        // $this->getMassactionBlock()->addItem('newsletter_unsubscribe', array(
+        //      'label'    => Mage::helper('vendor')->__('Unsubscribe from Newsletter'),
+        //      'url'      => $this->getUrl('*/*/massUnsubscribe')
+        // ));
+
+        // $groups = $this->helper('vendor')->getGroups()->toOptionArray();
+
+        // array_unshift($groups, array('label'=> '', 'value'=> ''));
+        // $this->getMassactionBlock()->addItem('assign_group', array(
+        //      'label'        => Mage::helper('vendor')->__('Assign a vendor Group'),
+        //      'url'          => $this->getUrl('*/*/massAssignGroup'),
+        //      'additional'   => array(
+        //         'visibility'    => array(
+        //              'name'     => 'group',
+        //              'type'     => 'select',
+        //              'class'    => 'required-entry',
+        //              'label'    => Mage::helper('vendor')->__('Group'),
+        //              'values'   => $groups
+        //          )
+        //     )
+        // ));
+
+        return $this;
     }
    
 }
