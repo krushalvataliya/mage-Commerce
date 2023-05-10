@@ -7,8 +7,6 @@ class Ccc_Category_TestController extends Mage_Core_Controller_Front_Action
      */
     public function indexAction()
     {
-        echo "TestController";
-        // $params = $this->getRequest()->getPost();
         $this->loadLayout();
         $this->getLayout()->getBlock('head')->setTitle($this->__('Test'));
         $block = $this->getLayout()->createBlock('Ccc_Test_Block_Test','test');

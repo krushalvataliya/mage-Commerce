@@ -1,20 +1,10 @@
 <config>
     <modules>
         <Ccc_Vendor>    
-            <version>1.0.0</version>
+            <version>0.1.1</version>
         </Ccc_Vendor>
     </modules>
     <frontend>
-        <!-- <routers>
-            <Vendor>
-                <use>standard</use>
-                <args>
-                    <module>Ccc_Vendor</module>
-                    <frontName>vendor</frontName>
-                </args>
-            </Vendor>
-        </routers> -->
-
         <layout>
             <updates>
                 <Vendor module="Ccc_Vendor">
@@ -46,6 +36,27 @@
                 </entities>
             </vendor_resource>
         </models>
+        <resources>
+        	<vendor_setup>
+        		<setup>
+        			<module>Ccc_Vendor</module>
+        			<class>Mage_Core_Model_Resource_Setup</class>
+        		</setup>
+        		<connection>
+					<use>core_setup</use>
+				</connection>
+        	</vendor_setup>
+			<vendor_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</vendor_write>
+			<vendor_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</vendor_read>
+        </resources>
         <blocks>
             <vendor>
                 <class>Ccc_Vendor_Block</class>
@@ -58,15 +69,6 @@
         </helpers>
     </global>
     <admin>
-        <!-- <routers>
-            <adminhtml>
-                <args>
-                    <modules>
-                        <Ccc_Vendor>Ccc_Vendor_Adminhtml</Ccc_Vendor>
-                    </modules>
-                </args>
-            </adminhtml>
-        </routers> -->
         <routers>
             <Vendor>
                 <use>admin</use>

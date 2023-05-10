@@ -30,7 +30,6 @@ class Ccc_Category_Adminhtml_CategoryController extends Mage_Adminhtml_Controlle
              ->_title($this->__('categorys'))
              ->_title($this->__('Edit categorys'));
 
-        // print_r($this->_addContent($this->getLayout()->createBlock('Ccc_category_Block_Adminhtml_category_Edit')));
         $id = $this->getRequest()->getParam('category_id');
         $model = Mage::getModel('category/category');
         if ($id) {
