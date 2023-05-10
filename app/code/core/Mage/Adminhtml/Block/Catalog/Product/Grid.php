@@ -312,7 +312,7 @@ class Mage_Adminhtml_Block_Catalog_Product_Grid extends Mage_Adminhtml_Block_Wid
         return $this;
     }
 
-    public function getGridUrl()
+    public function getGridUrl()    
     {
         return $this->getUrl('*/*/grid', array('_current'=>true));
     }

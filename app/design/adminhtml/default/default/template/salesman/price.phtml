@@ -1,0 +1,25 @@
+<?php
+$products = $this->getSalesmanPrice();
+?>
+	<table   border="1px" width="100%">
+		<tr>
+			<th>ID</th>
+			<th>SKU</th>
+			<th>COST</th>
+			<th>PRICE</th>
+			<th>S PRICE</th>
+			<th>REMOVE</th>
+		</tr>
+		<?php foreach ($products as $product):?>
+		<tr>
+			<td><?php echo $product['product_id']; ?></td>
+			<td><?php echo $product['sku']; ?></td>
+			<td><?php echo $product['cost']; ?></td>
+			<td><?php echo $product['price']; ?></td>
+			<td><input type="number" name="sprice[<?php echo $product['product_id']?>]" value="<?php echo $product['salesman_price']; ?>"></td>
+			<td><input type="checkbox" name="delete_price[<?php echo $product['entity_id']; ?>]" value="<?php echo $product['entity_id']; ?>"></td>
+		</tr>
+		<?php endforeach; ?>
+	</table>
+	<br>
+</form>

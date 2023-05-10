@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<layout>
+    <salesman_adminhtml_salesman_index>
+        <reference name="content">
+            <block type="salesman/adminhtml_salesman_grid" name="grid"/>
+        </reference>
+    </salesman_adminhtml_salesman_index>
+
+    <salesman_adminhtml_salesman_new>
+        <update handle="adminhtml_salesman_edit" />
+    </salesman_adminhtml_salesman_new>
+
+    <salesman_adminhtml_salesman_edit>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="salesman/adminhtml_salesman_edit" name="adminhtml_salesman_edit"></block>
+        </reference>
+    </salesman_adminhtml_salesman_edit>
+</layout>

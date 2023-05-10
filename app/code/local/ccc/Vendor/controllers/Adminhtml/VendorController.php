@@ -144,4 +144,28 @@ class Ccc_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Ac
         }
         $this->_redirect('*/*/');
     }
+
+     public function massDeleteAction()
+    {
+        $vendorsIds = $this->getRequest()->getParam('vendor');
+        if(!is_array($vendorsIds)) {
+             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select vendor(s).'));
+        } else {
+            try {
+                $vendor = Mage::getModel('vendor/vendor');
+                foreach ($vendorsIds as $vendorId) {
+                    $vendor->reset()
+                        ->load($vendorId)
+                        ->delete();
+                }
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('adminhtml')->__('Total of %d record(s) were deleted.', count($vendorsIds))
+                );
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            }
+        }
+
+        $this->_redirect('*/*/index');
+    }
 }
