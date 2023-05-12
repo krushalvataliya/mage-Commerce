@@ -1,4 +1,4 @@
-<?php
+    <?php
 class Ccc_Salesman_Adminhtml_SalesmanController extends Mage_Adminhtml_Controller_Action
 {
 	public function indexAction()
@@ -154,5 +154,11 @@ class Ccc_Salesman_Adminhtml_SalesmanController extends Mage_Adminhtml_Controlle
             }
         }
         $this->_redirect('*/*/');
+    }
+
+    public function massUpdateAction()
+    {
+        echo "<pre>";
+        print_r($_POST);
     }
 }
