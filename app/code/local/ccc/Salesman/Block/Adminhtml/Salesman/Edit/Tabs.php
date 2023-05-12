@@ -19,13 +19,13 @@ class Ccc_Salesman_Block_Adminhtml_Salesman_Edit_Tabs extends Mage_Adminhtml_Blo
         ));
 
         $this->addTab('form_section_address', array(
-            'label' => Mage::helper('salesman')->__('Addresses'),
+            'label' => Mage::helper('salesman')->__('Address'),
             'content' => $this->getLayout()->createBlock('salesman/adminhtml_salesman_edit_tab_addresses')->toHtml(),
         ));
 
         $this->addTab('salesman_price', array(
             'label' => Mage::helper('salesman')->__('Price'),
-            'content' => $this->getLayout()->createBlock('salesman/adminhtml_salesman_edit_tab_salesman_price')->toHtml(),
+            'content' => $this->getLayout()->createBlock('salesman/adminhtml_salesman_edit_tab_price')->toHtml(),
         ));
 
         return parent::_beforeToHtml();

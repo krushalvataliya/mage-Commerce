@@ -1,20 +1,10 @@
 <config>
     <modules>
         <Ccc_Salesman>    
-            <version>1.0.0</version>
+            <version>0.1.1</version>
         </Ccc_Salesman>
     </modules>
     <frontend>
-        <!-- <routers>
-            <salesman>
-                <use>standard</use>
-                <args>
-                    <module>Ccc_Salesman</module>
-                    <frontName>salesman</frontName>
-                </args>
-            </salesman>
-        </routers> -->
-
         <layout>
             <updates>
                 <salesman module="Ccc_Salesman">
@@ -25,6 +15,7 @@
     </frontend>
     <global>
         <models>
+            
             <salesman>
                 <class>Ccc_Salesman_Model</class>
                 <resourceModel>salesman_resource</resourceModel>
@@ -43,9 +34,33 @@
                     <salesman_address>
                         <table>salesman_address</table>
                     </salesman_address>
+                    <salesman_price>
+                        <table>salesman_price</table>
+                    </salesman_price>
                 </entities>
             </salesman_resource>
         </models>
+        <resources>
+            <salesman_setup>
+                <setup>
+                    <module>Ccc_Salesman</module>
+                    <class>Mage_Core_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </salesman_setup>
+            <salesman_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </salesman_write>
+            <salesman_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </salesman_read>
+        </resources>
         <blocks>
             <salesman>
                 <class>Ccc_Salesman_Block</class>
