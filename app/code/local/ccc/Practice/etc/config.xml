@@ -1,8 +1,8 @@
 <config>
     <modules>
-        <Ccc_practice>    
+        <Ccc_Practice>    
             <version>1.0.0</version>
-        </Ccc_practice>
+        </Ccc_Practice>
     </modules>
    <!--  <frontend>
         <layout>
@@ -13,8 +13,8 @@
             </updates>
         </layout>
     </frontend> -->
-    <!-- <global>
-        <models>
+ <global>
+           <!-- <models>
             <practice>
                 <class>Ccc_practice_Model</class>
                 <resourceModel>practice_resource</resourceModel>
@@ -33,13 +33,13 @@
             <practice>
                 <class>Ccc_practice_Block</class>
             </practice>
-        </blocks>
-        <helpers>
+        </blocks> -->
+        <helpers> 
            <practice>
-                  <class>Ccc_practice_Helper</class>
+                  <class>Ccc_Practice_Helper</class>
             </practice>
         </helpers>
-    </global> -->
+    </global> 
     <admin>
         <routers>
             <practice>

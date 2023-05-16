@@ -1,4 +1,4 @@
-<?php
+`<?php
 
 class Ccc_Product_Block_Adminhtml_Product_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {

@@ -1,5 +1,5 @@
 <?php
-class Ccc_Practice_ClassoneController extends Mage_Adminhtml_Controller_Action
+class Ccc_Practice_Class_OneController extends Mage_Core_Controller_Front_Action
 {
 	public function indexAction()
     {
@@ -10,7 +10,7 @@ class Ccc_Practice_ClassoneController extends Mage_Adminhtml_Controller_Action
         echo "<pre>";
 
         // collection of rows in  object format.
-        // print_r($collection);
+        print_r($collection->getItems());
 
         // collection of rows in array format.
         // print_r($collection->toArray());
@@ -18,6 +18,7 @@ class Ccc_Practice_ClassoneController extends Mage_Adminhtml_Controller_Action
         // prepare different types of queries
         
         $read = Mage::getSingleton('core/resource')->getConnection('core_read');
+        
         $select = $read->select()
             ->from('product', array('sku', 'cost', 'price'))
             ->where('status = ?', 1);

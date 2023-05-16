@@ -1,7 +1,7 @@
 <config>
     <modules>
         <Ccc_Salesman>    
-            <version>0.1.1</version>
+            <version>0.1.2</version>
         </Ccc_Salesman>
     </modules>
     <frontend>

@@ -8,7 +8,6 @@ $installer->startSetup();
 
 $installer->run("
 --
-DROP TABLE IF EXISTS `{$installer->getTable('salesman_address')}`;
 CREATE TABLE `{$installer->getTable('salesman_address')}` (
   `address_id` int(11) NOT NULL,
   `address` varchar(255) NOT NULL,
