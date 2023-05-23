@@ -1,0 +1,47 @@
+<config>
+	<menu>
+		<krushal module="krushal">
+            <title>krushal</title>
+            <sort_order>10</sort_order>
+            <children>
+                <managekrushal module="krushal">
+                    <title>Manage krushal</title>
+            		<action>krushal/adminhtml_krushal</action>
+                    <sort_order>10</sort_order>
+                </managekrushal>
+            </children>
+        </krushal>
+	</menu>
+   <!--  <acl>
+        <resources>
+            <all>
+                <title>Allow Everthing</title>
+            </all>
+            <admin>
+                <children>
+                    <krushal template="title" module="krushal">
+                        <title>krushal</title>
+                        <sort_order>100</sort_order>
+                        <children>
+                            <managekrushal template="title" >
+                                <title>Manage Product</title>
+                            </managekrushal>
+                        </children>
+                    </krushal>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <krushal translate="title" module="krushal">
+                                        <title>krushal Section</title>
+                                        <sort_order>50</sort_order>
+                                    </krushal>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl> -->
+</config>

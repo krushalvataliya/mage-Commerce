@@ -83,6 +83,7 @@ class Ccc_Salesman_Adminhtml_SalesmanController extends Mage_Adminhtml_Controlle
     {
         $this->_forward('edit');
     }
+    
 
     public function saveAction()
     {

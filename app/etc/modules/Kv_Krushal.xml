@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Kv_Krushal>
+            <active>true</active>
+            <codePool>local</codePool>            
+        </Kv_Krushal>
+    </modules>
+</config>
