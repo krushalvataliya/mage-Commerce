@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<layout>
+    <krushal_adminhtml_krushal_index>
+        <reference name="content">
+            <block type="krushal/adminhtml_krushal_grid" name="grid"/>
+        </reference>
+    </krushal_adminhtml_krushal_index>
+
+    <krushal_adminhtml_krushal_new>
+        <update handle="adminhtml_krushal_edit" />
+    </krushal_adminhtml_krushal_new>
+
+    <krushal_adminhtml_krushal_edit>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="krushal/adminhtml_krushal_edit" name="adminhtml_krushal_edit"></block>
+        </reference>
+    </krushal_adminhtml_krushal_edit>
+</layout>
