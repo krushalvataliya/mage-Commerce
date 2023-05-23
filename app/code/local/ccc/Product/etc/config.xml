@@ -33,10 +33,21 @@
             <product>
                 <class>Ccc_Product_Block</class>
             </product>
+            <product>   
+                <rewrite>
+                    <adminhtml_product>Ccc_Product_Block_Adminhtml_ProductNew</adminhtml_product>
+                </rewrite>
+            </product>
+
         </blocks>
         <helpers>
            <product>
                   <class>Ccc_Product_Helper</class>
+            </product>
+            <product>   
+                <rewrite>
+                    <data>Ccc_Product_Helper_NewData</data>
+                </rewrite>
             </product>
         </helpers>
     </global>
