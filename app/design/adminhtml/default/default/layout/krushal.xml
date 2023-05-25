@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <krushal_adminhtml_krushal_attribute_edit>
+        <reference name="content">
+            <block type="krushal/adminhtml_krushal_attribute_edit" name="krushalAttributeEdit"/>
+        </reference>
+         <reference name="left">
+            <block type="krushal/adminhtml_krushal_attribute_edit_tabs" name="krushal_edit_tabs"></block>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" name="attribute_edit_js" template="krushal/attribute/js.phtml"></block>
+        </reference>
+    </krushal_adminhtml_krushal_attribute_edit>
+    
+    <krushal_adminhtml_krushal_edit>
+        <reference name="content">
+            <block type="krushal/adminhtml_krushal_edit" name="krushalEdit"/>
+        </reference>
+        <reference name="left">
+            <block type="krushal/adminhtml_krushal_edit_Tabs" name="krushalEditTabs"/>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/catalog_product_edit_js" template="catalog/product/js.phtml" name="catalog_product_js"></block>
+            <block type="core/template" template="catalog/wysiwyg/js.phtml"/>
+        </reference>
+    </krushal_adminhtml_krushal_edit> 
+</layout>
