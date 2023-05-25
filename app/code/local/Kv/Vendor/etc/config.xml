@@ -58,6 +58,8 @@
                 <class>Kv_Vendor_Block</class>
             </vendor>
         </blocks>
+
+       
         <helpers>
            <vendor>
                   <class>Kv_vendor_Helper</class>
