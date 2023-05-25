@@ -18,6 +18,7 @@ class Ccc_Krushal_Block_Adminhtml_Krushal_Grid extends Mage_Adminhtml_Block_Widg
             ->addAttributeToSelect('lastname')
             ->addAttributeToSelect('email')
             ->addAttributeToSelect('phoneNo')
+            ->addAttributeToSelect('gender')
             ->addAttributeToSelect('price_attribute');
 
         $adminStore = Mage_Core_Model_App::ADMIN_STORE_ID;
@@ -63,6 +64,13 @@ class Ccc_Krushal_Block_Adminhtml_Krushal_Grid extends Mage_Adminhtml_Block_Widg
                 'header' => Mage::helper('krushal')->__('Email'),
                 'width'  => '50px',
                 'index'  => 'email',
+            ));
+        $this->addColumn('gender',
+            array(
+                'header' => Mage::helper('krushal')->__('Gender'),
+                'width'  => '50px',
+                'index'  => 'gender',
+                'renderer'=> 'Ccc_Krushal_Block_Adminhtml_Krushal_Grid_Renderer_Gender'
             ));
         
         parent::_prepareColumns();

@@ -2,12 +2,12 @@
 
 <config>
     <tabs>
-        <catalog>
-            <sort_orderl>1</sort_order>
-        </catalog>
+        <practice>
+            <sort_order>10</sort_order>
+        </practice>
     </tabs>
     <sections>
-        <general>
+        <catalog>
             <label>ccc</label>
             <groups>
                 <store_information>
@@ -24,9 +24,35 @@
                     </fields>
                 </store_information>
             </groups>
-        </general>
+        </catalog>
         <tutorial>
             <label>practice</label>
         </tutorial>
+
+
+         <practice translate="label" module="practice">
+            <label>practice</label>
+            <tab>practice</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+                        <groups>
+                <store_information>
+                    <fields>
+                        <show_tutorial>
+                            <label>practice</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_tutorial>
+                    </fields>
+                </store_information>
+            </groups>
+        </practice>
     </sections>
 </config>
