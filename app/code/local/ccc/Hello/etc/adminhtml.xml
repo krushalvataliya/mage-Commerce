@@ -1,41 +1,41 @@
 <config>
 	<menu>
-		<krushal module="krushal">
-            <title>krushal</title>
+		<hello module="hello">
+            <title>hello</title>
             <sort_order>10</sort_order>
             <children>
-                <managekrushal module="krushal">
-                    <title>Manage krushal</title>
-            		<action>krushal/adminhtml_krushal</action>
+                <managehello module="hello">
+                    <title>hello</title>
+            		<action>hello/adminhtml_hello/index</action>
                     <sort_order>10</sort_order>
-                </managekrushal>
+                </managehello>
             </children>
-        </krushal>
+        </hello>
 	</menu>
    <!--  <acl>
-        <resources>
+        <resources
             <all>
                 <title>Allow Everthing</title>
             </all>
             <admin>
                 <children>
-                    <krushal template="title" module="krushal">
-                        <title>krushal</title>
+                    <hello template="title" module="hello">
+                        <title>Categoies</title>
                         <sort_order>100</sort_order>
                         <children>
-                            <managekrushal template="title" >
-                                <title>Manage Product</title>
-                            </managekrushal>
+                            <managehello template="title" >
+                                <title>Manage hello</title>
+                            </managehello>
                         </children>
-                    </krushal>
+                    </hello>
                     <system>
                         <children>
                             <config>
                                 <children>
-                                    <krushal translate="title" module="krushal">
-                                        <title>krushal Section</title>
+                                    <hello translate="title" module="hello">
+                                        <title>hellos Section</title>
                                         <sort_order>50</sort_order>
-                                    </krushal>
+                                    </hello>
                                 </children>
                             </config>
                         </children>

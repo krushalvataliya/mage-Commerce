@@ -21,10 +21,14 @@ class Ccc_Salesman_Block_Adminhtml_Salesman_Edit_Tab_Form extends Mage_Adminhtml
             'name' => 'salesman[last_name]'
         ));
 
-         $fieldset->addField('gender', 'text', array(
+         $fieldset->addField('gender', 'radios', array(
             'label' => Mage::helper('salesman')->__('Gender'),
-            'required' => true,
+            'required' => false,
             'name' => 'salesman[gender]',
+            'values' =>array(
+                array('value'=>1,'label'=>'Male'),
+                array('value'=>2,'label'=>'Female'),
+            )
         ));
 
         $fieldset->addField('email', 'text', array(

@@ -65,7 +65,8 @@ class Ccc_Category_Block_Adminhtml_category_Grid extends Mage_Adminhtml_Block_Wi
         $this->addColumn('status', array(
             'header'    => Mage::helper('category')->__('Status'),
             'align'     => 'left',
-            'index'     => 'status'
+            'index'     => 'status',
+            'renderer' => 'Ccc_Category_Block_Adminhtml_Category_Grid_Renderer_Status'
         ));
 
         return parent::_prepareColumns();

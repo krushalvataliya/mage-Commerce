@@ -1,4 +1,5 @@
 <?php
+ 
 class Ccc_Product_Adminhtml_ProductController extends Mage_Adminhtml_Controller_Action
 {
 	public function indexAction()
@@ -90,7 +91,8 @@ class Ccc_Product_Adminhtml_ProductController extends Mage_Adminhtml_Controller_
             else {
                 $model->setUpdateTime(now());
             }
-             
+             Mage::dispatchEvent('cms_page_prepare_save', array('page' => $model, 'request' => $this->getRequest()));
+
             $model->save();
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('product')->__('product was successfully saved'));
             Mage::getSingleton('adminhtml/session')->setFormData(false);

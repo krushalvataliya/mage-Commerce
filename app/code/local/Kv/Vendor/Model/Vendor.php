@@ -12,7 +12,6 @@ class Kv_Vendor_Model_Vendor extends Mage_Core_Model_Abstract
         $this->setData(array());
         $this->setOrigData();
         $this->_attributes = null;
-
         return $this;
     }
 }

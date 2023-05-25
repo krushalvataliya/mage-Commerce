@@ -33,10 +33,10 @@ class Ccc_Salesman_Block_Adminhtml_Salesman_Edit_Tab_Addresses extends Mage_Admi
             'name' => 'address[country]'
         ));
 
-        $fieldset->addField('zipcode','text', array(
+        $fieldset->addField('zip_code','text', array(
             'label' => Mage::helper('salesman')->__('Zipcode'),
             'required' => true,
-            'name' => 'address[zipcode]'
+            'name' => 'address[zip_code]'
         ));
 
         if ( Mage::getSingleton('adminhtml/session')->getSalesmanData() )

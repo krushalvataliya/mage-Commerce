@@ -33,10 +33,10 @@ class Kv_Vendor_Block_Adminhtml_Vendor_Edit_Tab_Addresses extends Mage_Adminhtml
             'name' => 'address[country]'
         ));
 
-        $fieldset->addField('zipcode','text', array(
-            'label' => Mage::helper('vendor')->__('Zipcode'),
+        $fieldset->addField('zip_code','text', array(
+            'label' => Mage::helper('vendor')->__('Zip_code'),
             'required' => true,
-            'name' => 'address[zipcode]'
+            'name' => 'address[zip_code]'
         ));
 
         if ( Mage::getSingleton('adminhtml/session')->getVendorData() )

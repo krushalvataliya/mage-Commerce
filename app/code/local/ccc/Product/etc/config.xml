@@ -28,6 +28,11 @@
                     </product>
                 </entities>
             </product_resource>
+            <catalog>
+                <rewrite>
+                    <product>Ccc_Product_Model_Products</product>
+                </rewrite>
+            </catalog>
         </models>
         <blocks>
             <product>
@@ -50,12 +55,26 @@
                 </rewrite>
             </product>
         </helpers>
+        <events>
+           <cms_page_prepare_save>
+            <observers>
+               <Ccc_Product_Model_Observer>
+                   <type>singleton</type>
+                   <class>product/observer</class>
+                   <method>test</method>
+               </Ccc_Product_Model_Observer>
+               </observers>
+          </cms_page_prepare_save>
+        </events>
     </global>
     <admin>
         <routers>
             <product>
                 <use>admin</use>
                 <args>
+                    <!-- <modules>
+                        <Ccc_Product before="Ccc_Product">Ccc_Category</Ccc_Product>
+                    </modules> -->
                     <module>Ccc_Product</module>
                     <frontName>product</frontName>
                 </args>

@@ -49,13 +49,13 @@
                     <frontName>practice</frontName>
                 </args>
             </practice>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <ccc_practice before="Mage_Adminhtml_Catalog">Ccc_Practice_Adminhtml</ccc_practice>
+                    </modules>
+                </args>
+            </adminhtml>
         </routers>
-        <!--  <layout>
-            <updates>
-                <practice>
-                    <file>practice.xml</file>
-                </practice>
-            </updates>
-        </layout> -->
     </admin>
 </config>
