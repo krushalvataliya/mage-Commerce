@@ -1,0 +1,47 @@
+<config>
+	<menu>
+		<hello module="hello">
+            <title>hello</title>
+            <sort_order>10</sort_order>
+            <children>
+                <managehello module="hello">
+                    <title>hello</title>
+            		<action>hello/adminhtml_hello/index</action>
+                    <sort_order>10</sort_order>
+                </managehello>
+            </children>
+        </hello>
+	</menu>
+   <!--  <acl>
+        <resources
+            <all>
+                <title>Allow Everthing</title>
+            </all>
+            <admin>
+                <children>
+                    <hello template="title" module="hello">
+                        <title>Categoies</title>
+                        <sort_order>100</sort_order>
+                        <children>
+                            <managehello template="title" >
+                                <title>Manage hello</title>
+                            </managehello>
+                        </children>
+                    </hello>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <hello translate="title" module="hello">
+                                        <title>hellos Section</title>
+                                        <sort_order>50</sort_order>
+                                    </hello>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl> -->
+</config>

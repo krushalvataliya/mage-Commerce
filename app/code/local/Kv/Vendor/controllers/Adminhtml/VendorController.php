@@ -4,7 +4,6 @@ class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
 	public function indexAction()
     {
     	$this->_title($this->__('Vendor'))
-             // ->_title($this->__('Manage Vendors'))
              ->_title($this->__('Manage Vendors'));
        	$this->loadLayout();
        	$this->_addContent($this->getLayout()->createBlock('vendor/adminhtml_vendor'));
@@ -13,7 +12,6 @@ class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
 
     protected function _initAction()
     {
-        // load layout, set active menu and breadcrumbs
         $this->loadLayout()
             ->_setActiveMenu('vendor/vendor')
             ->_addBreadcrumb(Mage::helper('vendor')->__('Vendor Manager'), Mage::helper('vendor')->__('Vendor Manager'))
@@ -27,14 +25,14 @@ class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
     {
         $this->_title($this->__('Vendor'))
              ->_title($this->__('Vendors'))
-             ->_title($this->__('Edit Vendors'));
+             ->_title($this->__('Edit Vendor'));
 
-        // print_r($this->_addContent($this->getLayout()->createBlock('Ccc_Vendor_Block_Adminhtml_Vendor_Edit')));
         $id = $this->getRequest()->getParam('vendor_id');
         $model = Mage::getModel('vendor/vendor');
         $addressModel = Mage::getModel('vendor/vendor_address');
 
-        if ($id) {
+        if ($id)
+        {
             $model->load($id);
             $addressModel->load($id,'vendor_id');
             if (! $model->getId()) {
@@ -81,7 +79,7 @@ class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
             $model = Mage::getModel('vendor/vendor');
             $addressModel = Mage::getModel('vendor/vendor_address');
             $addressData = $this->getRequest()->getPost('address');
-            $data = $this->getRequest(X)->getPost('vendor');
+            $data = $this->getRequest()->getPost('vendor');
             $vendorId = $this->getRequest()->getParam('id');
             if (!$vendorId)
             {
@@ -93,16 +91,19 @@ class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
             {
                 $model->setCreatedTime(now())->setUpdateTime(now());
             } 
-            else {
-                $model->setUpdateTime(now());
+            if($vendorId)
+            {
+                $model->updated_at = now();
             }
             $model->save();
-            if ($model->save()) {
+            if ($model->save())
+            {
                 if ($vendorId) {
                     $addressModel->load($vendorId,'vendor_id');
                 }
 
                 $addressModel->setData(array_merge($addressModel->getData(),$addressData));
+                $addressModel->updated_at = now();
                 $addressModel->vendor_id = $model->vendor_id;
                 $addressModel->save();
             }

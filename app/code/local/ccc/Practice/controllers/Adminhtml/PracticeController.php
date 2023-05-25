@@ -3,7 +3,7 @@ class Ccc_Practice_Adminhtml_PracticeController extends Mage_Adminhtml_Controlle
 {
 	public function indexAction()
     {
-        $collection = Mage::getModel('product/product')->getCollection()->toArray();
+        $collection = Mage::getModel('product/product');
         print_r($collection);
         die;
     }

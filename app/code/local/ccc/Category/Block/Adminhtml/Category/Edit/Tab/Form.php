@@ -15,10 +15,19 @@ class Ccc_category_Block_Adminhtml_category_Edit_Tab_Form extends Mage_Adminhtml
             'name' => 'name',
         ));
 
-        $fieldset->addField('status', 'text', array(
+        $fieldset->addField('status', 'select', array(
             'label' => Mage::helper('category')->__('Status'),
             'required' => true,
             'name' => 'status',
+            // 'values' =>array(
+            //     array('value'=>1,'label'=>'Active'),
+            //     array('value'=>2,'label'=>'Inactive'),
+            // )
+            'options'=> array(
+                1 => "Active",
+                2 => "Inactive",
+            ),
+
         ));
 
         if ( Mage::getSingleton('adminhtml/session')->getcategoryData() )

@@ -1,6 +1,6 @@
 <?php
 
-class Ccc_Product_Helper_Data extends Mage_Core_Helper_Abstract
+class Ccc_Practice_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
 	public function __construct()

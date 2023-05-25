@@ -7,7 +7,7 @@ class Kv_Vendor_Block_Adminhtml_Vendor extends Mage_Adminhtml_Block_Widget_Grid_
         
         $this->_blockGroup = 'vendor';
         $this->_controller = 'adminhtml_vendor';
-        $this->_headerText = Mage::helper('vendor')->__('Manage Vendors');
+        $this->_headerText = Mage::helper('vendor')->__('Manage Vendor');
 
         parent::__construct();
 

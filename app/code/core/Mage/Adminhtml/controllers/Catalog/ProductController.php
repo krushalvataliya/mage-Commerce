@@ -665,8 +665,7 @@ class Mage_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Controller
         );
 
         /**
-         * Initialize product options
-         */
+w         */
         if (isset($productData['options']) && !$product->getOptionsReadonly()) {
             $product->setProductOptions($productData['options']);
         }

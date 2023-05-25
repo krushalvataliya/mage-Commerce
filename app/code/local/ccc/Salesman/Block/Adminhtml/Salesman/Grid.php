@@ -72,19 +72,14 @@ class Ccc_Salesman_Block_Adminhtml_Salesman_Grid extends Mage_Adminhtml_Block_Wi
         $this->addColumn('gender', array(
             'header'    => Mage::helper('salesman')->__('Gender'),
             'align'     => 'left',
-            'index'     => 'gender'
+            'index'     => 'gender',
+            'renderer'  => 'Ccc_Salesman_Block_Adminhtml_Salesman_Grid_renderer_gender'
         ));
 
         $this->addColumn('email', array(
             'header'    => Mage::helper('salesman')->__('Email'),
             'align'     => 'left',
             'index'     => 'email'
-        ));
-
-        $this->addColumn('mobile', array(
-            'header'    => Mage::helper('salesman')->__('Mobile'),
-            'align'     => 'left',
-            'index'     => 'mobile'
         ));
 
         $this->addColumn('company', array(
