@@ -571,7 +571,7 @@ class Mage_Adminhtml_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget
         $this->getCollection()->setCurPage((int) $this->getParam($this->getVarNamePage(), $this->_defaultPage));
     }
 
-    protected function _prepareColumns()
+    protected function _prepareColumns()    
     {
         $this->sortColumnsByOrder();
         return $this;
