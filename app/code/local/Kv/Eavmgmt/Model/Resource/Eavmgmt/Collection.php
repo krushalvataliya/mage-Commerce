@@ -14,22 +14,8 @@ class Kv_Eavmgmt_Model_Resource_Eavmgmt_Collection extends Mage_Eav_Model_Resour
                 $retColumns[$labelColumn] = Mage::getResourceHelper('core')->castField('main_table.'.$labelColumn);
             }
         }
-        // $this->getSelect()
-        //     ->from(array('main_table' => $this->getResource()->getMainTable()), $retColumns)
-        //     ->join(
-        //         array('additional_table' => $this->getTable('catalog/eav_attribute')),
-        //         // array('additional_table' => 'eav_attribute'),
-        //         'additional_table.attribute_id = main_table.attribute_id'
-        //         );
-            // ->where('main_table.entity_type_id = ?', $entityTypeId);
-
-
          $this->getSelect()
-            ->from(array('main_table' => $this->getResource()->getMainTable()), $retColumns)
-            ->join(
-                array('additional_table' => $this->getTable('catalog/eav_attribute')),
-                'additional_table.attribute_id = main_table.attribute_id'
-                );
+            ->from(array('main_table' => $this->getResource()->getMainTable()), $retColumns);
         return $this;
     }
 }
