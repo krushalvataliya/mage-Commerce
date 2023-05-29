@@ -159,15 +159,15 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
 
 
         
-            echo "<pre>";
+            // echo "<pre>";
 
             // print_r($idxCollectionArray);
             print_r($idxBrandNames);
             print_r($brandNames);
 
-            print_r($a = array_diff_key($brandNames, $idxBrandNames));
-            print_r(array_diff_key($brandNames,$a));
-            die();
+            print_r($a = array_diff($brandNames, $idxBrandNames));
+            // print_r(array_diff_key($brandNames,$a));
+            // die();
 
             $newBrands = $idx->updateBrandTable(array_unique($idxBrandNames));
 

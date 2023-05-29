@@ -92,24 +92,6 @@ class Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Grid extends Mage_Adminhtml_Block_Widge
             'index'=>'source_model'
         )); 
 
-         $this->addColumn('action',
-            array(
-                'header'    =>  Mage::helper('eavmgmt')->__('Action'),
-                'width'     => '100',
-                'type'      => 'action',
-                'getter'    => 'getId',
-                'actions'   => array(
-                    array(
-                        'caption'   => Mage::helper('eavmgmt')->__('show options'),
-                        'url'       => array('base'=> '*/*/showoption'),
-                        'field'     => 'eavmgmt_id'
-                    )
-                ),
-                'filter'    => false,
-                'sortable'  => false,
-                'index'     => 'stores',
-                'is_system' => true,
-        ));
         $this->addExportType('*/*/exportCsv', Mage::helper('eavmgmt')->__('CSV'));
 
         return $this;

@@ -41,9 +41,6 @@ class Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Option extends Mage_Adminhtml_Block_Wid
         $this->setId('eavmgmtAdminhtmleavmgmtGrid');
         $this->setDefaultSort('eavmgmt_id');
         $this->setDefaultDir('ASC');
-        // $this->removeColumn();
-       // echo "<pre>";
-       // print_r(get_class_methods($this));
     }
 
    protected function _prepareCollection()
@@ -52,7 +49,6 @@ class Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Option extends Mage_Adminhtml_Block_Wid
             $id = $this->getRequest()->getParam('eavmgmt_id');
            $collection = Mage::getModel('eav/entity_attribute_option')->getCollection();
            $collection->getSelect() ->join('eav_attribute', 'main_table.attribute_id = eav_attribute.attribute_id', 'attribute_code')
-            // ->addFieldToFilter('main_table.attribute_id', array('attribute_id'=>$id));
             ->where('main_table.attribute_id = ?',$id);
         $this->setCollection($collection);
         return parent::_prepareCollection();
