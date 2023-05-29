@@ -143,17 +143,35 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
     public function brandAction()
     {
         try {
-            $idx = Mage::getModel('idx/idx');
+            $idx = Mage::getModel('idx/idx');       
             $idxCollection = $idx->getCollection();
             $idxCollectionArray = $idx->getCollection()->getData();
+            $idxBrandId = array_column($idxCollectionArray,'brand_id');
             $idxBrandNames = array_column($idxCollectionArray,'brand');
+            $idxBrandNames = array_combine($idxBrandId,$idxBrandNames);
+
+            $brand = Mage::getModel('brand/brand');       
+            $brandCollection = $brand->getCollection();
+            $brandCollectionArray = $brand->getCollection()->getData();
+            $brandBrandId = array_column($brandCollectionArray,'brand_id');
+            $brandNames = array_column($brandCollectionArray,'name');
+            $brandNames = array_combine($brandBrandId,$brandNames);
+
+
         
+            echo "<pre>";
+
             // print_r($idxCollectionArray);
-            // print_r($idxBrandNames);
+            print_r($idxBrandNames);
+            print_r($brandNames);
+
+            print_r($a = array_diff_key($brandNames, $idxBrandNames));
+            print_r(array_diff_key($brandNames,$a));
+            die();
 
             $newBrands = $idx->updateBrandTable(array_unique($idxBrandNames));
 
-            print_r($newBrands);
+            // print_r($newBrands);
             foreach ($idxCollection as $idx) {
                 $idxBrandName = $idx->getData('brand');
                 $brandId = array_search($idxBrandName,$newBrands);
@@ -163,12 +181,13 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
                 $condition = '`idx_id` = '.$idx->idx_id;
                 $query = "UPDATE `{$tableName}` SET `brand_id` = {$brandId} WHERE {$condition}";
                 $connection->query($query); 
+                echo 111;die;
             }
             Mage::getSingleton('adminhtml/session')->addSuccess('Brand is fine now');
-            $this->_redirect('*/*/index');
         } catch (Exception $e) {
             Mage::logException($e);
         }
+            $this->_redirect('*/*/index');
     }
 
     function getOptionIdByValue($value, $options)
