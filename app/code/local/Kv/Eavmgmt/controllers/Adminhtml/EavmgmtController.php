@@ -41,6 +41,7 @@ class Kv_Eavmgmt_Adminhtml_EavmgmtController extends Mage_Adminhtml_Controller_A
             $grid= $this->getLayout()->createBlock('eavmgmt/adminhtml_eavmgmt_csv');
             $grid->setCollection($collection);
             $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+            Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('eavmgmt')->__('file downloded Successfully.'));
              $this->_redirect('*/*/index');
     }
 
@@ -60,6 +61,7 @@ class Kv_Eavmgmt_Adminhtml_EavmgmtController extends Mage_Adminhtml_Controller_A
             $grid= $this->getLayout()->createBlock('eavmgmt/adminhtml_eavmgmt_exportoption');
             $grid->setCollection($collection);
             $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+            Mage::getSingleton('adminhtml/session')->addSucess(Mage::helper('eavmgmt')->__('file downloded successfully.'));
              $this->_redirect('*/*/index');
     }
 

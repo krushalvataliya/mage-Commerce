@@ -143,6 +143,7 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
     public function brandAction()
     {
         try {
+            
             $idx = Mage::getModel('idx/idx');       
             $idxCollection = $idx->getCollection();
             $idxCollectionArray = $idx->getCollection()->getData();
