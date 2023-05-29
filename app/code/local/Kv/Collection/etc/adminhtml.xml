@@ -1,0 +1,47 @@
+<config>
+	<menu>
+		<collection module="collection">
+            <title>Collection</title>
+            <sort_order>10</sort_order>
+            <children>
+                <managecollection module="collection">
+                    <title>Manage Categories</title>
+            		<action>collection/adminhtml_collection/index</action>
+                    <sort_order>10</sort_order>
+                </managecollection>
+            </children>
+        </collection>
+	</menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everthing</title>
+            </all>
+            <admin>
+                <children>
+                    <collection template="title" module="collection">
+                        <title>Categoies</title>
+                        <sort_order>100</sort_order>
+                        <children>
+                            <managecollection template="title" >
+                                <title>Manage collection</title>
+                            </managecollection>
+                        </children>
+                    </collection>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <collection translate="title" module="collection">
+                                        <title>collections Section</title>
+                                        <sort_order>50</sort_order>
+                                    </collection>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
