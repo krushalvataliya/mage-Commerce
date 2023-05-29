@@ -1,0 +1,47 @@
+<config>
+	<menu>
+		<idx module="idx">
+            <title>Idx</title>
+            <sort_order>10</sort_order>
+            <children>
+                <manageidx module="idx">
+                    <title>Manage idx</title>
+            		<action>idx/adminhtml_idx</action>
+                    <sort_order>10</sort_order>
+                </manageidx>
+            </children>
+        </idx>
+	</menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everthing</title>
+            </all>
+            <admin>
+                <children>
+                    <idx template="title" module="idx">
+                        <title>idx</title>
+                        <sort_order>100</sort_order>
+                        <children>
+                            <manageidx template="title" >
+                                <title>Manage idx</title>
+                            </manageidx>
+                        </children>
+                    </idx>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <idx translate="title" module="idx">
+                                        <title>idxs Section</title>
+                                        <sort_order>50</sort_order>
+                                    </idx>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

@@ -1,4 +1,4 @@
-<?php
+    <?php
 /**
  * Magento
  *
@@ -39,6 +39,12 @@ class Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Exportoption extends Mage_Eav_Block_Adm
             'header' => Mage::helper('eavmgmt')->__('Index'),
             'index'  => 'entity_id',
             'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Csv_Number'
+        ));
+
+        $this->addColumn('attribute_id', array(
+            'header'=>Mage::helper('eav')->__('Attribute Id'),
+            'sortable'=>true,
+            'index'=>'attribute_id',
         ));
 
         $this->addColumn('attribute_id', array(

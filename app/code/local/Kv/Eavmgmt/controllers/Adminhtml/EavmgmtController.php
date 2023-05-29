@@ -56,7 +56,7 @@ class Kv_Eavmgmt_Adminhtml_EavmgmtController extends Mage_Adminhtml_Controller_A
                 array('entity_type_id','frontend_label','attribute_code')
             );
             $collection->addFieldToFilter('main_table.attribute_id', array('in' => $attributes));
-            $this->_prepareDownloadResponse($fileName, $content);
+            // $this->_prepareDownloadResponse($fileName, $content);
             $grid= $this->getLayout()->createBlock('eavmgmt/adminhtml_eavmgmt_exportoption');
             $grid->setCollection($collection);
             $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
