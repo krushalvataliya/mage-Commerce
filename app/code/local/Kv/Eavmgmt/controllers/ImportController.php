@@ -50,6 +50,7 @@ class Kv_Eavmgmt_ImportController extends Mage_Adminhtml_Controller_Action
 
                     $optionModel = Mage::getModel('eav/entity_attribute_option');
                     if (!$existingOption) {
+
                         $setData = ['attribute_id' => $attribute[0]['attribute_id'],'sort_order'=>$data['Option Order']];                            
                         $optionModel->setData($setData);
                         $optionModel->save();
@@ -64,20 +65,16 @@ class Kv_Eavmgmt_ImportController extends Mage_Adminhtml_Controller_Action
                             'value' => $data['Option Name']
                         );
 
-                        try {
-                            $connection->insert($tableName, $data);
-                            echo "Value inserted successfully.";
-                        } catch (Exception $e) {
-                            echo "Error: " . $e->getMessage();
+                        if(!$connection->insert($tableName, $data))
+                        {
+                            throw new Exception("option not inserted.", 1);
+                            
                         }
-
-
-                        echo $optionValueModel->value_id;
                     }
                 }
             }
         }
-
+        Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('eavmgmt')->__('Data Imported successfully.'));
         $this->_redirect('*/adminhtml_eavmgmt/index');
     }
 }
