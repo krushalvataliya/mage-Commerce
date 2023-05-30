@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Kv_Collection>
+            <active>true</active>
+            <codePool>local</codePool>            
+        </Kv_Collection>
+    </modules>
+</config>

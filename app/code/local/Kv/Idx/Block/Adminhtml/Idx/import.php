@@ -18,7 +18,7 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magento.com for more information.
  *
- * @eavmgmt    Mage
+ * @idx    Mage
  * @package     Mage_Adminhtml
  * @copyright  Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
@@ -27,38 +27,27 @@
 /**
  * Customer edit block
  *
- * @eavmgmt   Mage
+ * @idx   Mage
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Kv_Idx_Block_Adminhtml_Eavmgmt_Import extends Mage_Adminhtml_Block_Widget_Form_Container
+class Kv_Idx_Block_Adminhtml_Idx_Import extends Mage_Adminhtml_Block_Widget_Form_Container
 {
 
     public function __construct()
     {
 
-        $this->_objectId   = 'eavmgmt_id';
-        $this->_blockGroup = 'eavmgmt';
-        $this->_controller = 'adminhtml_eavmgmt';
-        $this->_headerText = Mage::helper('eavmgmt')->__('Manage categories');
+        $this->_objectId   = 'Idx_id';
+        $this->_blockGroup = 'idx';
+        $this->_controller = 'adminhtml_idx';
+        $this->_headerText = Mage::helper('idx')->__('Manage Idx');
 
         parent::__construct();
         if ($this->_isAllowedAction('save')) {
-
-            $this->_updateButton('save', 'label', Mage::helper('eavmgmt')->__('Save eavmgmt'));
-            // $this->_addButton('saveandcontinue', array(
-            //     'label'     => Mage::helper('adminhtml')->__('Save and Continue Edit'),
-            //     'onclick'   => 'saveAndContinueEdit(\''.$this->_getSaveAndContinueUrl().'\')',
-            //     'class'     => 'save',
-            // ), -100);
+            $this->_updateButton('save', 'label', Mage::helper('idx')->__('Save idx'));
+            $this->_updateButton('save', 'onclick','editForm.submit2();');
         } else {
             $this->_removeButton('save');
-        }
-
-        if ($this->_isAllowedAction('delete')) {
-            $this->_updateButton('delete', 'label', Mage::helper('eavmgmt')->__('Delete eavmgmt'));
-        } else {
-            $this->_removeButton('delete');
         }
     }
 
@@ -67,17 +56,6 @@ class Kv_Idx_Block_Adminhtml_Eavmgmt_Import extends Mage_Adminhtml_Block_Widget_
      *
      * @return string
      */
-    public function getHeaderText()
-    {
-        // if (Mage::registry('eavmgmt_edit')->getId()) {
-        //     return Mage::helper('eavmgmt')->__("Edit eavmgmt '%s'", $this->escapeHtml(Mage::registry('eavmgmt_edit')->getTitle()));
-        // }
-        // else {
-        //     return Mage::helper('eavmgmt')->__('New eavmgmt');
-        // }
-        return null;
-    }
-
     /**
      * Check permission for passed action
      *
@@ -86,7 +64,7 @@ class Kv_Idx_Block_Adminhtml_Eavmgmt_Import extends Mage_Adminhtml_Block_Widget_
      */
     protected function _isAllowedAction($action)
     {
-        return Mage::getSingleton('admin/session')->isAllowed('eavmgmt/adminhtml_eavmgmt/' . $action);
+        return Mage::getSingleton('admin/session')->isAllowed('idx/adminhtml_idx/' . $action);
     }
 
     /**

@@ -71,9 +71,9 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
         $this->_title($this->__('Import'))
              ->_title($this->__('import Data'));
             $this->loadLayout();
-        $this->_addContent($this->getLayout()->createBlock('eavmgmt/adminhtml_idx_import'))
+        $this->_addContent($this->getLayout()->createBlock('idx/adminhtml_idx_import'))
                 ->_addLeft($this->getLayout()
-                ->createBlock('eavmgmt/adminhtml_idx_edit_tabs'));
+                ->createBlock('idx/adminhtml_idx_import_tabs'));
 
         $this->renderLayout();
     }
@@ -142,14 +142,40 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/');
     }
 
-    public function productAction()
-    {
-        echo "string";
-    }
-
     public function collectionAction()
     {
-        echo "string";
+         try {
+            
+            $idx = Mage::getModel('idx/idx');       
+            $idxCollection = $idx->getCollection();
+            $idxCollectionArray = $idx->getCollection()->getData();
+
+            $idxBrandId = array_column($idxCollectionArray,'idx_id');
+            $idxBrandNames = array_column($idxCollectionArray,'collection');
+            $idxBrandNames = array_combine($idxBrandId,$idxBrandNames);
+
+            $newBrands = $idx->updateCollectionTable(array_unique($idxBrandNames));
+
+            $idxCollection = $idx->getCollection();
+
+            foreach ($idxCollection as $idx) {
+                if(!$idx->collection_id)
+                {
+                    $collection = Mage::getModel('collection/collection');
+                    $collectionCollection = Mage::getModel('collection/collection')->getCollection();
+                    $collectionCollection->getSelect()->where('main_table.name=?',$idx->collection);
+                    $collectionData = $collectionCollection->getData();
+                    $idxModel = Mage::getModel('idx/idx');
+                    $idxModel->idx_id = $idx->idx_id;
+                    $idxModel->collection_id = $collectionData[0]['collection_id'];
+                    $idxModel->save();
+                }
+            }
+            Mage::getSingleton('adminhtml/session')->addSuccess('Collection is fine now');
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+            $this->_redirect('*/*/index');
     }
 
     public function brandAction()
@@ -188,20 +214,48 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
             $this->_redirect('*/*/index');
     }
 
-    function getOptionIdByValue($value, $options)
+    public function productAction()
     {
-        foreach ($options as $option) {
-            if ($option['label'] == $value) {
-                return $option['value'];
-            }
-        }
-        return null;
-    }
+        try {
+            $idx = Mage::getModel('idx/idx');
+            $idxCollection = $idx->getCollection();
+            foreach ($idxCollection as $idx) {
+                if (!$idx->checkBrand()) {
+                    Mage::getSingleton('adminhtml/session')->addNotice('Brand is not fine');
+                    $this->_redirect('*/*/');
+                    return;
+                }
 
-    function getMissingBrandOptions($existingOptions, $rows)
-    {
-        $existingValues = array_column($rows, 'brand_value');
-        return array_diff($existingOptions, $existingValues);
+                if (!$idx->checkCollection()) {
+                    Mage::getSingleton('adminhtml/session')->addNotice('Collection is not fine');
+                    $this->_redirect('*/*/');
+                    return;
+                }
+            }
+
+            $idxSku = [];
+            foreach ($idxCollection as $idx) {
+                $idxSku[] = $idx->getData('sku');
+            }
+
+            $newProducts = $idx->updateMainProduct(array_unique($idxSku));
+            print_r($newProducts);
+            echo "1110";
+            foreach ($idxCollection as $idx) {
+                $idxSku = $idx->getData('sku');
+                $productId = array_search($idxSku,$newProducts);
+                $resource = Mage::getSingleton('core/resource');
+                $connection = $resource->getConnection('core_write');
+                $tableName = $resource->getTableName('import_product_idx');
+                $condition = '`index` = '.$idx->index;
+                $query = "UPDATE `{$tableName}` SET `product_id` = {$productId} WHERE {$condition}";
+                $connection->query($query); 
+            }
+            Mage::getSingleton('adminhtml/session')->addSuccess('Product is fine now');
+            $this->_redirect('*/*/');
+        } catch (Exception $e) {
+            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+        }
     }
 
 }

@@ -70,7 +70,7 @@ class Kv_Idx_Block_Adminhtml_Idx_Edit extends Mage_Adminhtml_Block_Widget_Form_C
     public function getHeaderText()
     {
         if (Mage::registry('idx_edit')->getId()) {
-            return Mage::helper('idx')->__("Edit idx '%s'", $this->escapeHtml(Mage::registry('idx_edit')->getTitle()));
+            return Mage::helper('idx')->__("Edit idx");
         }
         else {
             return Mage::helper('idx')->__('New idx');
