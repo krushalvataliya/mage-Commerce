@@ -9,23 +9,19 @@ class Kv_Idx_Model_Idx extends Mage_Core_Model_Abstract
 
     public function updateBrandTable($data)
     {
-        $brandModel = Mage::getModel('brand/brand');
-        $collection =$brandModel->getCollection();
-        $CollectionArray = $collection->getData();
-        $BrandNames = array_column($CollectionArray,'name');
-
-            $newBrands = [];
-        foreach ($data as $key => $value) {
-            $collection =$brandModel->getCollection();
-            $collection->addFieldToFilter('name', $value);
-            if(!$collection->getData())
-            {
-                $idxModel = Mage::getModel('brand/brand');
-                $brandId = $idxModel->setData(['name' => $value])->save();
-                $id = $brandId->getId();
-                $newBrands[$id] = $value;
-            }
+        $brandCollection = Mage::getModel('brand/brand')->getCollection();
+        $brandNames = $brandCollection->getConnection()
+            ->fetchPairs($brandCollection->getSelect()->columns(['brand_id','name']));
+        $newBrands = array_diff($data, $brandNames);
+        foreach ($newBrands as $name) {
+            $prepareData[] = ['name'=>$name];
         }
-        return $newBrands;
+             if($prepareData){
+             $resource = Mage::getSingleton('core/resource');
+            $tableName = $resource->getTableName('brand');
+            $writeConnection = $resource->getConnection('core_write');
+            $writeConnection->insertMultiple($tableName, $prepareData);
+        }
+        return true;
     }
 }

@@ -15,6 +15,12 @@ class Kv_idx_Block_Adminhtml_idx extends Mage_Adminhtml_Block_Widget_Grid_Contai
 
         if ($this->_isAllowedAction('save')) {
             $this->_updateButton('add', 'label', Mage::helper('idx')->__('Add New idx'));
+
+            $this->_addButton('import', array(
+                'label'   => 'Import Product',
+                'onclick' => 'setLocation(\'' . $this->getUrl('*/*/import') . '\')',
+            ));
+
              $this->_addButton('brand', array(
                 'label'   => 'Brand',
                 'onclick' => 'setLocation(\'' . $this->getUrl('*/*/brand') . '\')',

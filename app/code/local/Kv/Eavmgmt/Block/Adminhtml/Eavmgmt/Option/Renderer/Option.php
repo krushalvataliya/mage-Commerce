@@ -1,6 +1,6 @@
 <?php
 
-class Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Option_Renderer_Option extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract		
+class Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Option_Renderer_Option extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract		
 {
 	
 	function render($row)
