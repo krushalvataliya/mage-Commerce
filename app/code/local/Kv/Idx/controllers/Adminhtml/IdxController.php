@@ -66,6 +66,18 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
         $this->renderLayout();
     }
 
+    public function importAction()
+    {
+        $this->_title($this->__('Import'))
+             ->_title($this->__('import Data'));
+            $this->loadLayout();
+        $this->_addContent($this->getLayout()->createBlock('eavmgmt/adminhtml_idx_import'))
+                ->_addLeft($this->getLayout()
+                ->createBlock('eavmgmt/adminhtml_idx_edit_tabs'));
+
+        $this->renderLayout();
+    }
+
     public function newAction()
     {
         $this->_forward('edit');
@@ -148,30 +160,14 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
             $idxCollection = $idx->getCollection();
             $idxCollectionArray = $idx->getCollection()->getData();
 
-        //     $brandCollection = Mage::getModel('idx/idx')->getCollection();
-        // $brandNames = $brandCollection->getConnection('core_read')
-        //     ->fetchPairs($brandCollection->getSelect()->columns(['idx_id','collection']));
-        //     echo "<pre>";
-        //     // print_r($brandCollection->getData());
-        //     die();
-
-        $newBrands = array_diff($idxBrandNames, $brandNames);
             $idxBrandId = array_column($idxCollectionArray,'idx_id');
             $idxBrandNames = array_column($idxCollectionArray,'brand');
             $idxBrandNames = array_combine($idxBrandId,$idxBrandNames);
 
-            $brand = Mage::getModel('brand/brand');       
-            $brandCollection = $brand->getCollection();
-            $brandCollectionArray = $brand->getCollection()->getData();
-            $brandBrandId = array_column($brandCollectionArray,'brand_id');
-            $brandNames = array_column($brandCollectionArray,'name');
-            $brandNames = array_combine($brandBrandId,$brandNames);
-            print_r($idxBrandNames);
-
             $newBrands = $idx->updateBrandTable(array_unique($idxBrandNames));
 
             $idxCollection = $idx->getCollection();
-            // print_r($newBrands);
+
             foreach ($idxCollection as $idx) {
                 if(!$idx->brand_id)
                 {
