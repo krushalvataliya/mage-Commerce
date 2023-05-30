@@ -1,6 +1,6 @@
 <?php
 
-class Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
+class Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     protected function _prepareForm()
     {

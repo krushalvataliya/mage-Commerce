@@ -3,7 +3,7 @@
 /**
  * 
  */
-class Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Grid_Renderer_Image extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract		
+class Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Grid_Renderer_Image extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Abstract		
 {
 	
 	function render($row)

@@ -31,7 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Option extends Mage_Adminhtml_Block_Widget_Grid
+class Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Option extends Mage_Adminhtml_Block_Widget_Grid
 {
 
 
@@ -65,7 +65,7 @@ class Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Option extends Mage_Adminhtml_Block_Wid
         $this->addColumn('value', array(
             'header' => Mage::helper('eavmgmt')->__('Option Name'),
             'index' => 'value',
-            'renderer' => 'Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Option_Renderer_Option'
+            'renderer' => 'Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Option_Renderer_Option'
         ));
 
         $this->addColumn('attribute_code', array(
