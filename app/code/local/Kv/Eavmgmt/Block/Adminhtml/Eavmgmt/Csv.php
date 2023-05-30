@@ -38,14 +38,14 @@ class Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Csv extends Mage_Eav_Block_Adminhtml_At
         $this->addColumn('index', array(
             'header' => Mage::helper('eavmgmt')->__('Index'),
             'index'  => 'entity_id',
-            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Csv_Number'
+            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Csv_Number'
         ));
 
         $this->addColumn('attribute_id', array(
             'header'=>Mage::helper('eav')->__('Attribute Type'),
             'sortable'=>true,
             'index'=>'attribute_id',
-            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Csv_entityType'
+            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Csv_entityType'
         ));
 
 

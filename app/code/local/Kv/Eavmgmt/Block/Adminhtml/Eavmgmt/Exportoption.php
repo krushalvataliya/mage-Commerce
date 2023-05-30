@@ -38,7 +38,7 @@ class Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Exportoption extends Mage_Eav_Block_Adm
         $this->addColumn('index', array(
             'header' => Mage::helper('eavmgmt')->__('Index'),
             'index'  => 'entity_id',
-            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Csv_Number'
+            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Csv_Number'
         ));
 
         $this->addColumn('attribute_id', array(
@@ -51,7 +51,7 @@ class Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Exportoption extends Mage_Eav_Block_Adm
             'header'=>Mage::helper('eav')->__('Entity Type'),
             'sortable'=>true,
             'index'=>'attribute_id',
-            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Csv_entityType'
+            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Csv_entityType'
         ));
 
 
@@ -77,7 +77,7 @@ class Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Exportoption extends Mage_Eav_Block_Adm
             'header'=>Mage::helper('eav')->__('Option Name'),
             'sortable'=>true,
             'index'=>'value',
-            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Csv_entityOption'
+            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Csv_entityOption'
         ));
 
          $this->addColumn('sort_order', array(

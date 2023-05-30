@@ -147,7 +147,16 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
             $idx = Mage::getModel('idx/idx');       
             $idxCollection = $idx->getCollection();
             $idxCollectionArray = $idx->getCollection()->getData();
-            $idxBrandId = array_column($idxCollectionArray,'brand_id');
+
+        //     $brandCollection = Mage::getModel('idx/idx')->getCollection();
+        // $brandNames = $brandCollection->getConnection('core_read')
+        //     ->fetchPairs($brandCollection->getSelect()->columns(['idx_id','collection']));
+        //     echo "<pre>";
+        //     // print_r($brandCollection->getData());
+        //     die();
+
+        $newBrands = array_diff($idxBrandNames, $brandNames);
+            $idxBrandId = array_column($idxCollectionArray,'idx_id');
             $idxBrandNames = array_column($idxCollectionArray,'brand');
             $idxBrandNames = array_combine($idxBrandId,$idxBrandNames);
 
@@ -157,39 +166,24 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
             $brandBrandId = array_column($brandCollectionArray,'brand_id');
             $brandNames = array_column($brandCollectionArray,'name');
             $brandNames = array_combine($brandBrandId,$brandNames);
-
-
-        
-            // echo "<pre>";
-
-            // print_r($idxCollectionArray);
-            // print_r($idxBrandNames);
-            // print_r($brandNames);
-
-            // print_r($a = array_diff($brandNames, $idxBrandNames));
-            // print_r(array_diff_key($brandNames,$a));
-            // die();
+            print_r($idxBrandNames);
 
             $newBrands = $idx->updateBrandTable(array_unique($idxBrandNames));
 
+            $idxCollection = $idx->getCollection();
             // print_r($newBrands);
             foreach ($idxCollection as $idx) {
                 if(!$idx->brand_id)
                 {
+                    $brand = Mage::getModel('brand/brand');
                     $brandCollection = Mage::getModel('brand/brand')->getCollection();
-                        $brandCollection->getSelect()->where('main_table.name=?',$idx->brand);
-
-                        print_r($brandCollection->brand_id);
-                    // $idxBrandName = $idx->getData('brand');
-                    // $brandId = array_search($idxBrandName,$newBrands);
-                    $resource = Mage::getSingleton('core/resource');
-                    $connection = $resource->getConnection('core_write');
-                    $tableName = $resource->getTableName('import_product_idx');
-                    $condition = '`idx_id` = '.$brandCollection->idx_id;
-                    $query = "UPDATE `{$tableName}` SET `brand_id` = {$brand->brand_id} WHERE {$condition}";
-                    $connection->query($query); 
+                    $brandCollection->getSelect()->where('main_table.name=?',$idx->brand);
+                    $brandData = $brandCollection->getData();
+                    $idxModel = Mage::getModel('idx/idx');
+                    $idxModel->idx_id = $idx->idx_id;
+                    $idxModel->brand_id = $brandData[0]['brand_id'];
+                    $idxModel->save();
                 }
-                echo ;die;
             }
             Mage::getSingleton('adminhtml/session')->addSuccess('Brand is fine now');
         } catch (Exception $e) {
