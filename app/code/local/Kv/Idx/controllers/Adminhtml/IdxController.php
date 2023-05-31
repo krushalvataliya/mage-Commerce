@@ -253,9 +253,11 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
                       SET dest.product_id = src.entity_id";
             $write->query($query);
 
+            Mage::getSingleton('adminhtml/session')->addSuccess("Products imported successfully.");
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }
+        $this->_redirect('*/*/index');
     }
 
 }

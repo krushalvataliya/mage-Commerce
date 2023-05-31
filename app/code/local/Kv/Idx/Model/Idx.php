@@ -82,53 +82,43 @@ class Kv_Idx_Model_Idx extends Mage_Core_Model_Abstract
 
     public function updateProductAttribute($idxProductData)
     {
-        $product = Mage::getModel('catalog/product')->getCollection();
+        $product = Mage::getModel('catalog/product');
+        $productCollection = $product->getCollection();
 
-            $skuArray = $product->getData();
-            $productSkus = array_column($skuArray, 'sku');
+        $skuArray = $productCollection->getData();
+        $productSkus = array_column($skuArray, 'sku');
 
-            $idxSkuData = array_column($idxProductData, 'sku');
+        $idxSkuData = array_column($idxProductData, 'sku');
 
         $newProducts = array_diff($idxSkuData, $productSkus);
-
-            print_r($newProducts);
-        print_r($idxProductData);
-        $entityTypeId = Mage::getModel('catalog/product')->getResource()->getTypeId();
-        print_r($entityTypeId);
+        $entityTypeId = $product->getResource()->getTypeId();
 
         foreach ($idxProductData as $item) {
+        $product = Mage::getModel('catalog/product');
             if(in_array($item['sku'], $newProducts))
             {
-                $product = Mage::getModel('catalog/product');
-                $product->setTypeId('simple')
-                    ->setSku($item['sku']) // Assuming attribute_code_1 is used for SKU
-                    ->setAttributeSetId(4)
-                    ->setWebsiteIds(array(0))
-                    ->setStatus(Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
-                    ->setEntityTypeId($entityTypeId)
-                    ->setVisibility(Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
-                    ->setStockData(array(
+               $data = [
+                'entity_type_id' => $entityTypeId,
+                'attribute_set_id' => 4,
+                'type_id' => 'simple',
+                'sku' => $item['sku'],
+                'has_options' => 0,
+                'required_options' => 0,
+                'name' => $item['name'],
+                'price' => $item['price'],
+                'status' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED,
+                'visibility' => '4',
+                'tax_class_id' => '2',
+                'weight' => '0.5',
+                ];
+                $product->setData($data);
+                $product->setStockData(array(
                         'is_in_stock' => 1,
                         'qty' => $item['quantity']),
                     );
-                    // die;
-
-                unset($item['idx_id']);
-                unset($item['sku']);
-                unset($item['quantity']);
-                    print_r($item);
                 $product->save();
-               foreach ($item as $attributeCode => $value) {
-                $attribute = Mage::getSingleton('eav/config')->getAttribute('catalog_product', $attributeCode);
-                $attributeId = $attribute->getAttributeId();
-
-                $product->setData($attributeCode, $value);
-                echo "string";
-                $product->getResource()->saveAttribute($product, $attributeCode);
-                }
-
-            // $product->save();
             }
+
         }
     }
 }
