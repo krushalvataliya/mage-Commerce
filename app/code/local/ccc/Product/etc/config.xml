@@ -28,32 +28,32 @@
                     </product>
                 </entities>
             </product_resource>
-            <catalog>
+            <!-- <catalog>
                 <rewrite>
                     <product>Ccc_Product_Model_Products</product>
                 </rewrite>
-            </catalog>
+            </catalog> -->
         </models>
         <blocks>
             <product>
                 <class>Ccc_Product_Block</class>
             </product>
-            <product>   
+           <!--  <product>   
                 <rewrite>
                     <adminhtml_product>Ccc_Product_Block_Adminhtml_ProductNew</adminhtml_product>
                 </rewrite>
-            </product>
+            </product> -->
 
         </blocks>
         <helpers>
            <product>
                   <class>Ccc_Product_Helper</class>
             </product>
-            <product>   
+           <!--  <product>   
                 <rewrite>
                     <data>Ccc_Product_Helper_NewData</data>
                 </rewrite>
-            </product>
+            </product> -->
         </helpers>
         <events>
            <cms_page_prepare_save>

@@ -7,8 +7,8 @@ $installer->startSetup();
 
 $installer->run("
 --
-DROP TABLE IF EXISTS `{$installer->getTable('idx')}`;
-CREATE TABLE `{$installer->getTable('idx')}` (
+DROP TABLE IF EXISTS `{$installer->getTable('import_product_idx')}`;
+CREATE TABLE `{$installer->getTable('import_product_idx')}` (
   `idx_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `sku` varchar(255) NOT NULL,
@@ -29,9 +29,9 @@ CREATE TABLE `{$installer->getTable('idx')}` (
 --
 
 --
--- Indexes for table `{$installer->getTable('idx')}`
+-- Indexes for table `{$installer->getTable('import_product_idx')}`
 --
-ALTER TABLE `{$installer->getTable('idx')}`
+ALTER TABLE `{$installer->getTable('import_product_idx')}`
   ADD PRIMARY KEY (`idx_id`);
 
 --
@@ -39,10 +39,12 @@ ALTER TABLE `{$installer->getTable('idx')}`
 --
 
 --
--- AUTO_INCREMENT for table `{$installer->getTable('idx')}`
+-- AUTO_INCREMENT for table `{$installer->getTable('import_product_idx')}`
 --
-ALTER TABLE `{$installer->getTable('idx')}`
+ALTER TABLE `{$installer->getTable('import_product_idx')}`
   MODIFY `idx_id` int(11) NOT NULL AUTO_INCREMENT;
+
+  ALTER TABLE `{$installer->getTable('import_product_idx')}` ADD UNIQUE(`sku`);
 COMMIT;
 
 

@@ -1,6 +1,6 @@
 <?php
 
-class Kv_idx_Block_Adminhtml_idx_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
+class Kv_Idx_Block_Adminhtml_Idx_Import_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     protected function _prepareForm()
     {
@@ -15,6 +15,12 @@ class Kv_idx_Block_Adminhtml_idx_Edit_Tab_Form extends Mage_Adminhtml_Block_Widg
             'required' => true,
             'name' => 'import_options',
         ));
+         $fieldset->addField('text', 'text', array(
+            'label' => Mage::helper('idx')->__('Upload Csv File'),
+            'required' => true,
+            'name' => 'textx',
+        ));
+
         return parent::_prepareForm();
     }
 

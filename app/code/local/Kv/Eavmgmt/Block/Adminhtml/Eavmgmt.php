@@ -1,6 +1,6 @@
 <?php
 
-class Kv_eavmgmt_Block_Adminhtml_eavmgmt extends Mage_Adminhtml_Block_Widget_Grid_Container
+class Kv_Eavmgmt_Block_Adminhtml_eavmgmt extends Mage_Adminhtml_Block_Widget_Grid_Container
 {
 
    

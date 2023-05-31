@@ -31,7 +31,7 @@
  * @package    Mage_Adminhtml
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Grid extends Mage_Adminhtml_Block_Widget_Grid
+class Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
 
    protected function _prepareCollection()
@@ -58,7 +58,7 @@ class Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Grid extends Mage_Adminhtml_Block_Widge
             'header'=>Mage::helper('eav')->__('Entity Type'),
             'sortable'=>true,
             'index'=>'attribute_id1',
-            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Csv_entityType'
+            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Csv_entityType'
         ));
 
 
@@ -92,24 +92,12 @@ class Kv_Eavmgmt_Block_Adminhtml_eavmgmt_Grid extends Mage_Adminhtml_Block_Widge
             'index'=>'source_model'
         )); 
 
-         $this->addColumn('action',
-            array(
-                'header'    =>  Mage::helper('eavmgmt')->__('Action'),
-                'width'     => '100',
-                'type'      => 'action',
-                'getter'    => 'getId',
-                'actions'   => array(
-                    array(
-                        'caption'   => Mage::helper('eavmgmt')->__('show options'),
-                        'url'       => array('base'=> '*/*/showoption'),
-                        'field'     => 'eavmgmt_id'
-                    )
-                ),
-                'filter'    => false,
-                'sortable'  => false,
-                'index'     => 'stores',
-                'is_system' => true,
+        $this->addColumn('view_options', array(
+            'header'=>Mage::helper('eav')->__(' '),
+            'sortable'=>true,
+            'renderer'=> 'Kv_Eavmgmt_Block_Adminhtml_Eavmgmt_Csv_Viewoptions',
         ));
+        
         $this->addExportType('*/*/exportCsv', Mage::helper('eavmgmt')->__('CSV'));
 
         return $this;
