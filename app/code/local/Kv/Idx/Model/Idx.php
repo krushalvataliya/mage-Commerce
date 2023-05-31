@@ -106,7 +106,7 @@ class Kv_Idx_Model_Idx extends Mage_Core_Model_Abstract
                 'required_options' => 0,
                 'name' => $item['name'],
                 'price' => $item['price'],
-                'status' => Mage_Catalog_Model_Product_Status::STATUS_ENABLED,
+                'status' => $item['status'],
                 'visibility' => '4',
                 'tax_class_id' => '2',
                 'weight' => '0.5',

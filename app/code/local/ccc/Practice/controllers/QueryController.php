@@ -2,7 +2,7 @@
 /**
  * 
  */
-class Ccc_Prectice_QueryController extends Mage_Core_Controller_Front_Action
+class Ccc_Practice_QueryController extends Mage_Core_Controller_Front_Action
 {
 	
 	public function indexAction()
@@ -11,34 +11,33 @@ class Ccc_Prectice_QueryController extends Mage_Core_Controller_Front_Action
 		echo "string";
 		$resource = Mage::getSingleton('core/resource');
         $write = $resource->getConnection('core_write');
-        $table = $resource->getTableName('product/product');
-        $table2 = $resource->getTableName('idx/idx');
+        $product = $resource->getTableName('product/product');
+        $idx = $resource->getTableName('idx/idx');
 
-        $write->insert(
-            $table, 
-            ['sku' => 'ABCD', 'cost' => 200]
-        );
+        // $write->insert($product,array('sku' => 'SA2', 'price' => 1100));
+
         //read 
         // left join
         echo $select = $write->select()
-            ->from(['tbl' => $table], ['product_id', 'sku'])
-            ->joinLeft(['tbl2' => $table2], 'tbl.product_id = tbl2.product_id', ['sku']);   
-            ->group('cost')
-            ->where('name LIKE ?', "%{$name}%")
-        $results = $write->fetchAll($select);
+            ->from(['t' => $product], ['product_id', 'status'])
+            ->joinLeft(['t2' => $idx], 't.product_id = t2.product_id', ['brand_id','collection_id'])   
+            ->group('t2.cost')
+            ->where('t.cost LIKE ?', "%1100%");
 
+        $results = $write->fetchAll($select);
         $write->update(
-            $table,
+            $product,
             ['sku' => 'ABCSD', 'cost' => 5000],
             ['product_id = ?' => 12]
         );
 
 
+
         // Delete:
 
         $write->delete(
-            $table,
-            ['product_id IN (?)' => [25, 32]]
+            $product,
+            ['product_id IN (?)' => [4, 5]]
         );
 
 
@@ -48,22 +47,25 @@ class Ccc_Prectice_QueryController extends Mage_Core_Controller_Front_Action
             ['sku'=>'sku4', 'name'=>'name2', 'cost'=>555],
             ['sku'=>'sku55', 'name'=>'name4', 'cost'=>666],
         ];
-        $write->insertMultiple($table, $data);
+        $write->insertMultiple($product, $data);
 
 
         // Insert Update On Duplicate:
 
         $data = [];
         $data[] = [
-            'sku' => 'BGSDGH',
-            'cost' => 50000
+            'sku' => 'sku55',
+            'cost' => 1500
         ];
 
         $write->insertOnDuplicate(
-            $table,
+            $product,
             $data, 
             ['cost'] 
         );
+        
+        print_r($results);
+        die;
 
         // insert on duplicate table to table
 
