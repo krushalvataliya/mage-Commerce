@@ -68,6 +68,7 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
 
     public function importAction()
     {
+
         $this->_title($this->__('Import'))
              ->_title($this->__('import Data'));
             $this->loadLayout();
@@ -81,6 +82,13 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
     public function newAction()
     {
         $this->_forward('edit');
+    }
+
+    public function importfAction()
+    {
+        print_r($_POST);
+        print_r($_FILES['variable']);
+
     }
 
     public function saveAction()
@@ -151,26 +159,19 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
             $idxCollectionArray = $idx->getCollection()->getData();
 
             $idxBrandId = array_column($idxCollectionArray,'idx_id');
-            $idxBrandNames = array_column($idxCollectionArray,'collection');
-            $idxBrandNames = array_combine($idxBrandId,$idxBrandNames);
+            $idxCollectionNames = array_column($idxCollectionArray,'collection');
+            $idxCollectionNames = array_combine($idxBrandId,$idxCollectionNames);
 
-            $newBrands = $idx->updateCollectionTable(array_unique($idxBrandNames));
+            $idx->updateCollectionAttribute(array_unique($idxCollectionNames));
 
-            $idxCollection = $idx->getCollection();
+            $write = Mage::getSingleton('core/resource')->getConnection('core_write');
+            $sourceTable = Mage::getSingleton('core/resource')->getTableName('eav_attribute_option_value');
+            $destinationTable = Mage::getSingleton('core/resource')->getTableName('import_product_idx');
 
-            foreach ($idxCollection as $idx) {
-                if(!$idx->collection_id)
-                {
-                    $collection = Mage::getModel('collection/collection');
-                    $collectionCollection = Mage::getModel('collection/collection')->getCollection();
-                    $collectionCollection->getSelect()->where('main_table.name=?',$idx->collection);
-                    $collectionData = $collectionCollection->getData();
-                    $idxModel = Mage::getModel('idx/idx');
-                    $idxModel->idx_id = $idx->idx_id;
-                    $idxModel->collection_id = $collectionData[0]['collection_id'];
-                    $idxModel->save();
-                }
-            }
+            $query = "UPDATE {$destinationTable} AS dest
+                      INNER JOIN {$sourceTable} AS src ON dest.collection = src.value
+                      SET dest.collection_id = src.option_id";
+            $write->query($query);
             Mage::getSingleton('adminhtml/session')->addSuccess('Collection is fine now');
         } catch (Exception $e) {
             Mage::logException($e);
@@ -214,6 +215,8 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
             $this->_redirect('*/*/index');
     }
 
+    
+
     public function productAction()
     {
         try {
@@ -234,25 +237,22 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
             }
 
             $idxSku = [];
-            foreach ($idxCollection as $idx) {
-                $idxSku[] = $idx->getData('sku');
-            }
+            $idxCollection->addFieldToSelect(array('sku', 'name', 'price','cost','quantity','description'));
+            $idxCollectionArray = $idxCollection->getData();
+            $idxSku = array_column($idxCollectionArray, 'sku');
 
-            $newProducts = $idx->updateMainProduct(array_unique($idxSku));
-            print_r($newProducts);
-            echo "1110";
-            foreach ($idxCollection as $idx) {
-                $idxSku = $idx->getData('sku');
-                $productId = array_search($idxSku,$newProducts);
-                $resource = Mage::getSingleton('core/resource');
-                $connection = $resource->getConnection('core_write');
-                $tableName = $resource->getTableName('import_product_idx');
-                $condition = '`index` = '.$idx->index;
-                $query = "UPDATE `{$tableName}` SET `product_id` = {$productId} WHERE {$condition}";
-                $connection->query($query); 
-            }
-            Mage::getSingleton('adminhtml/session')->addSuccess('Product is fine now');
-            $this->_redirect('*/*/');
+            $idxProductData = $idxCollection->getData();
+            $idx->updateProductAttribute($idxProductData);
+
+           $write = Mage::getSingleton('core/resource')->getConnection('core_write');
+            $sourceTable = Mage::getSingleton('core/resource')->getTableName('catalog_product_entity');
+            $destinationTable = Mage::getSingleton('core/resource')->getTableName('import_product_idx');
+
+            $query = "UPDATE {$destinationTable} AS dest
+                      INNER JOIN {$sourceTable} AS src ON dest.sku = src.sku
+                      SET dest.product_id = src.entity_id";
+            $write->query($query);
+
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
         }

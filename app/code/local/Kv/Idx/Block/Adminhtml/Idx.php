@@ -14,12 +14,7 @@ class Kv_idx_Block_Adminhtml_idx extends Mage_Adminhtml_Block_Widget_Grid_Contai
         parent::__construct();
 
         if ($this->_isAllowedAction('save')) {
-            $this->_updateButton('add', 'label', Mage::helper('idx')->__('Add New idx'));
-
-            $this->_addButton('import', array(
-                'label'   => 'Import Product',
-                'onclick' => 'setLocation(\'' . $this->getUrl('*/*/import') . '\')',
-            ));
+            $this->_updateButton('add', 'label', Mage::helper('idx')->__('import New idx'));
 
              $this->_addButton('brand', array(
                 'label'   => 'Brand',
@@ -33,7 +28,6 @@ class Kv_idx_Block_Adminhtml_idx extends Mage_Adminhtml_Block_Widget_Grid_Contai
                 'label'   => 'Product',
                 'onclick' => 'setLocation(\'' . $this->getUrl('*/*/product') . '\')',
             ));
-            // $this->_removeButton('add');
         } else {
             $this->_removeButton('add');
         }
