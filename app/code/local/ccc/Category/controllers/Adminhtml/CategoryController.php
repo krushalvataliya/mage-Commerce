@@ -27,8 +27,8 @@ class Ccc_Category_Adminhtml_CategoryController extends Mage_Adminhtml_Controlle
     public function editAction()
     {
         $this->_title($this->__('category'))
-             ->_title($this->__('categorys'))
-             ->_title($this->__('Edit categorys'));
+             ->_title($this->__('categories'))
+             ->_title($this->__('Edit categories'));
 
         $id = $this->getRequest()->getParam('category_id');
         $model = Mage::getModel('category/category');

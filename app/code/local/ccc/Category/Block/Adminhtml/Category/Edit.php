@@ -70,7 +70,7 @@ class Ccc_Category_Block_Adminhtml_Category_Edit extends Mage_Adminhtml_Block_Wi
     public function getHeaderText()
     {
         if (Mage::registry('category_edit')->getId()) {
-            return Mage::helper('category')->__("Edit category '%s'", $this->escapeHtml(Mage::registry('category_edit')->getTitle()));
+            return Mage::helper('category')->__("Edit category");
         }
         else {
             return Mage::helper('category')->__('New category');

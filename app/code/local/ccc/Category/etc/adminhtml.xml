@@ -33,7 +33,7 @@
                             <config>
                                 <children>
                                     <category translate="title" module="category">
-                                        <title>categorys Section</title>
+                                        <title>categories Section</title>
                                         <sort_order>50</sort_order>
                                     </category>
                                 </children>
