@@ -68,12 +68,13 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
 
     public function importAction()
     {
+
         $this->_title($this->__('Import'))
              ->_title($this->__('import Data'));
             $this->loadLayout();
-        $this->_addContent($this->getLayout()->createBlock('eavmgmt/adminhtml_idx_import'))
+        $this->_addContent($this->getLayout()->createBlock('idx/adminhtml_idx_import'))
                 ->_addLeft($this->getLayout()
-                ->createBlock('eavmgmt/adminhtml_idx_edit_tabs'));
+                ->createBlock('idx/adminhtml_idx_import_tabs'));
 
         $this->renderLayout();
     }
@@ -81,6 +82,13 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
     public function newAction()
     {
         $this->_forward('edit');
+    }
+
+    public function importfAction()
+    {
+        print_r($_POST);
+        print_r($_FILES['variable']);
+
     }
 
     public function saveAction()
@@ -142,14 +150,33 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
         $this->_redirect('*/*/');
     }
 
-    public function productAction()
-    {
-        echo "string";
-    }
-
     public function collectionAction()
     {
-        echo "string";
+         try {
+            
+            $idx = Mage::getModel('idx/idx');       
+            $idxCollection = $idx->getCollection();
+            $idxCollectionArray = $idx->getCollection()->getData();
+
+            $idxBrandId = array_column($idxCollectionArray,'idx_id');
+            $idxCollectionNames = array_column($idxCollectionArray,'collection');
+            $idxCollectionNames = array_combine($idxBrandId,$idxCollectionNames);
+
+            $idx->updateCollectionAttribute(array_unique($idxCollectionNames));
+
+            $write = Mage::getSingleton('core/resource')->getConnection('core_write');
+            $sourceTable = Mage::getSingleton('core/resource')->getTableName('eav_attribute_option_value');
+            $destinationTable = Mage::getSingleton('core/resource')->getTableName('import_product_idx');
+
+            $query = "UPDATE {$destinationTable} AS dest
+                      INNER JOIN {$sourceTable} AS src ON dest.collection = src.value
+                      SET dest.collection_id = src.option_id";
+            $write->query($query);
+            Mage::getSingleton('adminhtml/session')->addSuccess('Collection is fine now');
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+            $this->_redirect('*/*/index');
     }
 
     public function brandAction()
@@ -188,20 +215,49 @@ class Kv_Idx_Adminhtml_IdxController extends Mage_Adminhtml_Controller_Action
             $this->_redirect('*/*/index');
     }
 
-    function getOptionIdByValue($value, $options)
-    {
-        foreach ($options as $option) {
-            if ($option['label'] == $value) {
-                return $option['value'];
-            }
-        }
-        return null;
-    }
+    
 
-    function getMissingBrandOptions($existingOptions, $rows)
+    public function productAction()
     {
-        $existingValues = array_column($rows, 'brand_value');
-        return array_diff($existingOptions, $existingValues);
+        try {
+            $idx = Mage::getModel('idx/idx');
+            $idxCollection = $idx->getCollection();
+            foreach ($idxCollection as $idx) {
+                if (!$idx->checkBrand()) {
+                    Mage::getSingleton('adminhtml/session')->addNotice('Brand is not fine');
+                    $this->_redirect('*/*/');
+                    return;
+                }
+
+                if (!$idx->checkCollection()) {
+                    Mage::getSingleton('adminhtml/session')->addNotice('Collection is not fine');
+                    $this->_redirect('*/*/');
+                    return;
+                }
+            }
+
+            $idxSku = [];
+            $idxCollection->addFieldToSelect(array('sku', 'name', 'price','cost','quantity','description'));
+            $idxCollectionArray = $idxCollection->getData();
+            $idxSku = array_column($idxCollectionArray, 'sku');
+
+            $idxProductData = $idxCollection->getData();
+            $idx->updateProductAttribute($idxProductData);
+
+           $write = Mage::getSingleton('core/resource')->getConnection('core_write');
+            $sourceTable = Mage::getSingleton('core/resource')->getTableName('catalog_product_entity');
+            $destinationTable = Mage::getSingleton('core/resource')->getTableName('import_product_idx');
+
+            $query = "UPDATE {$destinationTable} AS dest
+                      INNER JOIN {$sourceTable} AS src ON dest.sku = src.sku
+                      SET dest.product_id = src.entity_id";
+            $write->query($query);
+
+            Mage::getSingleton('adminhtml/session')->addSuccess("Products imported successfully.");
+        } catch (Exception $e) {
+            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+        }
+        $this->_redirect('*/*/index');
     }
 
 }

@@ -43,6 +43,8 @@ ALTER TABLE `{$installer->getTable('import_product_idx')}`
 --
 ALTER TABLE `{$installer->getTable('import_product_idx')}`
   MODIFY `idx_id` int(11) NOT NULL AUTO_INCREMENT;
+
+  ALTER TABLE `{$installer->getTable('import_product_idx')}` ADD UNIQUE(`sku`);
 COMMIT;
 
 
