@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout>
+
+    <!-- <banner_bannergroup_edit>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="adminhtml/catalog_product_edit" name="product_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="adminhtml/store_switcher" name="store_switcher" before="-"></block>
+            <block type="adminhtml/catalog_product_edit_tabs" name="product_tabs"></block>
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/catalog_product_edit_js" template="catalog/product/js.phtml" name="catalog_product_js"></block>
+            <block type="core/template" name="catalog.wysiwyg.js" template="catalog/wysiwyg/js.phtml"/>
+        </reference>
+    </banner_bannergroup_edit>
+ -->
+   
+</layout>

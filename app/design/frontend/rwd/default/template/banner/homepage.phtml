@@ -1,0 +1,44 @@
+    <?php $group =  Mage::getStoreConfig('banner/banner/bannergroup'); 
+    $collection = Mage::getModel('banner/banner')->getCollection();
+        $collection->addorder('position','ASC');
+        $collection->addFieldToFilter('group_id', $group);
+
+    ?>
+<link rel="stylesheet" href="http://127.0.0.1/2023/magento/magento-mirror/skin/adminhtml/default/default/css/magestore/bannerslider/flexslider.css" type="text/css" media="screen" />
+<script type="text/javascript" src="http://127.0.0.1/2023/magento/magento-mirror/js/magestore/bannerslider/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="http://127.0.0.1/2023/magento/magento-mirror/js/magestore/bannerslider/jquery.flexslider.js"></script>
+<script type="text/javascript" src="http://127.0.0.1/2023/magento/magento-mirror/js/magestore/bannerslider/slider1/jquery.slider.min.js"></script>
+
+
+        <script type="text/javascript">
+            window.resizeTo(900, 500);
+        </script>
+        <link rel="stylesheet" type="text/css" href="http://127.0.0.1/2023/magento/magento-mirror/skin/adminhtml/default/default/css/magestore/bannerslider/slider1.css" /> 
+        <div class="slider" style="margin:auto">
+
+          <?php foreach ($collection as $banner): ?>
+            <div>
+                <img src="<?php echo $path = Mage::getBaseUrl('media').$banner->getImage(); ?>" />
+            </div>
+          <?php endforeach; ?>
+
+           <!--  <div>
+                <img src="http://127.0.0.1/2023/magento/magento-mirror/skin/adminhtml/default/default/css/magestore/bannerslider/image/demo/kitchen_adventurer_lemon.jpg" />
+            </div>
+
+            <div>
+                <img src="http://127.0.0.1/2023/magento/magento-mirror/skin/adminhtml/default/default/css/magestore/bannerslider/image/demo/kitchen_adventurer_donut.jpg" />
+            </div>
+            <div>
+                <img src="http://127.0.0.1/2023/magento/magento-mirror/skin/adminhtml/default/default/css/magestore/bannerslider/image/demo/kitchen_adventurer_caramel.jpg" />
+            </div> -->
+        </div>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".slider").slideshow({
+                    width: 550,
+                    height: 325,
+                    transition: 'explode'
+                });
+            });
+        </script>
