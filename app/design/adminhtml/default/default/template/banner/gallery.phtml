@@ -1,99 +1,154 @@
-11<?php
-/**
- * Template for block Mage_Adminhtml_Block_Catalog_Product_Helper_Form_Gallery_Content
- */
-?>
 <?php
-$_block = $this;
+$bannerCollection = $this->getBannerCollection();
 ?>
-<div id="<?php echo $_block->getHtmlId() ?>" >
-<!-- <ul class="messages">
-    <li class="notice-msg">
-        <ul>
-            <li>
-            <?php //echo Mage::helper('banner')->__('Image type and information need to be specified for each store view.'); ?>
-            </li>
-        </ul>
-    </li>
-</ul> -->
-<div class="grid">
-<table cellspacing="0" class="data border" id="<?php echo $_block->getHtmlId() ?>_grid" width="100%">
-    <col width="1" />
-    <col />
-    <col width="70" />
-    <?php foreach ($_block->getImageTypes() as $typeId=>$type): ?>
-    <col />
-    <?php endforeach; ?>
-    <col width="70" />
-    <col width="70" />
-    <thead>
-        <tr class="headings">
-            <th><?php echo Mage::helper('banner')->__('Image') ?></th>
-            <th><?php echo Mage::helper('banner')->__('Label') ?></th>
-            <th><?php echo Mage::helper('banner')->__('Sort Order') ?></th>
-            <?php foreach ($_block->getImageTypes() as $typeId => $type): ?>
-                <th><?php echo $this->escapeHtml($type['label'], array('br')); ?></th>
-            <?php endforeach; ?>
-            <th><?php echo Mage::helper('banner')->__('Exclude') ?></th>
-            <th class="last"><?php echo Mage::helper('banner')->__('Remove') ?></th>
-        </tr>
-    </thead>
-    <tbody id="<?php echo $_block->getHtmlId() ?>_list">
-        <tr id="<?php echo $_block->getHtmlId() ?>_template" class="template no-display">
-                <td class="cell-image"><div class="place-holder" onmouseover="<?php echo $_block->getJsObjectName(); ?>.loadImage('__file__')"><span><?php echo Mage::helper('banner')->__('Roll Over for preview') ?></span></div><img src="<?php echo $this->getSkinUrl('images/spacer.gif')?>" width="100" style="display:none;" alt="" /></td>
-                <td class="cell-label"><input type="text" <?php if($_block->getElement()->getReadonly()):?> disabled="disabled"<?php endif;?> class="input-text" onkeyup="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" onchange="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" /></td>
-                <td class="cell-position"><input type="text" <?php if($_block->getElement()->getReadonly()):?> disabled="disabled"<?php endif;?> class="input-text validate-number" onkeyup="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" onchange="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" /></td>
-                <?php foreach ($_block->getImageTypes() as $typeId=>$type): ?>
-                <td class="cell-<?php echo $typeId ?> a-center"><input <?php if($_block->getElement()->getAttributeReadonly($typeId)) :?> disabled="disabled" <?php endif;?> type="radio" name="<?php echo $type['field'] ?>" onclick="<?php echo $_block->getJsObjectName(); ?>.setProductImages('__file__')" value="__file__" /></td>
-                <?php endforeach; ?>
-                <td class="cell-disable a-center"><input type="checkbox" <?php if($_block->getElement()->getReadonly()):?> disabled="disabled"<?php endif;?> onclick="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" /></td>
-                <td class="cell-remove a-center last"><input type="checkbox" <?php if($_block->getElement()->getReadonly()):?> disabled="disabled"<?php endif;?> onclick="<?php echo $_block->getJsObjectName(); ?>.updateImage('__file__')" /></td>
-        </tr>
-        <?php if($_block->hasUseDefault()): ?>
-        <tr id="<?php echo $_block->getHtmlId() ?>_default">
-                <td><?php echo Mage::helper('banner')->__('Use Default Value') ?></td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <?php foreach ($_block->getMediaAttributes() as $_attribute): ?>
-                <td class="a-center">
-                <?php if($_block->getElement()->canDisplayUseDefault($_attribute)): ?>
-                <input class="default-checkbox" name="use_default[]" type="checkbox" <?php if($_block->getElement()->getAttributeReadonly($_attribute->getAttributeCode())):?> disabled="disabled" <?php endif;?>  onclick="<?php echo $_block->getJsObjectName(); ?>.updateUseDefault()"
-<?php if($_block->getElement()->usedDefault($_attribute)): ?>checked<?php endif; ?> value="<?php echo $_attribute->getAttributeCode() ?>" />
-                <?php endif ?>
+<style type="text/css">
+#banner_gallery {
+margin-bottom: 20px;
+}
+.data-grid {
+width: 100%;
+border-collapse: collapse;
+}
+.data-grid th,
+.data-grid td {
+padding: 10px;
+border: 1px solid #ccc;
+}
+.data-grid th {
+background-color: #f2f2f2;
+text-align: left;
+}
+.data-grid tbody tr:nth-child(even) {
+background-color: #f9f9f9;
+}
+.data-grid input[type="text"],
+.data-grid select {
+width: 90%;
+padding: 5px;
+border: 1px solid #ccc;
+border-radius: 3px;
+}
+.data-grid input[type="checkbox"] {
+margin: 0;
+}
+.data-grid input[type="checkbox"]:focus {
+outline: none;
+}
+.data-grid input[type="checkbox"] + label {
+display: inline-block;
+vertical-align: middle;
+}
+.data-grid input[type="checkbox"] + label:before {
+content: "";
+display: inline-block;
+width: 16px;
+height: 16px;
+border: 1px solid #ccc;
+background-color: #fff;
+margin-right: 5px;
+vertical-align: middle;
+}
+.data-grid input[type="checkbox"]:checked + label:before {
+background-color: #337ab7;
+border-color: #337ab7;
+}
+.data-grid input[type="checkbox"]:checked + label:after {
+content: "\f00c";
+font-family: FontAwesome;
+display: inline-block;
+color: #fff;
+font-size: 12px;
+width: 16px;
+height: 16px;
+text-align: center;
+line-height: 16px;
+vertical-align: middle;
+}
+.switch-container {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.switch-container input.switch {
+  display: none;
+}
+
+.switch-container label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.switch-container label:before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+}
+
+.switch-container input:checked + label {
+  background-color: #337ab7;
+}
+
+.switch-container input:checked + label:before {
+  transform: translateX(20px);
+}
+.Upload{
+margin-top:20px ;
+}
+
+</style> 
+
+<div id="banner_gallery" class="grid">
+    <table class="data-grid">
+        <thead>
+            <tr class="headings">
+                <th><?php echo $this->__('Image'); ?></th>
+                <th><?php echo $this->__('Position'); ?></th>
+                <th><?php echo $this->__('Status'); ?></th>
+                <th><?php echo $this->__('Remove'); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($bannerCollection as $banner): ?>
+            <tr>
+                <td><img src="<?php echo $path = Mage::getBaseUrl('media').$banner->getImage(); ?>" height="100px" width="100px"></td>
+                <td><input type="text" name="position[<?php echo $banner->getId(); ?>]" value="<?php echo $this->escapeHtml($banner->getPosition()); ?>" /></td>
+                <!-- <td>
+                    <select name="status[<?php echo $banner->getId(); ?>]">
+                        <option value="1" <?php if ($banner->getStatus() == 1) echo 'selected="selected"'; ?>><?php echo $this->__('Enabled'); ?></option>
+                        <option value="0" <?php if ($banner->getStatus() == 0) echo 'selected="selected"'; ?>><?php echo $this->__('Disabled'); ?></option>
+                    </select>
+                </td> -->
+                <!-- <td>
+                    <input type="range" name="status[<?php echo $banner->getId(); ?>]" min="0" max="1" step="1" value="<?php echo $banner->getStatus(); ?>" />
+                </td> -->
+                <td>
+                    <div class="switch-container">
+                        <input type="checkbox" value="1" name="status[<?php echo $banner->getId(); ?>]" id="status-<?php echo $banner->getId(); ?>" class="switch" <?php if ($banner->getStatus() == 1) echo 'checked="checked"'; ?> />
+                        <label for="status-<?php echo $banner->getId(); ?>"></label>
+                    </div>
                 </td>
-                <?php endforeach; ?>
-                <td>&nbsp;</td>
-                <td class="last">&nbsp;</td>
-        </tr>
-    <?php endif ?>
-        <tr id="<?php echo $_block->getHtmlId() ?>-image-0">
-                <td class="cell-image"><?php echo Mage::helper('banner')->__('No image') ?></td>
-                <td class="cell-label"><input type="hidden" />&nbsp;</td>
-                <td class="cell-position"><input type="hidden" />&nbsp;</td>
-                <?php foreach ($_block->getImageTypes() as $typeId=>$type): ?>
-                <td class="cell-<?php echo $typeId ?> a-center"><input type="radio" <?php if($_block->getElement()->getAttributeReadonly($typeId)) :?> disabled="disabled" <?php endif;?> name="<?php echo $type['field'] ?>" onclick="<?php echo $_block->getJsObjectName(); ?>.setProductImages('no_selection')" value="no_selection" /></td>
-                <?php endforeach; ?>
-                <td class="cell-disable"><input type="hidden" />&nbsp;</td>
-                <td class="cell-remove last"><input type="hidden" />&nbsp;</td>
-        </tr>
-    </tbody>
-<?php if (!$_block->getElement()->getReadonly()):?>
-    <tfoot>
-        <tr>
-            <td colspan="100" class="last" style="padding:8px">
-                <?php echo Mage::helper('banner')->__('Maximum width and height dimension for upload image is %s.', Mage::getStoreConfig(Mage_Catalog_Helper_Image::XML_NODE_PRODUCT_MAX_DIMENSION)); ?>
-                <?php echo $_block->getUploaderHtml() ?>
-            </td>
-        </tr>
-    </tfoot>
-<?php endif;?>
-</table>
-</div>
-</div>
-<input type="hidden" id="<?php echo $_block->getHtmlId() ?>_save" name="<?php echo $_block->getElement()->getName() ?>[images]" value="<?php echo $_block->escapeHtml($_block->getImagesJson()) ?>" />
-<input type="hidden" id="<?php echo $_block->getHtmlId() ?>_save_image" name="<?php echo $_block->getElement()->getName() ?>[values]" value="<?php echo $_block->escapeHtml($_block->getImagesValuesJson()) ?>" />
-<script type="text/javascript">
-//<![CDATA[
-var <?php echo $_block->getJsObjectName(); ?> = new Product.Gallery('<?php echo $_block->getHtmlId() ?>', <?php echo $_block->getImageTypesJson() ?>);
-//]]>
-</script>
+                <td><input type="checkbox" name="remove[<?php echo $banner->getId(); ?>]" /></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <form id="file-upload-form" method="post" action="<?php echo $this->getUrl('*/*/upload',['group_id'=>$this->getRequest()->getParam('banner_id')]) ?>" enctype="multipart/form-data">
+        <?php echo $this->getBlockHtml('formkey'); ?>
+    <input type="file" name="file[]" id="file-input" multiple/>
+    <button type="submit" id="upload-button">Upload</button>
+</form>

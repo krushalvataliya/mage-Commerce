@@ -124,8 +124,19 @@ Product.Gallery.prototype = {
         this.getElement('save').value = Object.toJSON(this.images);
         $H(this.imageTypes).each(
                 function(pair) {
-                    this.getFileElement('no_selection',
-                            'cell-' + pair.key + ' input').checked = true;
+                    // this.getFileElement('no_selection',
+                    //         'cell-' + pair.key + ' input').checked = true;
+
+                    // <<<<<<<<<<<<<<<<<<<<<<<
+
+                    var data = this.getFileElement('no_selection',
+                            'cell-' + pair.key + ' input');
+                    if(data != undefined)
+                    {
+                        data.checked = true;
+                    }
+
+                    //>>>>>>>>>>>>>>>>>>>>>>>>>>
                 }.bind(this));
         this.images.each( function(row) {
             if (!$(this.prepareId(row.file))) {

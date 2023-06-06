@@ -69,6 +69,9 @@
             <banner>
                 <class>Kv_Banner_Block</class>
             </banner>
+            <home>
+                <class>Kv_Banner_Block_Home</class>
+            </home>
         </blocks>
         <helpers>
            <banner>
@@ -78,6 +81,18 @@
                   <class>Kv_Banner_Helper</class>
             </group>
         </helpers>
+
+         <!-- <events>
+            <controller_action_predispatch_cms_index_index>
+                <observers>
+                    <custom_homepage_update_content>
+                        <class>Kv_Banner_Model_Observer</class>
+                        <method>updateContent</method>
+                    </custom_homepage_update_content>
+                </observers>
+            </controller_action_predispatch_cms_index_index>
+        </events> -->
+
     </global>
     <admin>
         <routers>

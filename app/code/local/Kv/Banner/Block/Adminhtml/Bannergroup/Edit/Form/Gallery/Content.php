@@ -58,20 +58,44 @@ class Kv_Banner_Block_Adminhtml_Bannergroup_Edit_Form_Gallery_Content extends Ma
         );
     }
 
+    // public function getImagesJson()
+    // {
+    //     if(is_array($this->getElement()->getValue())) {
+    //         $value = $this->getElement()->getValue();
+    //         if(count($value['images'])>0) {
+    //             foreach ($value['images'] as &$image) {
+    //                 // $image['url'] = Mage::getSingleton('catalog/product_media_config')
+    //                 //                     ->getMediaUrl($image['file']);
+    //                  $image['url'] = Mage::getSingleton('banner/group')
+    //                                     ->getMediaUrl($image['file']);
+    //             }
+    //             return Mage::helper('core')->jsonEncode($value['images']);
+    //         }
+    //     }
+    //     return '[]';
+    // }
+
     public function getImagesJson()
     {
-        if(is_array($this->getElement()->getValue())) {
-            $value = $this->getElement()->getValue();
-            if(count($value['images'])>0) {
-                foreach ($value['images'] as &$image) {
-                    $image['url'] = Mage::getSingleton('catalog/product_media_config')
-                                        ->getMediaUrl($image['file']);
-                }
-                return Mage::helper('core')->jsonEncode($value['images']);
-            }
+        // $product = Mage::registry('current_product');
+        $banners = Mage::getModel('banner/banner')->getCollection();
+        // $images = $product->getMediaGalleryImages();
+
+        $galleryImages = array();
+        foreach ($banners as $banner) {
+            $galleryImages[] = array(
+                'banner_id'  => $banner->getId(),
+                'position'  => $banner->getPosition(),
+                'label'  => 'label',
+                'disabled'  => (int)$banner->getDisabled(),
+                'url'       => $banner->getImage()
+            );
         }
-        return '[]';
+        Mage::log($galleryImages,null,'gallary.log');
+        return Mage::helper('core')->jsonEncode($galleryImages);
+
     }
+
 
     public function getImagesValuesJson()
     {
@@ -84,6 +108,7 @@ class Kv_Banner_Block_Adminhtml_Bannergroup_Edit_Form_Gallery_Content extends Ma
         }
         return Mage::helper('core')->jsonEncode($values);
     }
+
 
     /**
      * Enter description here...
@@ -103,6 +128,21 @@ class Kv_Banner_Block_Adminhtml_Bannergroup_Edit_Form_Gallery_Content extends Ma
         }
         return $imageTypes;
     }
+
+    // public function getImageTypes()
+    // {
+    //     // $imageTypes = array();
+    //     $imageTypes = Mage::getModel('banner/banner')->getCollection()->getData();
+    //     foreach ($this->getMediaAttributes() as $attribute) {
+    //         /* @var $attribute Mage_Eav_Model_Entity_Attribute */
+    //         $imageTypes[$attribute->getAttributeCode()] = array(
+    //             'label' => $attribute->getFrontend()->getLabel() . ' '
+    //                      . Mage::helper('banner')->__($this->getElement()->getScopeLabel($attribute)),
+    //             'field' => $this->getElement()->getAttributeFieldName($attribute)
+    //         );
+    //     }
+    //     return $imageTypes;
+    // }
 
     public function hasUseDefault()
     {

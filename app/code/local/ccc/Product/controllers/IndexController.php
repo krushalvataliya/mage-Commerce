@@ -1,10 +1,11 @@
 <?php
 
-require_once 'C:\xampp\htdocs\2023\magento\magento-mirror\app\code\local\Ccc\Category\controllers\IndexController.php';
-class Ccc_Product_IndexController extends Ccc_Category_IndexController
+class Ccc_Product_IndexController extends Mage_Core_Controller_Front_Action
 {
-    // public function indexAction()
-    // {
-    //     echo "string in Ccc_Product_IndexController";
-    // }
+    public function indexAction()
+    {
+        $this->loadLayout();
+        $this->renderLayout();
+        echo "string in Ccc_Product_IndexController";
+    }
 }
