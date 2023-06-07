@@ -9,5 +9,4 @@ Kv_Banner_Block_Home extends Mage_Core_Block_Template
         $this->setTemplate('banner/homepage.phtml');
     }
 
-
 }

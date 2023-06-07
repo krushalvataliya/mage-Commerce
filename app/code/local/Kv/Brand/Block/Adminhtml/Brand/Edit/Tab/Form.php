@@ -33,6 +33,23 @@ class Kv_Brand_Block_Adminhtml_brand_Edit_Tab_Form extends Mage_Adminhtml_Block_
             'name' => 'url_key',
         ));
 
+        $fieldset->addField('status', 'select', array(
+            'label' => Mage::helper('brand')->__('status'),
+            'required' => true,
+            'name' => 'status',
+            'options'=>[
+                1=>"Active",
+                2=>"Inctive"
+            ]
+        ));
+
+        $fieldset->addField('sort_order', 'text', array(
+            'label' => Mage::helper('brand')->__('Sort Order'),
+            'required' => true,
+            'name' => 'sort_order',
+            'class'    => 'validate-number',
+        ));
+
         $fieldset->addField('description', 'text', array(
             'label' => Mage::helper('brand')->__('Description'),
             'required' => true,

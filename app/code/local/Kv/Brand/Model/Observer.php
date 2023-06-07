@@ -1,6 +1,4 @@
 <?php
-
-
 class Kv_Brand_Model_Observer
 {
     public function generateBrandRewriteUrl($observer)
