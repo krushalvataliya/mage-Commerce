@@ -155,12 +155,13 @@ class Kv_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controller_Actio
 
     public function deleteAction()
     {
-        if( $this->getRequest()->getParam('brand_id') > 0 ) {
+        if($id =  $this->getRequest()->getParam('brand_id') > 0 ) {
             try {
                 $model = Mage::getModel('brand/brand');
                  
                 $model->setId($this->getRequest()->getParam('brand_id'))
                 ->delete();
+                $rewrite = Mage::getModel('core/url_rewrite')->load('brand/' . $id,'id_path')->delete();
                  
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('brand was successfully deleted'));
                 $this->_redirect('*/*/');

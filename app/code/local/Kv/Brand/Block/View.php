@@ -28,31 +28,9 @@ class Kv_Brand_Block_View extends Mage_Core_Block_Template
 
     public function getProductUrl($product)
     {
-
-        // echo $id = $product->getUrlKey();
-
-        // $rewrite = Mage::getModel('core/url_rewrite')->getCollection();
-
-        // $rewrite->addFieldToFilter('product_id',$id);
-        // print_r($rewrite);die;
-        // $requestPath = $rewrite->getRequestPath();
-
-        // return $requestPath;
-
-
-        $productId = $product->getId(); // Replace with the actual product ID
-
-        $product = Mage::getModel('catalog/product')->load($productId);
-
-        $urlKey = $product->getUrlKey();
-
-        $rewrite = Mage::getModel('core/url_rewrite');
-
-        $rewrite->setStoreId(Mage::app()->getStore()->getId())
-                ->loadByIdPath('product/' . $productId);
-
+        $productId = $product->getId(); 
+        $rewrite = Mage::getModel('core/url_rewrite')->load($productId,'product_id');
         $requestPath = $rewrite->getRequestPath();
-
         return $requestPath;
     }
 
