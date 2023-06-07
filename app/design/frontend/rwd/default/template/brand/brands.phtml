@@ -18,6 +18,7 @@ $brands = Mage::getModel('brand/brand')->getCollection()->addOrder('sort_order',
   <img class="card-img-top card-image" src="<?php echo Mage::getBaseUrl('media').$value->image ?>" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title"><?php echo $value->name ?></h5>
+    <p class=""><?php echo $value->description ?></p>
     <a href="<?php echo $this->getUrl('brand/'.$value->url_key); ?>" class="btn btn-primary">Explore</a>
   </div>
 </div>

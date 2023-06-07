@@ -5,8 +5,7 @@ class Kv_Brand_Model_Observer
     {
         $brand = $observer->getBrand();
         $urlKey = $brand->getUrlKey();
-        echo $brand->getId();
-        $rewrite = Mage::getModel('core/url_rewrite');
+        $rewrite = Mage::getModel('core/url_rewrite')->load('brand/' . $brand->getId(),'id_path');
         $rewrite->setStoreId($brand->getStoreId())
                 ->setIdPath('brand/' . $brand->getId())
                 ->setRequestPath('brand/' . $urlKey)

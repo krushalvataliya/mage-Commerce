@@ -87,10 +87,9 @@ class Kv_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controller_Actio
 
             $model->setData($data)->setId($this->getRequest()->getParam('id'));
             $savedData = $model->save();
-            if($id == 1)
-            {
-                Mage::dispatchEvent('brand_save_after', array('brand' => $model));
-            }
+
+            Mage::dispatchEvent('brand_save_after', array('brand' => $model, 'id'=>$id));
+                
             if (isset($_FILES['image']['name']) && ($_FILES['image']['name'] != '')) 
             {
                 try {

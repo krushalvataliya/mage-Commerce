@@ -29,7 +29,8 @@ $brand = Mage::getModel('brand/brand')->load($brandId);
   <div class="card-body">
     <h5 class="card-title"><?php echo $value->name ?></h5>
     <p class=""><?php echo $value->getShortDescription() ?></p>
-    <a href="<?php echo $this->getUrl('brand/'.$value->url_key); ?>" class="btn btn-primary">Explore</a>
+    <p class=""><b>$ <?php echo $value->getPrice() ?></b></p>
+    <a href="<?php echo $this->getUrl($this->getProductUrl($value)); ?>" class="btn btn-primary">View</a>
   </div>
 </div>
   <?php endforeach ?>

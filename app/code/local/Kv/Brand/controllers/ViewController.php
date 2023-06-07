@@ -9,7 +9,7 @@ class Kv_Brand_ViewController extends Mage_Core_Controller_Front_Action
     {
         $this->loadLayout();
         $this->getLayout()->getBlock('head')->setTitle($this->__('Test'));
-        $block = $this->getLayout()->createBlock('Kv_Brand_Block_View','test');
+        // $block = $this->getLayout()->createBlock('Kv_Brand_Block_View','test');
         $this->renderLayout();
     }
 

@@ -4,7 +4,7 @@ class Ccc_Krushal_Block_Adminhtml_Krushal_Grid_Renderer_Gender extends Mage_Admi
 	public function render($rows)
 	{
 		echo "<pre>";
-		pri $rows;
+		// pri $rows;
 	}
 
 }
