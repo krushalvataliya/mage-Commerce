@@ -34,7 +34,6 @@ class Kv_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controller_Actio
         $model = Mage::getModel('brand/brand');
         if ($id) {
             $model->load($id);
-            // print_r($model);die;
             if (! $model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError(
                     Mage::helper('brand')->__('This page no longer exists.'));
@@ -42,7 +41,6 @@ class Kv_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controller_Actio
                 return;
             }
         }
-        // echo "<pre>";print_r($model->load($id));die;
         $this->_title($model->getId() ? $model->getTitle() : $this->__('New brand'));
 
         $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
@@ -78,20 +76,21 @@ class Kv_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controller_Actio
         try {
             $model = Mage::getModel('brand/brand');
             $data = $this->getRequest()->getPost();
-            if (!$this->getRequest()->getParam('id'))
+            if ($id =!$this->getRequest()->getParam('id'))
             {
                 $model->setData($data)->setId($this->getRequest()->getParam('brand_id'));
+                $model->created_at = now();
+            }
+            else{
+                $model->updated_at = now();
             }
 
             $model->setData($data)->setId($this->getRequest()->getParam('id'));
-            if ($model->getCreatedTime == NULL || $model->getUpdateTime() == NULL)
+            $savedData = $model->save();
+            if($id == 1)
             {
-                $model->created_at = date('Y-m-d : H:i:s');
-            } 
-            else {
-                $model->updated_at = now();
+                Mage::dispatchEvent('brand_save_after', array('brand' => $model));
             }
-            $model->save();
             if (isset($_FILES['image']['name']) && ($_FILES['image']['name'] != '')) 
             {
                 try {
@@ -102,9 +101,29 @@ class Kv_Brand_Adminhtml_BrandController extends Mage_Adminhtml_Controller_Actio
                     
                     $path = Mage::getBaseDir('media') . DS . 'brand' . DS;
                     $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-                    if ($uploader->save($path, $model->getId().'.'.$extension)) {
-                        $model->image = $model->getId().".".$extension;
-                        $model->save();
+                    if ($uploader->save($path, $savedData->getId().'.'.$extension)) {
+                        $savedData->image = 'brand'.DS.$savedData->getId().".".$extension;
+                        $savedData->save();
+                        Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('brand')->__('Image was successfully uploaded'));
+                    }
+                } catch (Exception $e) {
+                    Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                }
+            }
+
+            if (isset($_FILES['banner']['name']) && ($_FILES['banner']['name'] != '')) 
+            {
+                try {
+                    $uploader = new Varien_File_Uploader('banner');
+                    $uploader->setAllowedExtensions(array('jpg', 'jpeg', 'gif', 'png', 'webp'));
+                    $uploader->setAllowRenameFiles(false);
+                    $uploader->setFilesDispersion(false);
+                    
+                    $path = Mage::getBaseDir('media') . DS . 'brand' . DS.'banner';
+                    $extension = pathinfo($_FILES['banner']['name'], PATHINFO_EXTENSION);
+                    if ($uploader->save($path, $savedData->getId().'.'.$extension)) {
+                        $savedData->banner_image = 'brand' . DS.'banner'.DS.$savedData->getId().".".$extension;
+                        if($savedData->save())
                         Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('brand')->__('Image was successfully uploaded'));
                     }
                     

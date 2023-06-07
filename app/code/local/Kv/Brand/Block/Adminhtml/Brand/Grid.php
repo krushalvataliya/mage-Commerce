@@ -69,6 +69,13 @@ class Kv_Brand_Block_Adminhtml_brand_Grid extends Mage_Adminhtml_Block_Widget_Gr
             'renderer'=> 'Kv_Brand_Block_Adminhtml_brand_Grid_Renderer_Image',
         ));
 
+        $this->addColumn('brand_banner', array(
+            'header'    => Mage::helper('brand')->__('Brand Banner'),
+            'align'     => 'left',
+            'index'     => 'brand_banner',
+            'renderer'=> 'Kv_Brand_Block_Adminhtml_brand_Grid_Renderer_Banner',
+        ));
+
          $this->addColumn('description', array(
             'header'    => Mage::helper('brand')->__('Description'),
             'align'     => 'left',

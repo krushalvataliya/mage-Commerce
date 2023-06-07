@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+<brand_view_index>
+    <remove name="right" />
+    <reference name="content">
+        <block type="banner/home" name="global_notices" as="global_notices" template="brand/view.phtml" />
+    </reference>
+</brand_view_index>
+
+<!-- <cms_index_index translate="label">
+        <label>CMS Home Page</label>
+        <reference name="content">
+            <block type="core/template" name="default_home_page" template="banner/homepage.phtml"/>
+        </reference>
+</cms_index_index> -->
+</layout>
