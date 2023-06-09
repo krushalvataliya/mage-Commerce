@@ -4,7 +4,6 @@ class Ccc_Practice_Adminhtml_Catalog_ProductController extends Mage_Adminhtml_Ca
 {
    public function indexAction()
     {
-        echo "this is from practice";
         $this->_title($this->__('Catalog'))
              ->_title($this->__('Manage Products'));
 

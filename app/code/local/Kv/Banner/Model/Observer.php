@@ -18,9 +18,9 @@ class Kv_Banner_Model_Observer
         // $newContent = file_get_contents($file);
         $block = Mage::getSingleton('Kv_Banner_Block_Home');
         // var_dump($block);
-        $homepage->setContent($block->toHtml());
+        // $homepage->setContent($block->toHtml());
 
         // Save the changes
-        $homepage->save();
+        // $homepage->save();
     }
 }

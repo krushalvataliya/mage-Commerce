@@ -1,22 +1,147 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
 
-<brand_view_index>
+<!-- <brand_view_index>
     <remove name="right" />
-    <reference name="content">
-        <block type="brand/view" name="global_notices" as="global_notices" template="brand/view.phtml" />
-    </reference>
-</brand_view_index>
+    <remove name="header" />
+
+    <block type="brand/view" name="cms_footer_links" before="footer_links">
+        <block type="brand/view" name="cms_footer_links" before="footer_links">
+            <reference name="content">
+                <block type="brand/view" name="global_notices" as="global_notices" template="brand/banner.phtml" />
+            </reference> 
+            <reference name="root">
+                <action method="setTemplate">
+                    <template>page/1column.phtml</template>
+                </action>
+            </reference>
+        </block>
+            <block type="brand/view" name="global_notices" as="global_notices" template="brand/view.phtml" />
+
+    </block>
+</brand_view_index> -->
+
+
+<brand_view_index>
+            <remove name="footer"/>
+            <remove name="right"/>
+        <reference name="content">
+            <block type="brand/view" name="brand_banner" template="brand/view.phtml" />
+        </reference>
+        <reference name="left">
+            <block type="brand/view" name="brand_left" template="brand/menu.phtml" />
+        </reference>
+    </brand_view_index>
+
+
+<!-- <brand_view_index>
+        <remove name="right"></remove>
+        <remove name="header"></remove>
+        <remove name="footer"></remove>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="brand/brand" name="brand.brand-page" template="brand/view.phtml" />
+        </reference>
+        <reference name="left">
+            <block type="brand/brand" name="catalog.leftnav" template="brand/menu.phtml" />
+        </reference>
+    </brand_view_index> -->
+
+   <!--  <brand_view_index>
+
+     <reference name="root">
+            <action method="setTemplate">
+                <template>page/2columns-left.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="banner_block" template="brand/banner.phtml" />
+        </reference>
+        <reference name="left">
+            <block type="core/template" name="banner_block" template="brand/view.phtml" />
+        </reference>
+    </brand_view_index> -->
+
+
+
+<!-- <brand_view_index>
+     <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="block1" template="brand/banner.phtml" />
+        </reference>
+        <reference name="root">
+            <block type="core/template" name="block2" template="brand/view.phtml" />
+        </reference>
+</brand_view_index> -->
+<!-- <brand_view_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="block1" template="brand/banner.phtml" />
+        </reference>
+        <reference name="block1">
+            <block type="core/template" name="block2" template="brand/menu.phtml" />
+            <block type="core/template" name="block3" template="brand/view.phtml" />
+        </reference>
+        <reference name="left">
+            <block type="core/template" name="left_block" template="your_template4.phtml" />
+        </reference>
+    </brand_view_index> -->
+<!-- 
+                <action method="setTemplate">
+                        <template>page/2column-left.phtml</template>
+                </action>
+
+        </reference>
+
+                <action method="setBlockId"><block_id>footer_links_company</block_id></action>
+                <reference name="root">
+                <action method="setTemplate">
+                    <template>page/1column.phtml</template>
+                </action>
+            <reference name="left">
+            <block type="core/template" name="left_section" template="brand/menu.phtml" />
+        </reference>
+            </reference>
+        
+        <reference name="content">
+            <action method="setTemplate">
+                    <template>page/2column-left.phtml</template>
+                </action>
+            <block type="brand/view" name="global_notices" as="global_notices" template="brand/view.phtml" />
+        </reference>
+    </block>
+</brand_view_index> -->
 
 <!-- <brand_index_index>
     <remove name="right" />
     <reference name="content">
         <block type="banner/home" name="global_notices" as="global_notices" template="brand/view.phtml" />
     </reference>
-</brand_index_index> -->
+</brand_index_index> 
+
+<reference name="left">
+        <block type="core/template" name="left_section" template="brand/menu.phtml" />
+    </reference>
+
+
+
+-->
 
 <cms_index_index translate="label">
         <label>CMS Home Page</label>
+         <reference name="left">
+        <block type="core/template" name="left_section" template="brand/brands.phtml" />
+        </reference>
         <reference name="content">
             <block type="core/template" name="default_home_page" template="brand/brands.phtml"/>
         </reference>

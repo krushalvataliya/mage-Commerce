@@ -1,0 +1,35 @@
+banner
+<?php
+// Get all root categories
+$rootCategories = Mage::getModel('catalog/category')->getCollection()
+    ->addFieldToFilter('level', '1');
+  // Display the menu and submenus for each root category
+foreach ($rootCategories as $rootCategory) {
+    echo '<h2>' . $rootCategory->getName() . '</h2>';
+    echo '<ul>';
+
+    // Get the child categories of the root category
+    $subCategories = $rootCategory->getChildrenCategories();
+
+    foreach ($subCategories as $category) {
+        echo '<li>';
+        echo '<a href="' . $category->getUrl() . '">' . $category->getName() . '</a>';
+
+        // Check if the category has subcategories
+        if ($category->hasChildren()) {
+            echo '<ul>';
+            $childCategories = $category->getChildrenCategories();
+            foreach ($childCategories as $childCategory) {
+                echo '<li>';
+                echo '<a href="' . $childCategory->getUrl() . '">' . $childCategory->getName() . '</a>';
+                echo '</li>';
+            }
+            echo '</ul>';
+        }
+
+        echo '</li>';
+    }
+    echo '</ul>';
+}
+die;
+?>

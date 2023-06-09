@@ -11,32 +11,62 @@ $brands = Mage::getModel('brand/brand')->getCollection()->addOrder('sort_order',
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<div style="display:flex;">
+
+  <div class="title"><span class="brand-title1">Featured </span><span class="brand-title2"> Brands</span></div>
+
+<div class="Brands">
   <?php foreach ($brands as $key => $value): ?>
   	
-  <div class="card m-1" style="width: 18rem; ">
+  <div class="card m-1 brand" style="width: 18rem; ">
+    <a href="<?php echo $this->getUrl('brand/'.$value->url_key); ?>">
   <img class="card-img-top card-image" src="<?php echo Mage::getBaseUrl('media').$value->image ?>" alt="Card image cap">
+</a>
   <div class="card-body">
-    <h5 class="card-title"><?php echo $value->name ?></h5>
-    <p class=""><?php echo $value->description ?></p>
-    <a href="<?php echo $this->getUrl('brand/'.$value->url_key); ?>" class="btn btn-primary">Explore</a>
+    <h5 class="card-title card-text"><?php echo $value->name ?></h5>
   </div>
 </div>
   <?php endforeach ?>
 </div>
 
 <style type="text/css">
-
+.brand{
+ float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+.brands:after
+{
+  content: "";
+  display: table;
+  clear: both;
+  display: table;
+  clear: both;
+}
 .card-image{
 height: 284px;
 }
-</style>
-
-<script type="text/javascript">
-function brandclick()
+.card-text
 {
-	window.location.assign('<?php echo $this->getUrl('brand/'.$value->url_key); ?>')
+  text-align: center;
 }
-</script>
+.title
+{
+  text-align: center;
+}
+.brand-title1
+{
+  color: black;
+  font-weight: 500;
+  font-size: 25px;
+}
+
+.brand-title2
+{
+  font-weight: 500;
+  color: #0e259a;
+  font-size: 25px;
+}
+
+</style>
 
 

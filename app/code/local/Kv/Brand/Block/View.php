@@ -11,19 +11,23 @@ class Kv_Brand_Block_View extends Mage_Core_Block_Template
 
     public function getProductsByBrand()
     {
+        $brandValue = $this->getRequest()->getParam('brand_id'); 
+        $brandValue = $this->getRequest()->getParam('brand_id');
+        $category = $this->getRequest()->getParam('cat');
 
-            $brandAttributeCode = 'brand'; // Replace with your brand attribute code
-            $brandAttribute = Mage::getSingleton('eav/config')->getAttribute('catalog_product', $brandAttributeCode);
+        $brandAttributeCode = 'brand'; 
+        $brandAttribute = Mage::getSingleton('eav/config')->getAttribute('catalog_product', $brandAttributeCode);
 
-            $brandValue = $this->getRequest()->getParam('brand_id'); // Replace with your desired brand attribute value (integer)
-            $productCollection = Mage::getModel('catalog/product')->getCollection()
-                ->addAttributeToFilter($brandAttributeCode, $brandValue)
-                ->getAllIds();
+        
+        $productCollection = Mage::getModel('catalog/product')->getCollection()
+            ->addAttributeToFilter($brandAttributeCode, $brandValue)
+            ->getAllIds();
 
-            $products = Mage::getModel('catalog/product')->getCollection()
-                ->addIdFilter($productCollection)
-                ->addAttributeToSelect('*');
-            return $products;
+        $products = Mage::getModel('catalog/product')->getCollection()
+            ->addIdFilter($productCollection)
+            ->addCategoryFilter(Mage::getModel('catalog/category')->load($category))
+            ->addAttributeToSelect('*');
+        return $products;
     }
 
     public function getProductUrl($product)
