@@ -7,6 +7,9 @@ class Kv_Brand_IndexController extends Mage_Core_Controller_Front_Action
      */
     public function indexAction()
     {
-        echo "string in Kv_Brand_IndexController";
+        echo "string";
+        $this->loadLayout();
+        $this->getLayout()->getBlock('head')->setTitle($this->__('Brands'));
+        $this->renderLayout();
     }
 }

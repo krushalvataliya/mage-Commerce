@@ -17,11 +17,40 @@ class Kv_Brand_Block_Adminhtml_brand_Edit_Tab_Form extends Mage_Adminhtml_Block_
 
          $fieldset->addField('image', 'file', array(
             'label' => Mage::helper('brand')->__('Image'),
-            'required' => true,
+            'required' => false,
             'name' => 'image',
         ));
 
-          $fieldset->addField('description', 'text', array(
+        $fieldset->addField('banner', 'file', array(
+            'label' => Mage::helper('brand')->__('Banner'),
+            'required' => false,
+            'name' => 'banner',
+        ));
+
+        $fieldset->addField('url_key', 'text', array(
+            'label' => Mage::helper('brand')->__('Url Key'),
+            'required' => true,
+            'name' => 'url_key',
+        ));
+
+        $fieldset->addField('status', 'select', array(
+            'label' => Mage::helper('brand')->__('status'),
+            'required' => true,
+            'name' => 'status',
+            'options'=>[
+                1=>"Active",
+                2=>"Inctive"
+            ]
+        ));
+
+        $fieldset->addField('sort_order', 'text', array(
+            'label' => Mage::helper('brand')->__('Sort Order'),
+            'required' => true,
+            'name' => 'sort_order',
+            'class'    => 'validate-number',
+        ));
+
+        $fieldset->addField('description', 'text', array(
             'label' => Mage::helper('brand')->__('Description'),
             'required' => true,
             'name' => 'description',

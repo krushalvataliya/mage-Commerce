@@ -35,4 +35,4 @@ extension=mcrypt.so
 
 ; Disable PHP errors, notices and warnings output in production mode to prevent exposing sensitive information.
 
-display_errors = Off
+;display_errors = Off
