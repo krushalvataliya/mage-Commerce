@@ -1,0 +1,17 @@
+<div class="container Brands">
+
+  <div class="title"><span class="brand-title1">Shop by</span><span class="brand-title2"> Department</span></div>
+  <div class="Brands">
+
+  <?php foreach ($this->getFeaturedCatagories() as $key => $value): ?>
+  <div class="card m-1 brand" style="width: 18rem; ">
+    <a href="<?php echo $value->getUrl(); ?>">
+  <img class="card-img-top card-image" src="<?php echo Mage::getBaseUrl('media') . 'catalog/category/' . $value->getImage() ?>" alt="Card image cap">
+</a>
+  <div class="card-body">
+    <h5 class="card-title card-text"><?php echo $value->name ?></h5>
+  </div>
+</div>
+  <?php endforeach ?>
+
+</div>	

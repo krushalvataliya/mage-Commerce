@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
 
-<brand_view_index>
+<!-- <brand_view_index>
             <remove name="footer"/>
             <remove name="right"/>
         <reference name="content">
@@ -10,7 +10,7 @@
         <reference name="left">
             <block type="brand/view" name="brand_left" template="brand/menu.phtml" />
         </reference>
-    </brand_view_index>
+    </brand_view_index> -->
 
 <cms_index_index translate="label">
         <label>CMS Home Page</label>

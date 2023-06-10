@@ -1,0 +1,23 @@
+<?php
+$categories = Mage::getModel('catalog/category')
+    ->getCollection()
+    ->addAttributeToSelect('*')
+    ->addIsActiveFilter()
+    ->addAttributeToFilter('level', array('gt' => 1))
+    ->addAttributeToFilter('is_active', 1)
+    ->addAttributeToSort('position', 'asc');
+
+foreach ($categories as $category) {
+    $categoryItemsCount = $category->getProductCount();
+    if ($categoryItemsCount > 1) {
+        $categoryUrl = $category->getUrl();
+        $categoryName = $category->getName();
+        $categoryImageUrl = Mage::getBaseUrl('media') . 'catalog/category/' . $category->getImage();
+
+        // Display category image, name, and link
+        echo '<a href="' . $categoryUrl . '">';
+        echo '<img src="' . $categoryImageUrl . '" alt="' . $categoryName . '">';
+        echo '<h2>' . $categoryName . '</h2>';
+        echo '</a>';
+    }
+}
