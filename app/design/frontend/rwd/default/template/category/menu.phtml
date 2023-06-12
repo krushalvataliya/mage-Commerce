@@ -2,7 +2,7 @@
 $rootCategoryId = Mage::app()->getStore()->getRootCategoryId();
 $rootCategory = Mage::getModel('catalog/category')->load($rootCategoryId);
 $subCategories = $rootCategory->getChildrenCategories();
-if($categoryId = $this->getRequest()->getParam('cat'))
+if($categoryId = $this->getRequest()->getParam('id'))
 {
     $category = Mage::getModel('catalog/category')->load($categoryId);
     $subCategories = $category->getChildrenCategories();
@@ -10,7 +10,7 @@ if($categoryId = $this->getRequest()->getParam('cat'))
 
 ?>
 
-<div style="margin-top: 25rem;">
+<div style="margin-top: 0rem;">
 <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor" aria-controls="navbarColor" aria-expanded="false" aria-label="Toggle navigation"> 
         <span class="navbar-toggler-icon"></span> 

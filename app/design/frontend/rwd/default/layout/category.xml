@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+
+    <category_view_index>
+    <remove name="footer"/>
+    <remove name="right"/>
+    <reference name="content">
+        <block type="brand/view" name="brand_banner" template="category/category.phtml" />
+    </reference>
+    <reference name="left">
+        <block type="brand/view" name="brand_left" template="category/menu.phtml" />
+        <!-- <block type="category/category" name="category_block" template="category/category.phtml" /> -->
+    </reference>
+</category_view_index>
+
+
+<adminhtml_catalog_category_edit>
+        <update handle="editor"/>
+        <reference name="left">
+            <!-- <action method="setTemplate">
+                <template>category/tree.phtml</template>
+            </action> -->
+            <block name="category.tree" type="adminhtml/catalog_category_tree" template="category/tree.phtml" />
+        </reference>
+    </adminhtml_catalog_category_edit>
+
+<!--  <catalog_category_view>
+    <remove name="footer"/>
+    <remove name="right"/>
+    <reference name="content">
+        <block type="brand/view" name="brand_banner" template="brand/view.phtml" />
+    </reference>
+    <reference name="left">
+        <block type="brand/view" name="brand_left" template="brand/menu.phtml" />
+        <block type="category/category" name="category_block" template="category/category.phtml" />
+    </reference>
+</catalog_category_view> -->
+
+<!-- <catalog_category_view>
+    <remove name="left"/>
+    <remove name="right"/>
+        <reference name="product_list">
+            <action method="addPriceBlockType"><type>bundle</type><block>bundle/catalog_product_price</block><template>category/category.phtml</template></action>
+        </reference>
+        <reference name="left">
+        <block type="brand/view" name="brand_left" template="brand/menu.phtml" />
+    </reference>
+    </catalog_category_view> -->
+
+    <catalog_category_view>
+        <remove name="right"/>
+        <reference name="product_list">
+            <action method="addPriceBlockType"><type>bundle</type><block>bundle/catalog_product_price</block><template>bundle/catalog/product/priced.phtml</template></action>
+        </reference>
+    </catalog_category_view>
+        <!-- <block type="category/category" name="category_block" template="category/category.phtml" /> -->
+
+
+
+<cms_index_index translate="label">
+        <label>CMS Home Page</label>
+         <reference name="left">
+        <block type="core/template" name="left_section" template="brand/brands.phtml" />
+        </reference>
+        <reference name="content">
+            <block type="category/category" name="child_block" template="category\categories.phtml"/>
+            </reference>
+</cms_index_index>
+
+</layout>

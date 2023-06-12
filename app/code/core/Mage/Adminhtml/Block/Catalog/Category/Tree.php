@@ -40,7 +40,7 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('catalog/category/tree.phtml');
+        // $this->setTemplate('category/tree.phtml');
         $this->setUseAjax(true);
         $this->_withProductCount = true;
     }
@@ -262,7 +262,6 @@ class Mage_Adminhtml_Block_Catalog_Category_Tree extends Mage_Adminhtml_Block_Ca
         if ($isParent || $node->getLevel() < 2) {
             $item['expanded'] = true;
         }
-
         return $item;
     }
 
