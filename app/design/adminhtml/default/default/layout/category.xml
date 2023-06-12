@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_catalog_category_index>
+    <reference name="head">
+        <action method="addCss">
+            <stylesheet>skin/adminhtml/default/default/css/featured.css</stylesheet>
+        </action>
+    </reference>
+</adminhtml_catalog_category_index>
+    <adminhtml_catalog_category_edit>
+        <reference name="category.tree">
+            <action method="setTemplate">
+                <template>category/tree.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_catalog_category_edit>
+
+    <adminhtml_catalog_category_edit>
+        <reference name="left">
+            <block name="category.tree" type="adminhtml/catalog_category_tree" template="category/tree.phtml" />
+        </reference>
+    </adminhtml_catalog_category_edit>
+</layout>

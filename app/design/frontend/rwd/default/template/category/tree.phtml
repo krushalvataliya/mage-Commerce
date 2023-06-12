@@ -1,4 +1,6 @@
-a<?php
+  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+<?php
+die;
 /**
  * Magento
  *
@@ -23,7 +25,30 @@ a<?php
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+<?php foreach ($this->getNodes() as $_node): ?>
+    <?php
+        // Get the current category
+        $_category = $_node->getData('category');
+
+        // Check the "Featured Category" flag
+        if ($_category->getFeaturedCategoryFlag()) {
+            $cssClass = 'featured-category';
+        } else {
+            $cssClass = '';
+        }
+    ?>
+
+    <li class="<?php echo $this->isCollapsed($_node) ? 'closed' : 'open'; ?> <?php echo $cssClass; ?>">
+        <!-- Category tree item HTML here -->
+    </li>
+
+    <?php if (!$this->isCollapsed($_node)): ?>
+        <?php echo $this->renderNodes($_node); ?>
+    <?php endif; ?>
+<?php endforeach; ?>
+
 ?>
+dwwwd
 <div class="categories-side-col">
     <div class="content-header">
         <h3 class="icon-head head-categories"><?php echo Mage::helper('catalog')->__('Categories') ?></h3>

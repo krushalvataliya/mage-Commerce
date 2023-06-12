@@ -29,6 +29,17 @@
                 </entities>
             </category_resource>
         </models>
+        <events>
+            <catalog_category_save_after>
+                <observers>
+                    <custom_categoryurl_observer>
+                        <type>singleton</type>
+                        <class>Ccc_Category_Model_Observer</class>
+                        <method>generateCategoryUrlRewrite</method>
+                    </custom_categoryurl_observer>
+                </observers>
+            </catalog_category_save_after>
+        </events>
         <resources>
             <category_setup>
                 <setup>
@@ -54,6 +65,19 @@
             <category>
                 <class>Ccc_Category_Block</class>
             </category>
+            <adminhtml>
+                <rewrite>
+                    <catalog_category_tree>Ccc_Category_Block_Adminhtml_Catalog_Category_Tree</catalog_category_tree>
+                </rewrite>
+            <layout>
+                <updates>
+                    <category>
+                        <file>category.xml</file>
+                    </category>
+                </updates>
+            </layout>
+            </adminhtml>
+
         </blocks>
         <helpers>
            <category>
@@ -71,12 +95,12 @@
                 </args>
             </category>
         </routers>
-         <layout>
+        <!--  <layout>
             <updates>
                 <category>
                     <file>category.xml</file>
                 </category>
             </updates>
-        </layout>
+        </layout> -->
     </admin>
 </config>

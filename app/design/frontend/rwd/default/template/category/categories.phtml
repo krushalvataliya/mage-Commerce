@@ -1,11 +1,12 @@
-<div class="container Brands">
+<div class="container categories">
 
   <div class="title"><span class="brand-title1">Shop by</span><span class="brand-title2"> Department</span></div>
-  <div class="Brands">
+  <div class="categories">
 
   <?php foreach ($this->getFeaturedCatagories() as $key => $value): ?>
-  <div class="card m-1 brand" style="width: 18rem; ">
-    <a href="<?php echo $value->getUrl(); ?>">
+  <div class="card m-1 category" style="width: 18rem; ">
+    <!-- <a href="<?php echo str_replace('.html','', $value->getUrl()) ; ?>"> -->
+    <a href="<?php echo $value->getUrl() ; ?>">
   <img class="card-img-top card-image" src="<?php echo Mage::getBaseUrl('media') . 'catalog/category/' . $value->getImage() ?>" alt="Card image cap">
 </a>
   <div class="card-body">
@@ -15,3 +16,20 @@
   <?php endforeach ?>
 
 </div>	
+<br>
+<style type="text/css">
+
+.category{
+ float: left;
+  width: 20%;
+  padding: 0 10px;
+}
+.categories:after
+{
+  content: "";
+  display: table;
+  clear: both;
+ /* display: table;
+  clear: both;*/
+}
+</style>

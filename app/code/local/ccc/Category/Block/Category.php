@@ -19,5 +19,4 @@ class Ccc_Category_Block_Category extends Mage_Core_Block_Template
         ->addAttributeToSelect('*')
         ->addAttributeToFilter('featured_category', array('eq' => $optionId));
     }
-
 }

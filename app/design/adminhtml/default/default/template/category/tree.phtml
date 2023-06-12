@@ -1,4 +1,4 @@
-a<?php
+aaa<?php
 /**
  * Magento
  *
@@ -23,7 +23,31 @@ a<?php
  * @copyright   Copyright (c) 2006-2020 Magento, Inc. (http://www.magento.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-?>
+ foreach ($this->getNodes() as $_node): ?>
+    <?php
+        // Get the current category
+        $_category = $_node->getData('category');
+
+        // Check the "Featured Category" flag
+        if ($_category->getFeaturedCategoryFlag()) {
+            $cssClass = 'featured-category';
+        } else {
+            $cssClass = '';
+        }
+
+        Mage::log($cssClass,null,"j.log");
+    ?>
+
+    <li class=" <?php echo $this->isCollapsed($_node) ? 'closed' : 'open'; ?> <?php echo $cssClass; ?>">
+        <!-- Category tree item HTML here -->
+    </li>
+
+    <?php if (!$this->isCollapsed($_node)): ?>
+        <?php echo $this->renderNodes($_node); ?>
+    <?php endif; ?>
+<?php endforeach; ?>
+
+
 <div class="categories-side-col">
     <div class="content-header">
         <h3 class="icon-head head-categories"><?php echo Mage::helper('catalog')->__('Categories') ?></h3>
@@ -37,15 +61,26 @@ a<?php
         <?php if($this->getRoot()): ?>
             <?php //echo $this->getCollapseButtonHtml() ?>
             <?php //echo $this->getExpandButtonHtml() ?>
-            <a href="#" onclick="tree.collapseTree(); return false;"><?php echo Mage::helper('catalog')->__('Collapse All'); ?></a> <span class="separator">|</span> <a href="#" onclick="tree.expandTree(); return false;"><?php echo Mage::helper('catalog')->__('Expand All'); ?></a>
+            <a href="#" onclick="tree.collapseTree(); return false;"><?php echo Mage::helper('catalog')->__('Collapse All'); ?></a> <span class="separator">|</span> <a  href="#" onclick="tree.expandTree(); return false;"><?php echo Mage::helper('catalog')->__('Expand All'); ?></a>
         <?php endif; ?>
     </div>
+    <?php $rootCategory = Mage::registry('root'); ?>
     <?php if ($this->getRoot()): ?>
-    <div class="tree-holder">
-        <div id="tree-div" style="width:100%; overflow:auto;"></div>
+    <?php Mage::log($this->getRoot()->getTree(),null,'root.log') ?>
+
+    <div class="tree-holder <?php if ($rootCategory->getAttributeCode() == '90'): ?>featured-category<?php endif; ?>">
+        <?php Mage::log($rootCategory->getAttributeCode(),null,'s.log'); ?>
+        <div id="tree-div" style="width:100%; overflow:auto;" class=""></div>
     </div>
+
+    <?php $rootCategory = Mage::registry('root'); ?>
+<!-- <div class="tree-holder <?php if ($rootCategory && $rootCategory->getAttributeCode('featured_category') == null): ?>featured_category<?php endif; ?>">
+    <div id="tree-div" style="width:100%; overflow:auto;"></div>
+</div> -->
+
 </div>
 <script type="text/javascript">
+
 //<![CDATA[
 var tree;
 
@@ -476,5 +511,32 @@ function categoryMove(obj)
     );
 }
 //]]>
+
+// document.observe('dom:loaded', function() {
+//     var categoryTree = $('category-tree');
+//     if (categoryTree) {
+//     console.log('coming');
+//         categoryTree.select('a').each(function(element) {
+//             var categoryNode = element.up('li');
+//             if (categoryNode && categoryNode.hasClassName('level-0')) {
+//                 var isFeatured = element.readAttribute('featured_category');
+//                 if (isFeatured === 90) {
+//                     categoryNode.addClassName('featured-category');
+//                 }
+//             }
+//         });
+//     }
+// });
+
+document.observe('dom:loaded', function() {
+    $$('li.category-node a').each(function(element) {
+        if (element.up().hasClassName('featured-category')) {
+            element.addClassName('featured-category');
+        }
+    });
+});
+
+
 </script>
+
 <?php endif; ?>
