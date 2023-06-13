@@ -13,7 +13,9 @@ class Kv_Vendor_Block_Adminhtml_Vendor_Edit_Form extends Mage_Adminhtml_Block_Wi
             )
         );
 
+
         $form->setUseContainer(true);
+        
         $this->setForm($form);
         return parent::_prepareForm();
     }

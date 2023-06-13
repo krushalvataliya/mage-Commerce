@@ -76,6 +76,9 @@ class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
     public function saveAction()
     {
         try {
+            echo "<pre>";
+            print_r($_POST);
+            // die();
             $model = Mage::getModel('vendor/vendor');
             $addressModel = Mage::getModel('vendor/vendor_address');
             $addressData = $this->getRequest()->getPost('address');
@@ -84,6 +87,10 @@ class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
             if (!$vendorId)
             {
                 $vendorId = $this->getRequest()->getParam('vendor_id');
+            }
+            if($model->load($vendorId))
+            {
+                $oldPassword = $model->password;
             }
 
             $model->setData($data)->setId($vendorId);
@@ -94,6 +101,17 @@ class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
             if($vendorId)
             {
                 $model->updated_at = now();
+            }
+
+            if($model->password == 'auto' )
+            {
+                $model->password = Mage::helper('core')->getRandomString(8);
+                $model->password = md5($model->password);
+                $model->sendMail($model);
+            }
+            if($model->password != $oldPassword)
+            {
+                $model->password = md5($model->password);
             }
             $model->save();
             if ($model->save())
@@ -146,7 +164,7 @@ class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
         $this->_redirect('*/*/');
     }
 
-     public function massDeleteAction()
+    public function massDeleteAction()
     {
         $vendorsIds = $this->getRequest()->getParam('vendor');
         if(!is_array($vendorsIds)) {
@@ -168,5 +186,44 @@ class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
         }
 
         $this->_redirect('*/*/index');
+    }
+
+    public function massStatusUpdateAction()
+    {
+        $vendorsIds = $this->getRequest()->getParam('vendor');
+        $status = $this->getRequest()->getParam('status');
+        if(!is_array($vendorsIds)) {
+             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Please select vendor(s).'));
+        } else {
+            try {
+                $vendor = Mage::getModel('vendor/vendor');
+                foreach ($vendorsIds as $vendorId) {
+                    $vendor->reset()->load($vendorId);
+                    $vendor->status = $status;
+                    $vendor->save();
+                }
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('adminhtml')->__('Total of %d record(s) were updated.', count($vendorsIds))
+                );
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            }
+        }
+
+        $this->_redirect('*/*/index');
+    }
+
+    public function stateAction()
+    {
+        $countryId = $this->getRequest()->getPost('country_id');
+                // $countryId = 'US';
+
+
+        $states = Mage::getModel('directory/region')->getResourceCollection()
+            ->addCountryFilter($countryId)
+            ->load()
+            ->toOptionArray();
+        $this->getResponse()->setHeader('Content-type', 'application/json');
+        $this->getResponse()->setBody(json_encode($states));      
     }
 }
