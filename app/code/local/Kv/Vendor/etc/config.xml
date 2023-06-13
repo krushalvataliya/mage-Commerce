@@ -32,6 +32,15 @@
                 </entities>
             </vendor_resource>
         </models>
+        <template>
+            <email>
+                <vendor_account_details module="vendor">
+                    <label>Welcome Email Template</label>
+                    <file>vendor-new-send.html</file>
+                    <type>html</type>
+                </vendor_account_details>
+            </email>
+        </template>
         <resources>
         	<vendor_setup>
         		<setup>

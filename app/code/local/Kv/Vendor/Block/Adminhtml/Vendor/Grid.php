@@ -58,21 +58,21 @@ class Kv_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget_
         $baseUrl = $this->getUrl();
 
         $this->addColumn('first_name', array(
-            'header'    => Mage::helper('vendor')->__('First Name'),
+            'header'    => Mage::helper('vendor')->__('Name'),
             'align'     => 'left',
-            'index'     => 'first_name',
-        ));
-
-        $this->addColumn('last_name', array(
-            'header'    => Mage::helper('vendor')->__('Last Name'),
-            'align'     => 'left',
-            'index'     => 'last_name'
+            'index'     => 'name',
         ));
 
         $this->addColumn('mobile', array(
             'header'    => Mage::helper('vendor')->__('mobile'),
             'align'     => 'left',
             'index'     => 'mobile'
+        ));
+        $this->addColumn('status', array(
+            'header'    => Mage::helper('vendor')->__('status'),
+            'align'     => 'left',
+            'renderer'  =>'Kv_Vendor_Block_Adminhtml_Vendor_Grid_Renderer_Status',
+            'index'     => 'status' 
         ));
 
         $this->addColumn('email', array(
@@ -100,6 +100,43 @@ class Kv_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget_
              'url'      => $this->getUrl('*/*/massDelete'),
              'confirm'  => Mage::helper('vendor')->__('Are you sure?')
         ));
+
+        // $this->getMassactionBlock()->addItem('massstatusupdateactive', array(
+        //      'label'    => Mage::helper('vendor')->__('Change Status To Active'),
+        //      'url'      => $this->getUrl('*/*/massStatusUpdateActive'),
+        //      'confirm'  => Mage::helper('vendor')->__('Are you sure?')
+        // ));
+
+        //  $this->getMassactionBlock()->addItem('massstatusupdateinactive', array(
+        //      'label'    => Mage::helper('vendor')->__('Change Status To Inactive'),
+        //      'url'      => $this->getUrl('*/*/massStatusUpdateInactive'),
+        //      'confirm'  => Mage::helper('vendor')->__('Are you sure?')
+        // ));
+
+         $this->getMassactionBlock()->addItem('update_status', array(
+            'label' => Mage::helper('vendor')->__('Update Status'),
+            'url' => $this->getUrl('*/*/massStatusUpdate'),
+            'confirm' => Mage::helper('vendor')->__('Are you sure you want to update the status?'),
+            'additional' => array(
+                'status' => array(
+                    'name' => 'status',
+                    'type' => 'select',
+                    'class' => 'required-entry',
+                    'label' => Mage::helper('vendor')->__('Status'),
+                    'values' => array(
+                        array(
+                            'value' => '1',
+                            'label' => Mage::helper('vendor')->__('Active')
+                        ),
+                        array(
+                            'value' => '0',
+                            'label' => Mage::helper('vendor')->__('Inactive')
+                        )
+                    )
+                )
+            )
+        ));
+
 
         // $this->getMassactionBlock()->addItem('newsletter_subscribe', array(
         //      'label'    => Mage::helper('vendor')->__('Subscribe to Newsletter'),
