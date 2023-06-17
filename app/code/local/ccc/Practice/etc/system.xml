@@ -3,7 +3,8 @@
 <config>
     <tabs>
         <practice>
-            <sort_order>10</sort_order>
+            <sort_order>1</sort_order>
+            <label>practice</label>
         </practice>
     </tabs>
     <sections>
@@ -25,9 +26,6 @@
                 </store_information>
             </groups>
         </catalog>
-        <tutorial>
-            <label>practice</label>
-        </tutorial>
 
 
          <practice translate="label" module="practice">

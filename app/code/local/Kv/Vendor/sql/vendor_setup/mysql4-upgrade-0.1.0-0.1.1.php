@@ -30,6 +30,11 @@ ALTER TABLE `{$installer->getTable('vendor_address')}`
 ALTER TABLE `{$installer->getTable('vendor_address')}`
   ADD CONSTRAINT `vendor_address_ibfk_1` FOREIGN KEY (`vendor_id`) REFERENCES `vendor` (`vendor_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+ALTER TABLE `{$installer->getTable('vendor')}` ADD `is_email_varified` TINYINT(4) NOT NULL AFTER `status`, ADD `token` VARCHAR(255) NOT NULL AFTER `is_email_varified`;
+
+
 ");
+
+
 
 $installer->endSetup();

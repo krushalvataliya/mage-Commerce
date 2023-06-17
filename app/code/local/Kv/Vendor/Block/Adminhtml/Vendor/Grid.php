@@ -101,18 +101,6 @@ class Kv_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget_
              'confirm'  => Mage::helper('vendor')->__('Are you sure?')
         ));
 
-        // $this->getMassactionBlock()->addItem('massstatusupdateactive', array(
-        //      'label'    => Mage::helper('vendor')->__('Change Status To Active'),
-        //      'url'      => $this->getUrl('*/*/massStatusUpdateActive'),
-        //      'confirm'  => Mage::helper('vendor')->__('Are you sure?')
-        // ));
-
-        //  $this->getMassactionBlock()->addItem('massstatusupdateinactive', array(
-        //      'label'    => Mage::helper('vendor')->__('Change Status To Inactive'),
-        //      'url'      => $this->getUrl('*/*/massStatusUpdateInactive'),
-        //      'confirm'  => Mage::helper('vendor')->__('Are you sure?')
-        // ));
-
          $this->getMassactionBlock()->addItem('update_status', array(
             'label' => Mage::helper('vendor')->__('Update Status'),
             'url' => $this->getUrl('*/*/massStatusUpdate'),
@@ -129,7 +117,7 @@ class Kv_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget_
                             'label' => Mage::helper('vendor')->__('Active')
                         ),
                         array(
-                            'value' => '0',
+                            'value' => '2',
                             'label' => Mage::helper('vendor')->__('Inactive')
                         )
                     )

@@ -1,0 +1,111 @@
+<form action="<?php echo $this->getRegisterUrl() ?>" method="post" class="form create account form-create-account">
+    <fieldset class="fieldset create info">
+        <legend class="legend">
+            <span><?php echo $this->__('Create New Vendor Account') ?></span>
+        </legend>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field name required">
+                    <label class="label" for="name"><span><?php echo $this->__('Name') ?></span></label>
+                    <div class="control">
+                        <input type="text" id="name" name="name" class="input-text" required />
+                    </div>
+                </div>
+                <div class="field email required">
+                    <label class="label" for="email"><span><?php echo $this->__('Email') ?></span></label>
+                    <div class="control">
+                        <input type="email" id="email" name="email" class="input-text" required />
+                    </div>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field password required">
+                    <label class="label" for="password"><span><?php echo $this->__('Password') ?></span></label>
+                    <div class="control">
+                        <input type="password" id="password" name="password" class="input-text" required />
+                    </div>
+                </div>
+                <div class="field password required">
+                    <label class="label" for="password-confirmation"><span><?php echo $this->__('Confirm Password') ?></span></label>
+                    <div class="control">
+                        <input type="password" id="password-confirmation" name="password_confirmation" class="input-text" required />
+                    </div>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field mobile required">
+                    <label class="label" for="mobile"><span><?php echo $this->__('Mobile') ?></span></label>
+                    <div class="control">
+                        <input type="text" id="mobile" name="mobile" class="input-text" required />
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary">
+                <span><?php echo $this->__('Create Account') ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+
+
+
+<?php die ?>
+<form action="<?php echo $this->getUrl('yourmodule/account/registerpost') ?>" method="post" class="form create account form-create-account">
+    <fieldset class="fieldset create info">
+        <legend class="legend">
+            <span><?php echo $this->__('Create New Vendor Account') ?></span>
+        </legend>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field name required">
+                    <label class="label" for="name"><span><?php echo $this->__('Name') ?></span></label>
+                    <div class="control">
+                        <input type="text" id="name" name="name" class="input-text" required />
+                    </div>
+                </div>
+                <div class="field email required">
+                    <label class="label" for="email"><span><?php echo $this->__('Email') ?></span></label>
+                    <div class="control">
+                        <input type="email" id="email" name="email" class="input-text" required />
+                    </div>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field password required">
+                    <label class="label" for="password"><span><?php echo $this->__('Password') ?></span></label>
+                    <div class="control">
+                        <input type="password" id="password" name="password" class="input-text" required />
+                    </div>
+                </div>
+                <div class="field mobile required">
+                    <label class="label" for="mobile"><span><?php echo $this->__('Mobile') ?></span></label>
+                    <div class="control">
+                        <input type="text" id="mobile" name="mobile" class="input-text" required />
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action submit primary">
+                <span><?php echo $this->__('Create Account') ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+<?php die ?>

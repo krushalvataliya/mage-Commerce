@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<layout version="1.0.0">
+
+	<practice_query_index>
+            <remove name="footer"/>
+            <remove name="right"/>
+            <remove name="left"/>
+        <reference name="content">
+            <block type="practice/practice" name="practice_home" template="practice/home.phtml" />
+        </reference>
+    </practice_query_index>
+
+
+    <vendor_register_index>
+            <remove name="footer"/>
+            <remove name="right"/>
+        <reference name="content">
+            <block type="vendor/vendor" name="vendor_register" template="vendor/register.phtml" />
+        </reference>
+    </vendor_register_index>
+
+	    <!-- <vendor_account_conformation>
+	    	<reference name="content">
+	            <block type="vendor/vendor" name="vendor_login" template="vendor/confirmation.phtml" />
+	        </reference>
+	    <vendor_account_conformation> -->
+
+	<!-- <vendor_vendorlogin_index>
+		<reference name="content">
+			<block type="vendor/vendor" template="vendor/Ccc_vendor.phtml" name="vendor"></block>
+		</reference>
+	</vendor_vendorlogin_index> -->
+</layout>	
