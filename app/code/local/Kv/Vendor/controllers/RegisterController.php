@@ -1,26 +1,51 @@
 <?php
-class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Action
+class Kv_Vendor_RegisterController extends Mage_Core_Controller_Front_Action
 {
-	public function indexAction()
+    public function indexAction()
     {
-    	$this->_title($this->__('Vendor'))
-             ->_title($this->__('Manage Vendors'));
-       	$this->loadLayout();
-       	$this->_addContent($this->getLayout()->createBlock('vendor/adminhtml_vendor'));
-	   	$this->renderLayout();
+        $this->loadLayout();
+        $this->renderLayout();  
     }
 
-    protected function _initAction()
+	public function registerAction()
     {
-        $this->loadLayout()
-            ->_setActiveMenu('vendor/vendor')
-            ->_addBreadcrumb(Mage::helper('vendor')->__('Vendor Manager'), Mage::helper('vendor')->__('Vendor Manager'))
-            ->_addBreadcrumb(Mage::helper('vendor')->__('Manage vendor'), Mage::helper('vendor')->__('Manage vendor'))
-        ;
-        return $this;
+        try {
+            
+            $data = $this->getRequest()->getPost();
+            $vendorModel = Mage::getModel('vendor/vendor');
+            if($data['password_confirmation'] != $data['password'])
+            {
+                throw new Exception("password did not mached.", 1);
+            } 
+            $vendorModel->setData($data);
+            $vendorModel->password = md5($vendorModel->password);
+            $vendorModel->status = 2;   
+            $vendorModel->token = $vendorModel->generateVerificationKey();   
+            if($vendorModel->save())
+            {
+                $vendorModel->sendVerificationEmail($vendorModel);
+                return $this->accountAction();
+            }
+            else
+            {
+                throw new Exception("error to save data.", 1);
+            }
+            $this->loadLayout();
+            $this->renderLayout();
+        } catch (Exception $e) {
+             Mage::getSingleton('core/session')->addError($e->getMessage());
+             $this->_redirect('*/*/');
+        }
+
     }
-    
-    
+
+  
+
+    public function accountAction()
+    {
+        echo "welcome to deshboard kv!";
+    }
+
     public function editAction()
     {
         $this->_title($this->__('Vendor'))
@@ -76,6 +101,9 @@ class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
     public function saveAction()
     {
         try {
+            echo "<pre>";
+            print_r($_POST);
+            // die();
             $model = Mage::getModel('vendor/vendor');
             $addressModel = Mage::getModel('vendor/vendor_address');
             $addressData = $this->getRequest()->getPost('address');

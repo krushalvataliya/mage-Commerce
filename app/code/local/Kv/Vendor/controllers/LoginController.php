@@ -1,26 +1,81 @@
 <?php
-class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Action
+class Kv_Vendor_LoginController extends Mage_Core_Controller_Front_Action
 {
 	public function indexAction()
     {
-    	$this->_title($this->__('Vendor'))
-             ->_title($this->__('Manage Vendors'));
        	$this->loadLayout();
-       	$this->_addContent($this->getLayout()->createBlock('vendor/adminhtml_vendor'));
 	   	$this->renderLayout();
     }
 
-    protected function _initAction()
+    public function testAction()
     {
-        $this->loadLayout()
-            ->_setActiveMenu('vendor/vendor')
-            ->_addBreadcrumb(Mage::helper('vendor')->__('Vendor Manager'), Mage::helper('vendor')->__('Vendor Manager'))
-            ->_addBreadcrumb(Mage::helper('vendor')->__('Manage vendor'), Mage::helper('vendor')->__('Manage vendor'))
-        ;
-        return $this;
+        $this->loadLayout();
+        $this->getLayout()->createBlock('bannerslider/default')->setTemplate('bannerslider/slider1.phtml')->setBannersliderId('your_bannerslider_id')->toHtml();
+        $this->renderLayout();
     }
-    
-    
+
+
+    public function loginAction()
+    {
+        try {
+
+            $loginDetails = $this->getRequest()->getPost('login');
+            if (!$this->getRequest()->isPost()) {
+                throw new Exception("invalid Request", 1);
+                
+            }
+            if (!$loginDetails) {
+            Mage::getSingleton('core/session')->addError('Please enter your email address.');
+            $this->_redirect('*/*/forgot');
+            return;
+             }
+            $vendorData = Mage::getModel('vendor/vendor')->load($loginDetails['username'],'email');
+
+            if(!$vendorData->getData())
+            {
+                throw new Exception("No account exists with this email address", 1);
+            }
+
+            if($vendorData->password == md5($loginDetails['password']))
+            {
+                if($vendorData->is_email_varified == 0)
+                {
+                    $value = Mage::helper('vendor')->getEmailConfirmationUrl($loginDetails['username']);
+                    $message = Mage::helper('vendor')->__('This account is not confirmed. <a href="%s">Click here</a> to resend confirmation email.', $value);
+                    Mage::getSingleton('core/session')->addError($message);
+                    // $vendorData->sendMail($vendorData);
+                    $vendorData->sendVerificationEmail($url);
+                    echo "please varify yout email addresses";
+                    
+
+                }
+                else
+                {
+                    echo "Login successfully,";
+                }
+            }
+            else
+            {
+                echo "invalid password";
+            }
+
+
+            } catch (Exception $e) {
+             Mage::getSingleton('core/session')->addError($e->getMessage());
+             $this->_redirect('*/*/');
+        }    
+    }
+
+    public function createaccountAction()
+    {
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+
+        // public function registerAction()
+        // {
+            
+        // }
     public function editAction()
     {
         $this->_title($this->__('Vendor'))
@@ -76,6 +131,9 @@ class Kv_Vendor_Adminhtml_VendorController extends Mage_Adminhtml_Controller_Act
     public function saveAction()
     {
         try {
+            echo "<pre>";
+            print_r($_POST);
+            // die();
             $model = Mage::getModel('vendor/vendor');
             $addressModel = Mage::getModel('vendor/vendor_address');
             $addressData = $this->getRequest()->getPost('address');

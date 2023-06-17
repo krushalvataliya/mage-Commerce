@@ -1,27 +1,34 @@
+<?xml version="1.0"?>
 <config>
     <modules>
-        <Ccc_Practice>    
-            <version>1.0.0</version>
+        <Ccc_Practice>
+            <version>0.1.0</version>
         </Ccc_Practice>
     </modules>
-   <!--  <frontend>
+     <frontend>
         <layout>
             <updates>
-                <practice module="Ccc_practice">
-                    <file>practice.xml</file>
-                </practice>
+                <practice module="Ccc_Practice"></practice>
             </updates>
         </layout>
-    </frontend> -->
- <global>
-           <!-- <models>
+        <routers>
             <practice>
-                <class>Ccc_practice_Model</class>
+                <use>standard</use>
+                <args>
+                    <module>Ccc_Practice</module>
+                    <frontName>practice</frontName>
+                </args>
+            </practice>
+        </routers>
+    </frontend>
+    <global>
+        <models>
+            <practice>
+                <class>Ccc_Practice_Model</class>
                 <resourceModel>practice_resource</resourceModel>
             </practice>
             <practice_resource>
-                <class>Ccc_practice_Model_Resource</class>
-                <deprecatedNode>practice_mysql4</deprecatedNode>
+                <class>Ccc_Practice_Model_Resource</class>
                 <entities>
                     <practice>
                         <table>practice</table>
@@ -31,15 +38,16 @@
         </models>
         <blocks>
             <practice>
-                <class>Ccc_practice_Block</class>
+                <class>Ccc_Practice_Block</class>
             </practice>
-        </blocks> -->
-        <helpers> 
-           <practice>
-                  <class>Ccc_Practice_Helper</class>
+        
+        </blocks>
+        <helpers>
+            <practice>
+                <class>Ccc_Practice_Helper</class>
             </practice>
         </helpers>
-    </global> 
+    </global>
     <admin>
         <routers>
             <practice>
@@ -49,13 +57,14 @@
                     <frontName>practice</frontName>
                 </args>
             </practice>
-            <adminhtml>
+            <!-- <adminhtml>
                 <args>
                     <modules>
                         <ccc_practice before="Mage_Adminhtml_Catalog">Ccc_Practice_Adminhtml</ccc_practice>
                     </modules>
                 </args>
-            </adminhtml>
+            </adminhtml> -->
         </routers>
     </admin>
+    
 </config>

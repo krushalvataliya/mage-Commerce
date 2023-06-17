@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<layout version="1.0.0">
+	<!-- <vendor_admin_index>
+		<reference name="root">
+			<action method="setTemplate">
+				<template>page/1column.phtml</template>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="vendor/vendor" template="vendor/Ccc_vendor.phtml" name="vendor"></block>
+		</reference>
+	</vendor_admin_index> -->
+
+
+	<vendor_login_index>
+            <remove name="footer"/>
+            <remove name="right"/>
+        <reference name="content">
+            <block type="vendor/vendor" name="vendor_login" template="vendor/login.phtml" />
+        </reference>
+    </vendor_login_index>
+
+
+    <vendor_register_index>
+            <remove name="footer"/>
+            <remove name="right"/>
+        <reference name="content">
+            <block type="vendor/vendor" name="vendor_register" template="vendor/register.phtml" />
+        </reference>
+    </vendor_register_index>
+
+	    <!-- <vendor_account_conformation>
+	    	<reference name="content">
+	            <block type="vendor/vendor" name="vendor_login" template="vendor/confirmation.phtml" />
+	        </reference>
+	    <vendor_account_conformation> -->
+
+	<!-- <vendor_vendorlogin_index>
+		<reference name="content">
+			<block type="vendor/vendor" template="vendor/Ccc_vendor.phtml" name="vendor"></block>
+		</reference>
+	</vendor_vendorlogin_index> -->
+</layout>	

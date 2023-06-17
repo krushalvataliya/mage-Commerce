@@ -8,7 +8,7 @@
         <layout>
             <updates>
                 <Vendor module="Kv_Vendor">
-                    <file>Kv_Vendor.xml</file>
+                    <file>vendor.xml</file>
                 </Vendor>
             </updates>
         </layout>
@@ -39,6 +39,11 @@
                     <file>vendor-new-send.html</file>
                     <type>html</type>
                 </vendor_account_details>
+                <vendor_email_varification module="vendor">
+                    <label>Welcome Email Template</label>
+                    <file>vendor-email-varification.html</file>
+                    <type>html</type>
+                </vendor_email_varification>
             </email>
         </template>
         <resources>
