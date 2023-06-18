@@ -13,9 +13,9 @@ class Ccc_Practice_Block_Adminhtml_Four_Grid extends Mage_Adminhtml_Block_Widget
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('category/category')->getCollection();
-        /* @var $collection Mage_Cms_Model_Mysql4_Page_Collection */
-        $this->setCollection($collection);
+       $products = Mage::getModel('catalog/product')->getCollection();
+        $products->addAttributeToSelect(array('name','sku','image','small_image','thumbnail'));
+        $this->setCollection($products);
 
         return parent::_prepareCollection();
     }
@@ -24,18 +24,39 @@ class Ccc_Practice_Block_Adminhtml_Four_Grid extends Mage_Adminhtml_Block_Widget
     {
         $baseUrl = $this->getUrl();
 
+        $this->addColumn('product_id', array(
+            'header'    => Mage::helper('practice')->__('product_id'),
+            'align'     => 'left',
+            'index'     => 'entity_id',
+        ));
+
         $this->addColumn('name', array(
-            'header'    => Mage::helper('category')->__('Name'),
+            'header'    => Mage::helper('practice')->__('Name'),
             'align'     => 'left',
             'index'     => 'name',
         ));
 
-        $this->addColumn('status', array(
-            'header'    => Mage::helper('category')->__('Status'),
+        $this->addColumn('base_image', array(
+            'header'    => Mage::helper('practice')->__('base image'),
             'align'     => 'left',
-            'index'     => 'status',
-            'renderer' => 'Ccc_Category_Block_Adminhtml_Category_Grid_Renderer_Status'
+            'index'     => 'image',
+            'renderer'  =>'ccc_practice_block_adminhtml_four_renderer_image'
         ));
+
+        $this->addColumn('small_image', array(
+            'header'    => Mage::helper('practice')->__('small image'),
+            'align'     => 'left',
+            'index'     => 'small_image',
+            'renderer'  =>'Ccc_Practice_Block_Adminhtml_Four_Renderer_Smallimage'
+        ));
+
+        $this->addColumn('thumb_image', array(
+            'header'    => Mage::helper('practice')->__('thumb image'),
+            'align'     => 'left',
+            'index'     => 'thumbnail',
+            'renderer'  =>'Ccc_Practice_Block_Adminhtml_Four_Renderer_Thumbnail'
+        ));
+
 
         return parent::_prepareColumns();
     }

@@ -11,11 +11,11 @@ class Ccc_Practice_Block_Adminhtml_Five_Grid extends Mage_Adminhtml_Block_Widget
         $this->setDefaultDir('ASC');
     }
 
-    protected function _prepareCollection()
+     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('category/category')->getCollection();
-        /* @var $collection Mage_Cms_Model_Mysql4_Page_Collection */
-        $this->setCollection($collection);
+       $products = Mage::getModel('catalog/product')->getCollection();
+        $products->addAttributeToSelect(array('sku','media_gallery'));
+        $this->setCollection($products);
 
         return parent::_prepareCollection();
     }
@@ -24,18 +24,25 @@ class Ccc_Practice_Block_Adminhtml_Five_Grid extends Mage_Adminhtml_Block_Widget
     {
         $baseUrl = $this->getUrl();
 
-        $this->addColumn('name', array(
-            'header'    => Mage::helper('category')->__('Name'),
+        $this->addColumn('product_id', array(
+            'header'    => Mage::helper('practice')->__('product_id'),
             'align'     => 'left',
-            'index'     => 'name',
+            'index'     => 'entity_id',
         ));
 
-        $this->addColumn('status', array(
-            'header'    => Mage::helper('category')->__('Status'),
+        $this->addColumn('sku', array(
+            'header'    => Mage::helper('practice')->__('sku'),
             'align'     => 'left',
-            'index'     => 'status',
-            'renderer' => 'Ccc_Category_Block_Adminhtml_Category_Grid_Renderer_Status'
+            'index'     => 'sku',
         ));
+
+        $this->addColumn('gallary_count', array(
+            'header'    => Mage::helper('practice')->__('gallary images count'),
+            'align'     => 'left',
+            'index'     => 'media_gallery',
+            'renderer'  =>'ccc_practice_block_adminhtml_five_renderer_count'
+        ));
+
 
         return parent::_prepareColumns();
     }

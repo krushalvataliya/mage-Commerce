@@ -13,9 +13,28 @@ class Ccc_Practice_Block_Adminhtml_Two_Grid extends Mage_Adminhtml_Block_Widget_
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('category/category')->getCollection();
+       $attributeCollection = Mage::getResourceModel('eav/entity_attribute_collection');
+            // ->addFieldToFilter('entity_type_id', Mage_Catalog_Model_Product::ENTITY);
+
+        $attributeOptionCollection = Mage::getResourceModel('eav/entity_attribute_option_collection');
+
+        $attributeOptionCollection->getSelect()
+            ->join(
+                array('attribute' => $attributeCollection->getTable('eav/attribute')),
+                'attribute.attribute_id = main_table.attribute_id',
+                array('attribute_code' => 'attribute.attribute_code')
+            );
+
+        $attributeOptionCollection->getSelect()->columns(array(
+            'attribute_id' => 'main_table.attribute_id',
+            'attribute_code' => 'attribute.attribute_code',
+            'option_id' => 'main_table.option_id',
+        ));
+
+
+
         /* @var $collection Mage_Cms_Model_Mysql4_Page_Collection */
-        $this->setCollection($collection);
+        $this->setCollection($attributeOptionCollection);
 
         return parent::_prepareCollection();
     }
@@ -24,18 +43,32 @@ class Ccc_Practice_Block_Adminhtml_Two_Grid extends Mage_Adminhtml_Block_Widget_
     {
         $baseUrl = $this->getUrl();
 
-        $this->addColumn('name', array(
-            'header'    => Mage::helper('category')->__('Name'),
+        $this->addColumn('attribute_id', array(
+            'header'    => Mage::helper('category')->__('Attribute Id'),
             'align'     => 'left',
-            'index'     => 'name',
+            'index'     => 'attribute_id',
         ));
 
-        $this->addColumn('status', array(
-            'header'    => Mage::helper('category')->__('Status'),
+        $this->addColumn('attribute_code', array(
+            'header'    => Mage::helper('category')->__('Attribute Code'),
             'align'     => 'left',
-            'index'     => 'status',
-            'renderer' => 'Ccc_Category_Block_Adminhtml_Category_Grid_Renderer_Status'
+            'index'     => 'attribute_code',
         ));
+
+        $this->addColumn('option_id', array(
+            'header'    => Mage::helper('category')->__('Option Id'),
+            'align'     => 'left',
+            'index'     => 'option_id',
+        ));
+
+        $this->addColumn('oprion_name', array(
+            'header'    => Mage::helper('category')->__('Option Name'),
+            'align'     => 'left',
+            'index'     => 'oprion_name',
+            'renderer'  =>'ccc_practice_block_adminhtml_two_renderer_value'
+        ));
+
+        
 
         return parent::_prepareColumns();
     }

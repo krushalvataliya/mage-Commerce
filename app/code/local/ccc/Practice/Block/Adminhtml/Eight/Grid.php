@@ -13,8 +13,13 @@ class Ccc_Practice_Block_Adminhtml_Eight_Grid extends Mage_Adminhtml_Block_Widge
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('category/category')->getCollection();
-        /* @var $collection Mage_Cms_Model_Mysql4_Page_Collection */
+        $collection = Mage::getResourceModel('sales/order_item_collection');
+            // ->addFieldToFilter('product_type', array('eq' => Mage_Catalog_Model_Product_Type::TYPE_SIMPLE))
+            // ->addFieldToFilter('parent_item_id', array('null' => true));
+
+        $collection->getSelect()
+            ->columns(array('product_id', 'sku', 'total_qty_ordered' => 'SUM(qty_ordered)'))
+            ->group('product_id');
         $this->setCollection($collection);
 
         return parent::_prepareCollection();
@@ -24,19 +29,29 @@ class Ccc_Practice_Block_Adminhtml_Eight_Grid extends Mage_Adminhtml_Block_Widge
     {
         $baseUrl = $this->getUrl();
 
+        $this->addColumn('product_id', array(
+            'header'    => Mage::helper('category')->__('product_id'),
+            'align'     => 'left',
+            'index'     => 'product_id',
+        ));
+
         $this->addColumn('name', array(
             'header'    => Mage::helper('category')->__('Name'),
             'align'     => 'left',
             'index'     => 'name',
         ));
 
-        $this->addColumn('status', array(
-            'header'    => Mage::helper('category')->__('Status'),
+        $this->addColumn('sku', array(
+            'header'    => Mage::helper('category')->__('sku'),
             'align'     => 'left',
-            'index'     => 'status',
-            'renderer' => 'Ccc_Category_Block_Adminhtml_Category_Grid_Renderer_Status'
+            'index'     => 'sku',
         ));
 
+        $this->addColumn('sold_quantity', array(
+            'header'    => Mage::helper('category')->__('sold_quantity'),
+            'align'     => 'left',
+            'index'     => 'total_qty_ordered',
+        ));
         return parent::_prepareColumns();
     }
 
