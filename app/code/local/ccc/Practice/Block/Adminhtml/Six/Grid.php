@@ -7,7 +7,7 @@ class Ccc_Practice_Block_Adminhtml_Six_Grid extends Mage_Adminhtml_Block_Widget_
     {
         parent::__construct();
         $this->setId('PracticeAdminhtmlPracticeGrid');
-        $this->setDefaultSort('entity_id');
+        $this->setDefaultSort('order_count');
         $this->setDefaultDir('DESC');
     }
 

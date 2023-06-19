@@ -91,54 +91,127 @@ class Ccc_Practice_Adminhtml_QueryController extends Mage_Adminhtml_Controller_A
 
     public function viewoneAction()
     {
-        echo "one";
+        echo "1. Need a list of product with these columns product name, sku, cost, price, color.";
+        echo "<br>";        
+        echo "magento query :";        
+        echo "<br>";        
+        echo "qew";        
+        echo "<br>";        
+        echo "sql query :";        
+        echo "<br>";        
+        echo "dewfwehf";        
         
     }
 
     public function viewtwoAction()
     {
-        echo "two";
+        echo "2. Need a list of attribute & options. return an array with attribute id, attribute code, option Id, option name.";
+        echo "<br>";        
+        echo "magento query :";        
+        echo "<br>";        
+        echo "qew";        
+        echo "<br>";        
+        echo "sql query :";        
+        echo "<br>";        
+        echo "dewfwehf";
         
     }
 
     public function viewthreeAction()
     {
-        echo "three";
+        echo "3. Need a list of attribute having options count greater than 10. return array with attribute id, attribute code, option count.";
+        echo "<br>";        
+        echo "magento query :";        
+        echo "<br>";        
+        echo "qew";        
+        echo "<br>";        
+        echo "sql query :";        
+        echo "<br>";        
+        echo "dewfwehf";
         
     }
 
     public function viewfourAction()
     {
-        echo "four";
+        echo "4. Need list of product with assigned images. return an array with product Id, sku, base image, thumb image, small image.";
+        echo "<br>";        
+        echo "magento query :";        
+        echo "<br>";        
+        echo "qew";        
+        echo "<br>";        
+        echo "sql query :";        
+        echo "<br>";        
+        echo "dewfwehf";
         
     }
 
     public function viewfiveAction()
     {
-        echo "five";
+        echo "5. Need list of product with gallery image count. return an array with product sku, gallery images count, without consideration of thumb, small, base";
+        echo "<br>";        
+        echo "magento query :";        
+        echo "<br>";        
+        echo "qew";        
+        echo "<br>";        
+        echo "sql query :";        
+        echo "<br>";        
+        echo "dewfwehf";
         
     }
 
     public function viewsixAction()
     {
-        echo "six";
+        echo "6. Need list of top to bottom customers with their total order counts. return an array with customer id, customer name, customer email, order count.";
+        echo "<br>";        
+        echo "magento query :";        
+        echo "<br>";        
+        echo "qew";        
+        echo "<br>";        
+        echo "sql query :";        
+        echo "<br>";        
+        echo "dewfwehf";
         
     }
 
     public function viewsevenAction()
     {
-        echo "seven";
+        echo "7. Need list of top to bottom customers with their total order counts, order status wise. return an array with customer id, customer name, customer email, status, order count.";
+        echo "<br>";        
+        echo "magento query :";        
+        echo "<br>";        
+        echo "qew";        
+        echo "<br>";        
+        echo "sql query :";        
+        echo "<br>";        
+        echo "dewfwehf";
         
     }
 
     public function vieweightAction()
     {
-        echo "eight";
+        echo "8. Need list product with number of quantity sold till now for each. return an array with product id, sku, sold quantity.";
+        echo "<br>";        
+        echo "magento query :";        
+        echo "<br>";        
+        echo "qew";        
+        echo "<br>";        
+        echo "sql query :";        
+        echo "<br>";        
+        echo "dewfwehf";
         
     }
 
     public function viewnineAction()
     {
+        echo "9. Need list of those attributes for whose value is not assigned to product. return an array result product wise with these columns product Id, sku, attribute Id, attribute code";
+        echo "<br>";        
+        echo "magento query :";        
+        echo "<br>";        
+        echo "qew";        
+        echo "<br>";        
+        echo "sql query :";        
+        echo "<br>";        
+        echo "dewfwehf";
 
         echo "query nine";
         echo "<br>";
@@ -188,7 +261,15 @@ class Ccc_Practice_Adminhtml_QueryController extends Mage_Adminhtml_Controller_A
 
     public function viewtenAction()
     {
-        echo "ten";
+        echo "10. Need list of those attributes for whose value is not assigned to product. return an array result product wise with these columns product Id, sku, attribute Id, attribute code, value.";
+        echo "<br>";        
+        echo "magento query :";        
+        echo "<br>";        
+        echo "qew";        
+        echo "<br>";        
+        echo "sql query :";        
+        echo "<br>";        
+        echo "dewfwehf";
         
     }
 

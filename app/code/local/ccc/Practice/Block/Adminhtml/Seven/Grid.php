@@ -13,16 +13,51 @@ class Ccc_Practice_Block_Adminhtml_Seven_Grid extends Mage_Adminhtml_Block_Widge
 
      protected function _prepareCollection()
     {
-        // $collection = Mage::getModel('customer/customer')->getCollection()
-        // ->addAttributeToSelect('*');
-        // $this->setCollection($collection);
+       $orderStatuses = array(
+    'pending',
+    'processing',
+    'complete',
+    'closed',
+    'canceled',
+    'holded',
+    'payment_review',
+);
 
+$collection = Mage::getModel('sales/order')->getCollection()
+    ->addFieldToSelect(array('entity_id', 'customer_id'))
+    ->addFieldToFilter('main_table.status', array('in' => $orderStatuses));
 
-        $collection = Mage::getModel('sales/order')->getCollection()
-        ->addAttributeToSelect('*')
-        ->addFieldToFilter('customer_id', array('notnull' => true))
-        ->addFieldToFilter('state', array('neq' => Mage_Sales_Model_Order::STATE_CANCELED));
-        // ->groupByAttribute('customer_id');
+$collection->getSelect()->join(
+    array('status' => Mage::getSingleton('core/resource')->getTableName('sales/order_status')),
+    'status.status = main_table.status',
+    array('order_status' => 'status.label')
+);
+
+$collection->getSelect()->join(
+    array('customer' => Mage::getSingleton('core/resource')->getTableName('customer/entity')),
+    'customer.entity_id = main_table.customer_id',
+    array('email' => 'customer.email')
+);
+
+$result = array();
+
+foreach ($collection as $order) {
+    $result[] = array(
+        'order_id' => $order->getEntityId(),
+        'customer_id' => $order->getCustomerId(),
+        'order_status' => $order->getOrderStatus(),
+        'email' => $order->getEmail(),        
+    );
+}
+
+        $collection = new Varien_Data_Collection();
+
+        foreach ($result as $data) {
+            $item = new Varien_Object($data);
+            $collection->addItem($item);
+        }
+
+        $this->setCollection($collection);
 
         return parent::_prepareCollection();
     }
@@ -41,7 +76,7 @@ class Ccc_Practice_Block_Adminhtml_Seven_Grid extends Mage_Adminhtml_Block_Widge
             'header'    => Mage::helper('category')->__('name'),
             'align'     => 'left',
             'index'     => 'name',
-            'renderer'  =>'ccc_practice_block_adminhtml_six_renderer_name'
+            'renderer'  =>'ccc_practice_block_adminhtml_seven_renderer_name'
         ));
 
         $this->addColumn('email', array(
@@ -50,12 +85,25 @@ class Ccc_Practice_Block_Adminhtml_Seven_Grid extends Mage_Adminhtml_Block_Widge
             'index'     => 'email',
         ));
 
+        $this->addColumn('status', array(
+            'header'    => Mage::helper('category')->__('status'),
+            'align'     => 'left',
+            'index'     => 'order_status',
+        ));
+
         $this->addColumn('order_count', array(
             'header'    => Mage::helper('category')->__('order count'),
             'align'     => 'left',
-            'index'     => 'order_count',
-            'renderer'  => 'ccc_practice_block_adminhtml_six_renderer_ordercount'
+            'renderer'  => 'ccc_practice_block_adminhtml_seven_renderer_ordercount',
+
         ));
+
+        // $this->addColumn('order_count', array(
+        //     'header'    => Mage::helper('category')->__('order count'),
+        //     'align'     => 'left',
+        //     'index'     => 'order_count',
+        //     'renderer'  => 'ccc_practice_block_adminhtml_six_renderer_ordercount'
+        // ));
 
 
         return parent::_prepareColumns();
