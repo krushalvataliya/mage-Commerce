@@ -7,8 +7,6 @@ class Ccc_Practice_Block_Adminhtml_Nine_Grid extends Mage_Adminhtml_Block_Widget
     {
         parent::__construct();
         $this->setId('PracticeAdminhtmlPracticeGrid');
-        $this->setDefaultSort('category_id');
-        $this->setDefaultDir('ASC');
     }
 
     protected function _prepareCollection()
@@ -93,12 +91,6 @@ class Ccc_Practice_Block_Adminhtml_Nine_Grid extends Mage_Adminhtml_Block_Widget
         ));
 
         return parent::_prepareColumns();
-    }
-
-    
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', array('category_id' => $row->getId()));
     }
    
 }

@@ -7,48 +7,45 @@ class Ccc_Practice_Block_Adminhtml_Seven_Grid extends Mage_Adminhtml_Block_Widge
     {
         parent::__construct();
         $this->setId('PracticeAdminhtmlPracticeGrid');
-        $this->setDefaultSort('order_count');
-        $this->setDefaultDir('ASC');
     }
 
-     protected function _prepareCollection()
+    protected function _prepareCollection()
     {
        $orderStatuses = array(
-    'pending',
-    'processing',
-    'complete',
-    'closed',
-    'canceled',
-    'holded',
-    'payment_review',
-);
+            'pending',
+            'processing',
+            'complete',
+            'closed',
+            'canceled',
+            'holded',
+            'payment_review',
+        );
 
-$collection = Mage::getModel('sales/order')->getCollection()
-    ->addFieldToSelect(array('entity_id', 'customer_id'))
-    ->addFieldToFilter('main_table.status', array('in' => $orderStatuses));
+        $collection = Mage::getModel('sales/order')->getCollection()
+            ->addFieldToSelect(array('entity_id', 'customer_id'))
+            ->addFieldToFilter('main_table.status', array('in' => $orderStatuses));
 
-$collection->getSelect()->join(
-    array('status' => Mage::getSingleton('core/resource')->getTableName('sales/order_status')),
-    'status.status = main_table.status',
-    array('order_status' => 'status.label')
-);
+        $collection->getSelect()->join(
+            array('status' => Mage::getSingleton('core/resource')->getTableName('sales/order_status')),
+            'status.status = main_table.status',
+            array('order_status' => 'status.label')
+        );
 
-$collection->getSelect()->join(
-    array('customer' => Mage::getSingleton('core/resource')->getTableName('customer/entity')),
-    'customer.entity_id = main_table.customer_id',
-    array('email' => 'customer.email')
-);
+        $collection->getSelect()->join(
+            array('customer' => Mage::getSingleton('core/resource')->getTableName('customer/entity')),
+            'customer.entity_id = main_table.customer_id',
+            array('email' => 'customer.email')
+        );
+        $result = array();
 
-$result = array();
-
-foreach ($collection as $order) {
-    $result[] = array(
-        'order_id' => $order->getEntityId(),
-        'customer_id' => $order->getCustomerId(),
-        'order_status' => $order->getOrderStatus(),
-        'email' => $order->getEmail(),        
-    );
-}
+        foreach ($collection as $order) {
+            $result[] = array(
+                'order_id' => $order->getEntityId(),
+                'customer_id' => $order->getCustomerId(),
+                'order_status' => $order->getOrderStatus(),
+                'email' => $order->getEmail(),        
+            );
+        }
 
         $collection = new Varien_Data_Collection();
 
@@ -98,21 +95,8 @@ foreach ($collection as $order) {
 
         ));
 
-        // $this->addColumn('order_count', array(
-        //     'header'    => Mage::helper('category')->__('order count'),
-        //     'align'     => 'left',
-        //     'index'     => 'order_count',
-        //     'renderer'  => 'ccc_practice_block_adminhtml_six_renderer_ordercount'
-        // ));
-
-
         return parent::_prepareColumns();
     }
-
-    
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', array('category_id' => $row->getId()));
-    }
+   
    
 }

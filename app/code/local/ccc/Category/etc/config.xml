@@ -29,7 +29,7 @@
                 </entities>
             </category_resource>
         </models>
-        <events>
+        <!-- <events>
             <catalog_category_save_after>
                 <observers>
                     <custom_categoryurl_observer>
@@ -39,7 +39,7 @@
                     </custom_categoryurl_observer>
                 </observers>
             </catalog_category_save_after>
-        </events>
+        </events> -->
         <resources>
             <category_setup>
                 <setup>

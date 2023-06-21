@@ -48,12 +48,12 @@
     </reference>
     </catalog_category_view> -->
 
-    <catalog_category_view>
+   <!--  <catalog_category_view>
         <remove name="right"/>
         <reference name="product_list">
             <action method="addPriceBlockType"><type>bundle</type><block>bundle/catalog_product_price</block><template>bundle/catalog/product/priced.phtml</template></action>
         </reference>
-    </catalog_category_view>
+    </catalog_category_view> -->
         <!-- <block type="category/category" name="category_block" template="category/category.phtml" /> -->
 
 

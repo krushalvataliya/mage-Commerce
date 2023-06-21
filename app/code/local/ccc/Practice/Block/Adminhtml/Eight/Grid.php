@@ -7,8 +7,6 @@ class Ccc_Practice_Block_Adminhtml_Eight_Grid extends Mage_Adminhtml_Block_Widge
     {
         parent::__construct();
         $this->setId('PracticeAdminhtmlPracticeGrid');
-        $this->setDefaultSort('category_id');
-        $this->setDefaultDir('ASC');
     }
 
     protected function _prepareCollection()
@@ -53,12 +51,6 @@ class Ccc_Practice_Block_Adminhtml_Eight_Grid extends Mage_Adminhtml_Block_Widge
             'index'     => 'total_qty_ordered',
         ));
         return parent::_prepareColumns();
-    }
-
-    
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', array('category_id' => $row->getId()));
     }
    
 }
