@@ -30,9 +30,8 @@ class Ccc_Practice_Block_Adminhtml_Three_Grid extends Mage_Adminhtml_Block_Widge
 
        //  $resultCollection = Mage::getModel('eav/entity_attribute')->getCollection();
        //  $resultCollection->getSelect()->reset()->from(array('main_table' => $attributeOptionCollection));
-
+           
         $attributeOptionArray = Mage::getModel('practice/practice')->getAttributeArrayWithOptionCount();
-
         $collection = new Varien_Data_Collection();
         foreach ($attributeOptionArray as $data) {
             $item = new Varien_Object($data);

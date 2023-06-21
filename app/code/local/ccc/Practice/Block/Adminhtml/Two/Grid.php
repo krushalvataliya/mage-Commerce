@@ -12,7 +12,6 @@ class Ccc_Practice_Block_Adminhtml_Two_Grid extends Mage_Adminhtml_Block_Widget_
     protected function _prepareCollection()
     {
         // $attributeCollection = Mage::getResourceModel('eav/entity_attribute_collection');
-
         // $attributeOptionCollection = Mage::getResourceModel('eav/entity_attribute_option_collection');
 
         // $attributeOptionCollection->getSelect()
@@ -41,9 +40,7 @@ class Ccc_Practice_Block_Adminhtml_Two_Grid extends Mage_Adminhtml_Block_Widget_
             $item = new Varien_Object($data);
             $collection->addItem($item);
         }
-        print_r($attributeOptionCollection->count());
-
-        // echo $attributeOptionCollection->getSelect();
+        // print_r($attributeOptionCollection->count());
         /* @var $collection Mage_Cms_Model_Mysql4_Page_Collection */
         $this->setCollection($collection);
 
