@@ -11,29 +11,28 @@ class Ccc_Practice_Block_Adminhtml_Two_Grid extends Mage_Adminhtml_Block_Widget_
 
     protected function _prepareCollection()
     {
-        $attributeCollection = Mage::getResourceModel('eav/entity_attribute_collection');
+        // $attributeCollection = Mage::getResourceModel('eav/entity_attribute_collection');
+        // $attributeOptionCollection = Mage::getResourceModel('eav/entity_attribute_option_collection');
 
-        $attributeOptionCollection = Mage::getResourceModel('eav/entity_attribute_option_collection');
+        // $attributeOptionCollection->getSelect()
+        //     ->join(
+        //         array('attribute' => $attributeCollection->getTable('eav/attribute')),
+        //         'attribute.attribute_id = main_table.attribute_id',
+        //         array('attribute_code' => 'attribute.attribute_code')
+        //     );
 
-        $attributeOptionCollection->getSelect()
-            ->join(
-                array('attribute' => $attributeCollection->getTable('eav/attribute')),
-                'attribute.attribute_id = main_table.attribute_id',
-                array('attribute_code' => 'attribute.attribute_code')
-            );
+        // $attributeOptionCollection->getSelect()
+        //     ->joinLeft(array('ao'=> $attributeCollection->getTable('eav/attribute_option_value')),
+        //         'main_table.option_id = ao.option_id AND ao.store_id = 0',
+        //         array()
+        //         );
 
-        $attributeOptionCollection->getSelect()
-            ->joinLeft(array('ao'=> $attributeCollection->getTable('eav/attribute_option_value')),
-                'main_table.option_id = ao.option_id AND ao.store_id = 0',
-                array()
-                );
-
-        $attributeOptionCollection->getSelect()->columns(array(
-            'attribute_id' => 'main_table.attribute_id',
-            'attribute_code' => 'attribute.attribute_code',
-            'option_id' => 'main_table.option_id',
-            'option_name'=>'ao.value'
-        ));
+        // $attributeOptionCollection->getSelect()->columns(array(
+        //     'attribute_id' => 'main_table.attribute_id',
+        //     'attribute_code' => 'attribute.attribute_code',
+        //     'option_id' => 'main_table.option_id',
+        //     'option_name'=>'ao.value'
+        // ));
         $attributeOptionArray = Mage::getModel('practice/practice')->getAttributeArrayWithOption();
         $collection = new Varien_Data_Collection();
 
@@ -41,9 +40,7 @@ class Ccc_Practice_Block_Adminhtml_Two_Grid extends Mage_Adminhtml_Block_Widget_
             $item = new Varien_Object($data);
             $collection->addItem($item);
         }
-        print_r($attributeOptionCollection->count());
-
-        // echo $attributeOptionCollection->getSelect();
+        // print_r($attributeOptionCollection->count());
         /* @var $collection Mage_Cms_Model_Mysql4_Page_Collection */
         $this->setCollection($collection);
 
