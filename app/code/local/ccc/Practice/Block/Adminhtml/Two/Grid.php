@@ -7,13 +7,43 @@ class Ccc_Practice_Block_Adminhtml_Two_Grid extends Mage_Adminhtml_Block_Widget_
     {
         parent::__construct();
         $this->setId('PracticeAdminhtmlPracticeGrid');
-        $this->setDefaultSort('category_id');
-        $this->setDefaultDir('ASC');
     }
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('category/category')->getCollection();
+        $attributeCollection = Mage::getResourceModel('eav/entity_attribute_collection');
+
+        $attributeOptionCollection = Mage::getResourceModel('eav/entity_attribute_option_collection');
+
+        $attributeOptionCollection->getSelect()
+            ->join(
+                array('attribute' => $attributeCollection->getTable('eav/attribute')),
+                'attribute.attribute_id = main_table.attribute_id',
+                array('attribute_code' => 'attribute.attribute_code')
+            );
+
+        $attributeOptionCollection->getSelect()
+            ->joinLeft(array('ao'=> $attributeCollection->getTable('eav/attribute_option_value')),
+                'main_table.option_id = ao.option_id AND ao.store_id = 0',
+                array()
+                );
+
+        $attributeOptionCollection->getSelect()->columns(array(
+            'attribute_id' => 'main_table.attribute_id',
+            'attribute_code' => 'attribute.attribute_code',
+            'option_id' => 'main_table.option_id',
+            'option_name'=>'ao.value'
+        ));
+        $attributeOptionArray = Mage::getModel('practice/practice')->getAttributeArrayWithOption();
+        $collection = new Varien_Data_Collection();
+
+        foreach ($attributeOptionArray as $data) {
+            $item = new Varien_Object($data);
+            $collection->addItem($item);
+        }
+        print_r($attributeOptionCollection->count());
+
+        // echo $attributeOptionCollection->getSelect();
         /* @var $collection Mage_Cms_Model_Mysql4_Page_Collection */
         $this->setCollection($collection);
 
@@ -24,26 +54,31 @@ class Ccc_Practice_Block_Adminhtml_Two_Grid extends Mage_Adminhtml_Block_Widget_
     {
         $baseUrl = $this->getUrl();
 
-        $this->addColumn('name', array(
-            'header'    => Mage::helper('category')->__('Name'),
+        $this->addColumn('attribute_id', array(
+            'header'    => Mage::helper('category')->__('Attribute Id'),
             'align'     => 'left',
-            'index'     => 'name',
+            'index'     => 'attribute_id',
         ));
 
-        $this->addColumn('status', array(
-            'header'    => Mage::helper('category')->__('Status'),
+        $this->addColumn('attribute_code', array(
+            'header'    => Mage::helper('category')->__('Attribute Code'),
             'align'     => 'left',
-            'index'     => 'status',
-            'renderer' => 'Ccc_Category_Block_Adminhtml_Category_Grid_Renderer_Status'
+            'index'     => 'attribute_code',
+        ));
+
+        $this->addColumn('option_id', array(
+            'header'    => Mage::helper('category')->__('Option Id'),
+            'align'     => 'left',
+            'index'     => 'option_id',
+        ));
+
+        $this->addColumn('oprion_name', array(
+            'header'    => Mage::helper('category')->__('Option Name'),
+            'align'     => 'left',
+            'index'     => 'option_name',
         ));
 
         return parent::_prepareColumns();
-    }
-
-    
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', array('category_id' => $row->getId()));
     }
    
 }

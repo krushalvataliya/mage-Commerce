@@ -12,8 +12,8 @@
                     <sort_order>0</sort_order>
                 </practicegrid>
                 <practicegrid1 translate="title" module="practice">
-                    <title>Manage practice</title>
-                    <action>practice/adminhtml_query/one</action>
+                    <title>test</title>
+                    <action>practice/adminhtml_query/test</action>
                     <sort_order>0</sort_order>
                 </practicegrid1>
                 <practicegrid12 translate="title" module="practice">
