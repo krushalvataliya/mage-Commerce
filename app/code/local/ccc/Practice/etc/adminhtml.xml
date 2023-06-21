@@ -21,6 +21,11 @@
                     <action>practice/adminhtml_query/two</action>
                     <sort_order>0</sort_order>
                 </practicegrid12>
+                 <practicegrid12 translate="title" module="practice">
+                    <title>Csv practice</title>
+                    <action>practice/adminhtml_csv</action>
+                    <sort_order>0</sort_order>
+                </practicegrid12>
             </children>
          </practice>
     </menu>
