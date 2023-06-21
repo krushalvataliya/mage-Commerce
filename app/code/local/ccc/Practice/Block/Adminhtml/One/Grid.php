@@ -7,11 +7,9 @@ class Ccc_Practice_Block_Adminhtml_One_Grid extends Mage_Adminhtml_Block_Widget_
     {
         parent::__construct();
         $this->setId('PracticeAdminhtmlPracticeGrid');
-        $this->setDefaultSort('category_id');
-        $this->setDefaultDir('ASC');
     }
 
-     protected function _prepareCollection()
+    protected function _prepareCollection()
     {
         $collection = Mage::getModel('catalog/product')->getCollection()->addAttributeToSelect(array('name','cost','color','price'));
         /* @var $collection Mage_Cms_Model_Mysql4_Page_Collection */

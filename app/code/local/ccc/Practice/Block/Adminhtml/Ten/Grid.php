@@ -1,14 +1,10 @@
 <?php
 class Ccc_Practice_Block_Adminhtml_Ten_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
-
-
     public function __construct()
     {
         parent::__construct();
         $this->setId('PracticeAdminhtmlPracticeGrid');
-        $this->setDefaultSort('practice_id');
-        $this->setDefaultDir('ASC');
     }
 
     protected function _prepareCollection()
@@ -54,13 +50,13 @@ class Ccc_Practice_Block_Adminhtml_Ten_Grid extends Mage_Adminhtml_Block_Widget_
             }
         }
 
+        // echo $collection->getSelect();
         $collection = new Varien_Data_Collection();
 
         foreach ($unassignedAttributes as $data) {
             $item = new Varien_Object($data);
             $collection->addItem($item);
         }
-
 
         $this->setCollection($collection);
 
@@ -105,10 +101,4 @@ class Ccc_Practice_Block_Adminhtml_Ten_Grid extends Mage_Adminhtml_Block_Widget_
         return parent::_prepareColumns();
     }
 
-    
-    public function getRowUrl($row)
-    {
-        return $this->getUrl('*/*/edit', array('practice_id' => $row->getId()));
-    }
-   
 }

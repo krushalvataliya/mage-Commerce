@@ -8,6 +8,6 @@ class Ccc_Practice_Block_Adminhtml_Six_Renderer_Name extends Mage_Adminhtml_Bloc
 	
 	function render($row)
 	{
-		return $row->getName();
+		return $row->getFirstname().' '.$row->getLastname();
 	}
 }
