@@ -11,10 +11,7 @@ class Data
     protected $_file = 'data.csv';
     protected $_fileReport = 'report.csv';
 
-    //protected $_key = 'AIzaSyCcIZ9KyrxzUL2bOan4uoAyLb0q1PGbl9A';
-    //protected $_engineId = '003476221998013471278:bfwangcoetm';
-    protected $_key = 'AIzaSyBXW8fZRU0dI9LTKP2QeYK_aHiwE5Hwx2I';
-    protected $_engineId = '015541756871453609816:kxoep9sn1p8';
+    
         
     protected function _loadFile()
     {
