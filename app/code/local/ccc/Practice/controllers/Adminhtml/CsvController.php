@@ -2,9 +2,9 @@
 /**
  * 
  */
-
-class Ccc_Practice_Adminhtml_CsvController 
+class Ccc_Practice_Adminhtml_CsvController extends Mage_Adminhtml_Controller_Action
 {
+
     protected $_data = array();
     protected $_header = array();
     
@@ -15,73 +15,64 @@ class Ccc_Practice_Adminhtml_CsvController
     
     protected $_categoryFile = 'C:\Users\a\Downloads\CATEGORY.csv';
     protected $_file = 'C:\Users\a\Downloads\ATTRIBUTE-OPTIONS.csv';
-    protected $_fileReport = 'C:\Users\a\Downloads\report.csv';
-        
-    protected function _loadFile()
-    {
-        $handler = fopen($this->_categoryFile, "r");
-        if($handler)
-        {
-            $rowCnt = 0;
-            while($row = fgetcsv($handler, 4096, ",", "\""))
-            {
-                if(!$this->_categoryHeader)
-                {
-                    $this->_categoryHeader = $row;
-                }
-                else
-                {
-                    $row = array_combine($this->_categoryHeader, $row);
-                    $this->_categoryData[] = $row;
-                }
-            }    
-            fclose($handler);
-        }
-        else
-        {
-            throw new Exception("Unable to open file");     
-        }
-        
-        $handler = fopen($this->_file, "r");
-        if($handler)
-        {
-            $rowCnt = 0;
-            while($row = fgetcsv($handler, 4096, ",", "\""))
-            {
-                if(!$this->_header)
-                {
-                    $this->_header = $row;
-                }
-                else
-                {
-                    $row = array_combine($this->_header, $row);
-                    $attribute = $row['ATTRIBUTE'];
-                    $option = $row['OPTION'];
-                    if(!array_key_exists($attribute, $this->_data))
-                    {
-                        $this->_data[$attribute] = array();
-                    }
-                    $this->_data[$attribute][] = $option;
-                }
-            }    
-            fclose($handler);
-        }
-        else
-        {
-            throw new Exception("Unable to open file");     
-        }
-        
-    }
-    
-    public function run()
+    protected $_fileReport = 'C:\Users\a\Downloads\category-attribute-option.csv';
+
+    public function indexAction()
     {   
-        echo "<pre>"; 
-        $this->_loadFile();
+        echo "<pre>";
+        $csv = new Varien_File_Csv();
+
+        $this->_prepareData();
         $this->_formatData();
-        $this->_generateReport();
-        
+        $csv->saveData($this->_fileReport, $this->_dataFinal);
+
         echo "DONE";
+        die;
+    }
         
+    protected function _prepareData()
+    {
+        $csv = new Varien_File_Csv();
+
+        $data = $csv->getData($this->_file);
+        $categoryData = $csv->getData($this->_categoryFile);
+
+         if(!$data)
+        {
+            throw new Exception("Data is not available in file");
+        }
+        
+        if(!$categoryData)
+        {
+            throw new Exception("Category data is not available in file");
+        }
+
+        foreach ($categoryData as $row)
+        {
+            if(!$this->_categoryHeader)
+            {
+                $this->_categoryHeader = $row;
+            }
+            else
+            {
+                $row = array_combine($this->_categoryHeader, $row);
+                $this->_categoryData[] = $row;
+            }
+        }    
+
+        foreach ($data as $row) 
+        {
+            if(!$this->_header)
+            {
+                $this->_header = $row;
+            }
+            else
+            {
+                $row = array_combine($this->_header, $row);
+                $option = $row['OPTION'];
+                $this->_data[$option] = $row;
+            }
+        }  
     }
     
     protected function _formatData()
@@ -95,72 +86,37 @@ class Ccc_Practice_Adminhtml_CsvController
         {
             throw new Exception("Category data is not available");
         }
+        $this->_dataFinal[] = array('index','category','attribute' ,'option');
         $categoryData = array_unique(array_column($this->_categoryData,'CATEGORY'));
-
-        // $this->_data = array_unique($this->_data);
-            print_r($this->_data);die;
         $index = 1;
         foreach($categoryData as $_category)
         {
-            foreach($this->_data as $attr =>$data)
+            foreach($this->_data as $opt =>$data)
             {
-                $data = array_unique($data);
-                foreach ($data as $option) {
                 $output = array(
                     'index' => $index,
                     'category' => $_category,
-                    'attribute' => $attr,
-                    'option' => $option,
-                 );
+                    'attribute' => $data['ATTRIBUTE'],
+                    'option' => $data['OPTION'],
+                );
                 $this->_dataFinal[] = $output; 
                 $index ++;
-                }
             }
         }
     }
     
-    protected function _generateReport()
-    {   
-        if($this->_dataFinal)
-        {
-            $handler = fopen($this->_fileReport, "a"); 
-            
-            if($handler)
-            {   
-                $cnt = 0;
-                foreach($this->_dataFinal as $key => $_data)
-                {
-                    if($cnt==0)
-                    {
-                        fputcsv($handler, array_keys($_data), ",", "\"");
-                        $cnt++;
-                    }
-                    
-                    fputcsv($handler, $_data, ",", "\"");
-                }
-                
-                fclose($handler);
-            }
-            else
-            {
-                throw new Exception("Unable to open file to write");     
-            }
-        }
-    }    
+    public function getData()
+    {
+        return $this->_data;
+    }
+
+    public function getCategoryData()
+    {
+        return $this->_categoryData;
+    }
 
     public function getDataFinal()
     {
         return $this->_dataFinal;
     }
-
-    public function getData()
-    {
-        return $this->_data;
-    }
 }
-
-$obj = new Ccc_Practice_Adminhtml_CsvController();
-$obj->run();
-die;
-print_r($obj->getData());die;
-print_r($obj->getDataFinal());die;

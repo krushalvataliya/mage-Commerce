@@ -16,13 +16,13 @@
                     <action>practice/adminhtml_query/test</action>
                     <sort_order>0</sort_order>
                 </practicegrid1>
-                <practicegrid12 translate="title" module="practice">
-                    <title>Manage practice</title>
-                    <action>practice/adminhtml_query/two</action>
+                <practicegrid121 translate="title" module="practice">
+                    <title>Csv using core functions</title>
+                    <action>practice/adminhtml_csvcore</action>
                     <sort_order>0</sort_order>
-                </practicegrid12>
+                </practicegrid121>
                  <practicegrid12 translate="title" module="practice">
-                    <title>Csv practice</title>
+                    <title>Csv using library</title>
                     <action>practice/adminhtml_csv</action>
                     <sort_order>0</sort_order>
                 </practicegrid12>
